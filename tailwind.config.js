@@ -37,6 +37,9 @@ module.exports = {
       fontFamily: {
         sans: ["Matter", ...defaultTheme.fontFamily.sans],
       },
+      height: {
+        hero: "calc(100vh - 10rem)",
+      },
       gridTemplateRows: {
         "max-content": "max-content",
       },

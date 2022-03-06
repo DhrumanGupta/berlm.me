@@ -1,7 +1,7 @@
 :root {
   --color-gray-100: #f7f7f7;
   --color-gray-200: #e6e9ee;
-  --color-gray-300: #dde0e4;
+  --color-gray-300: #b8bbbf;
   --color-gray-400: #818890;
   --color-gray-500: #535661;
   --color-gray-600: #4b4c53;
@@ -12,13 +12,14 @@
   --color-black: #000;
   --color-white: #fff;
 
-  --color-yellow-500: #a08600;
+  --color-yellow-500: #ffd644;
   --color-red-500: #ff4545;
   --color-blue-100: #e8f2ff;
   --color-blue-500: #4b96ff;
 }
 
 .light {
+  --color-yellow-500: #e3be05;
   --bg-primary: var(--color-white);
   --bg-secondary: var(--color-gray-100);
   --bg-alt: var(--color-gray-200);
@@ -28,6 +29,7 @@
 }
 
 .dark {
+  --color-yellow-500: #ffd644;
   --bg-primary: var(--color-gray-900);
   --bg-secondary: var(--color-gray-800);
   --bg-alt: var(--color-gray-700);
@@ -66,6 +68,10 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 999px var(--color-gray-800) inset !important;
   box-shadow: 0 0 0 999px var(--color-gray-800) inset !important;
   background-clip: content-box !important;
+}
+
+#__next {
+  @apply min-h-screen;
 }
 
 input:-webkit-autofill::first-line {
@@ -140,7 +146,7 @@ input:-webkit-autofill::first-line {
   }
 
   .border-secondary {
-    @apply border-gray-200 dark:border-gray-600;
+    @apply border-gray-600 dark:border-gray-600;
   }
 
   .text-primary {

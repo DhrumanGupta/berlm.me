@@ -70,6 +70,8 @@ async function getPostData(slug: string): Promise<PostData> {
     },
   });
 
+  frontmatter.date = frontmatter.date.getTime();
+
   return {
     slug,
     frontmatter,

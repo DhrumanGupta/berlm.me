@@ -14,6 +14,7 @@
     "esbuild": "^0.14.25",
     "fs": "^0.0.1-security",
     "mdx-bundler": "^8.0.1",
+    "moment": "^2.29.1",
     "next": "12.1.0",
     "next-themes": "^0.1.1",
     "react": "17.0.2",

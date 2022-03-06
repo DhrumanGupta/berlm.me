@@ -8,7 +8,7 @@ interface MetaDecoratorProps {
   name?: string;
   title?: string;
   description: string;
-  image: string;
+  image?: string;
   color?: string;
   manifest?: string;
 }

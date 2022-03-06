@@ -10,10 +10,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 const BlogList: NextPage = () => {
   return (
     <main className="relative mx-10vw">
-      <MetaDecorator
-        description="Read Dhruman's blogs here"
-        image="/facvicon.png"
-      />
+      <MetaDecorator title="Blogs" description="Read Dhruman's blogs here" />
     </main>
   );
 };

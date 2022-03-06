@@ -26,13 +26,13 @@ function DarkModeToggle() {
     >
       <div className="relative h-8 w-8">
         <span
-          className="absolute inset-0 rotate-90 transform text-black transition duration-1000 motion-reduce:duration-[0s] dark:rotate-0 dark:text-white"
+          className="absolute inset-0 rotate-90 transform text-black transition-transform duration-1000 motion-reduce:duration-[0s] dark:rotate-0 dark:text-white"
           style={iconTransformOrigin}
         >
           <MoonIcon />
         </span>
         <span
-          className="absolute inset-0 rotate-0 transform text-black transition duration-1000 motion-reduce:duration-[0s] dark:-rotate-90 dark:text-white"
+          className="absolute inset-0 rotate-0 transform text-black transition-transform duration-1000 motion-reduce:duration-[0s] dark:-rotate-90 dark:text-white"
           style={iconTransformOrigin}
         >
           <SunIcon />
