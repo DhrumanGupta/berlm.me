@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { Fragment } from "react";
 import MetaDecorator from "../components/MetaDecorator";
 
 const ROUTES = [
@@ -34,7 +35,7 @@ const Home: NextPage = () => {
         </header>
         <ul className="flex mb-24 px-5 font-mono mt-2">
           {ROUTES.map((route, index) => (
-            <>
+            <Fragment key={route.name}>
               <li
                 key={route.name}
                 className={`md:text-lg underline duration-75 ${route.hover}`}
@@ -44,7 +45,7 @@ const Home: NextPage = () => {
                 </a>
               </li>
               {index !== ROUTES.length - 1 && <li className="mx-4">&bull;</li>}
-            </>
+            </Fragment>
           ))}
         </ul>
       </div>

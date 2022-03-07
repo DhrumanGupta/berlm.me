@@ -1,10 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import React from "react";
-import {
-  getAllPostSlugs,
-  getPostData,
-  PostData as BlogPostData,
-} from "../../lib/blog";
+import { getAllPostSlugs, getPostData } from "../../lib/blog";
+import type { PostData as BlogPostData } from "../../lib/blog";
 import { getMDXComponent } from "mdx-bundler/client";
 import { ParsedUrlQuery } from "querystring";
 import { useRouter } from "next/router";
@@ -19,14 +16,16 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { slug } = context.params as IParams;
   const postData = await getPostData(slug);
   return {
-    props: {
-      ...postData,
-    },
+    props: postData
+      ? {
+          ...postData,
+        }
+      : {},
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = getAllPostSlugs();
+  const slugs = await getAllPostSlugs();
 
   return {
     paths: slugs.map((slug) => ({

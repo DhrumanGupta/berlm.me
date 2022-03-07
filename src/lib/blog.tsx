@@ -3,6 +3,7 @@ import { bundleMDX } from "mdx-bundler";
 import path from "path";
 import type * as U from "unified";
 import type * as H from "hast";
+import matter from "gray-matter";
 
 import { remarkCodeBlocksShiki } from "@kentcdodds/md-temp";
 
@@ -27,33 +28,47 @@ function removePreContainerDivs() {
 const remarkPlugins: U.PluggableList = [remarkCodeBlocksShiki];
 const rehypePlugins: U.PluggableList = [removePreContainerDivs];
 
-const getAllPostSlugs = (): string[] => {
-  const files = fs
-    .readdirSync(contentPath)
-    .map((x) => x.replace(/\.mdx?$/, ""));
-  return files;
+// Get all the slugs
+const getAllPostSlugs = async (): Promise<string[]> => {
+  return (await fs.promises.readdir(contentPath)).map((x) =>
+    x.replace(/\.mdx?$/, "")
+  );
 };
 
-export interface PostData {
-  slug: string;
-  frontmatter: {
-    [key: string]: any;
+interface FrontMatter extends Omit<RawFrontMatter, "date"> {
+  date: number;
+}
+
+interface RawFrontMatter {
+  title: string;
+  date: Date;
+  description: string;
+  meta: {
+    keywords: string[];
   };
+  image: string;
+}
+
+// Typing for our blog's data
+interface PostData {
+  slug: string;
+  frontmatter: FrontMatter;
   code: string;
 }
 
-async function getPostData(slug: string): Promise<PostData> {
+// Gets a particular blog's data from mdx-bundler
+async function getPostData(slug: string): Promise<PostData | null> {
+  const pathData = await getMdxPath(slug);
+
   const { default: remarkAutolinkHeadings } = await import(
     "remark-autolink-headings"
   );
   const { default: remarkSlug } = await import("remark-slug");
   const { default: gfm } = await import("remark-gfm");
 
-  const fullPath = path.join(contentPath, `${slug}.mdx`);
-  const source = fs.readFileSync(fullPath, "utf8");
-
-  const { code, frontmatter } = await bundleMDX({
-    source,
+  const { code, frontmatter } = await bundleMDX<RawFrontMatter>({
+    file: pathData.filePath,
+    cwd: pathData.directoryPath,
     xdmOptions(options) {
       options.remarkPlugins = [
         ...(options.remarkPlugins ?? []),
@@ -70,13 +85,61 @@ async function getPostData(slug: string): Promise<PostData> {
     },
   });
 
-  frontmatter.date = frontmatter.date.getTime();
-
   return {
     slug,
-    frontmatter,
+    frontmatter: {
+      ...frontmatter,
+      image: `${pathData.directoryPath}/${frontmatter.image}`,
+      date: frontmatter.date.getTime(),
+    },
     code,
   };
 }
 
-export { getAllPostSlugs, getPostData };
+// Returns the path of the mdx file from a slug
+async function getMdxPath(
+  slug: string
+): Promise<{ filePath: string; directoryPath: string }> {
+  let fullPath = path.join(contentPath, slug);
+  let directoryPath: string;
+
+  // if it is a directory, set it as index.mdx
+  if (
+    fs.existsSync(fullPath) &&
+    (await fs.promises.lstat(fullPath)).isDirectory()
+  ) {
+    fullPath = path.join(fullPath, `index.mdx`);
+    directoryPath = fullPath;
+  } else {
+    fullPath = `${fullPath}.mdx`;
+    directoryPath = contentPath;
+  }
+
+  return { filePath: fullPath, directoryPath };
+}
+
+interface MetaData extends FrontMatter {
+  slug: string;
+}
+
+async function getAllPostData(): Promise<MetaData[]> {
+  const slugs = await getAllPostSlugs();
+  return await Promise.all(
+    slugs.map(async (slug): Promise<MetaData> => {
+      const pathData = await getMdxPath(slug);
+
+      const fileContents = await fs.promises.readFile(pathData.filePath);
+      const matterResult = matter(fileContents).data as RawFrontMatter;
+
+      return {
+        ...matterResult,
+        date: matterResult.date.getTime(),
+        image: `${pathData.directoryPath}/${matterResult.image}`,
+        slug,
+      };
+    })
+  );
+}
+
+export { getAllPostSlugs, getPostData, getAllPostData };
+export type { PostData, FrontMatter, MetaData };
