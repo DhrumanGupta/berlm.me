@@ -48,6 +48,10 @@ module.exports = {
         "8vw": "8vw", // positions hero img inside the margin
         "10vw": "10vw", // page margin
       },
+      screens: {
+        md: "740px",
+        lg: "1024px",
+      },
       typography: (theme) => {
         // some fontSizes return [size, props], others just size :/
         const fontSize = (size) => {
@@ -201,7 +205,7 @@ module.exports = {
           light: {
             css: [
               {
-                color: theme("colors.gray.500"),
+                color: theme("colors.gray.700"),
                 strong: {
                   color: theme("colors.black"),
                 },
@@ -222,8 +226,8 @@ module.exports = {
                   borderBottomColor: theme("colors.gray.200"),
                 },
                 a: {
-                  color: theme("colors.current")
-                }
+                  color: theme("colors.current"),
+                },
               },
             ],
           },

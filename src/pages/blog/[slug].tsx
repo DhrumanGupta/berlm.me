@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import React from "react";
+import React, { useMemo } from "react";
 import { getAllPostSlugs, getPostData } from "../../lib/blog";
 import type { PostData as BlogPostData } from "../../lib/blog";
 import { getMDXComponent } from "mdx-bundler/client";
@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import moment from "moment";
 import MetaDecorator from "../../components/MetaDecorator";
 import Image from "next/image";
+import BlogLink from "../../components/BlogLink";
 
 interface IParams extends ParsedUrlQuery {
   slug: string;
@@ -17,9 +18,11 @@ const getStaticProps: GetStaticProps = async (context) => {
   const { slug } = context.params as IParams;
   const postData = await getPostData(slug);
   return {
-    props: {
-      ...postData,
-    },
+    props: postData
+      ? {
+          ...postData,
+        }
+      : {},
     revalidate: 3600, // 1 hour
   };
 };
@@ -38,11 +41,15 @@ const getStaticPaths: GetStaticPaths = async () => {
 const Blog: NextPage<BlogPostData> = ({ code, frontmatter, readingTime }) => {
   const router = useRouter();
 
+  const Component = useMemo(
+    () => (code ? getMDXComponent(code) : null),
+    [code]
+  );
+
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
 
-  const Component = getMDXComponent(code);
   return (
     <>
       <MetaDecorator
@@ -73,8 +80,9 @@ const Blog: NextPage<BlogPostData> = ({ code, frontmatter, readingTime }) => {
         </div>
       </header>
       <main className={`relative mx-10vw`}>
-        <article className="relative grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-6 mx-auto max-w-7xl prose prose-light mb-24 dark:prose-dark">
-          <Component />
+        <article className="relative grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-6 mx-auto max-w-7xl prose prose-light pb-20 dark:prose-dark border-b-2 border-gray-300 dark:border-gray-500 mb-20">
+          {Component && <Component components={{ a: BlogLink }} />}
+          <p>Test</p>
         </article>
       </main>
     </>

@@ -7,6 +7,7 @@ import matter from "gray-matter";
 import calculateReadingTime from "reading-time";
 
 import { remarkCodeBlocksShiki } from "@kentcdodds/md-temp";
+import { getMdxPath, MdxData } from "./mdx";
 
 const contentPath = path.join(process.cwd(), "src", "content", "blog");
 
@@ -53,16 +54,17 @@ interface RawFrontMatter {
 }
 
 // Typing for our blog's data
-interface PostData {
+interface PostData extends Omit<MdxData, "frontmatter"> {
   slug: string;
   frontmatter: FrontMatter;
-  code: string;
   readingTime: ReturnType<typeof calculateReadingTime>;
 }
 
 // Gets a particular blog's data from mdx-bundler
-async function getPostData(slug: string): Promise<PostData> {
-  const pathData = await getMdxPath(slug);
+async function getPostData(slug: string): Promise<PostData | null> {
+  const pathData = await getMdxPath({ fileName: slug, contentPath });
+
+  if (!pathData) return null;
 
   const { default: remarkAutolinkHeadings } = await import(
     "remark-autolink-headings"
@@ -103,26 +105,6 @@ async function getPostData(slug: string): Promise<PostData> {
 }
 
 // Returns the path of the mdx file from a slug
-async function getMdxPath(
-  slug: string
-): Promise<{ filePath: string; directoryPath: string }> {
-  let fullPath = path.join(contentPath, slug);
-  let directoryPath: string;
-
-  // if it is a directory, set it as index.mdx
-  if (
-    fs.existsSync(fullPath) &&
-    (await fs.promises.lstat(fullPath)).isDirectory()
-  ) {
-    fullPath = path.join(fullPath, `index.mdx`);
-    directoryPath = fullPath;
-  } else {
-    fullPath = `${fullPath}.mdx`;
-    directoryPath = contentPath;
-  }
-
-  return { filePath: fullPath, directoryPath };
-}
 
 interface MetaData extends FrontMatter {
   slug: string;
@@ -133,9 +115,10 @@ async function getAllPostData(): Promise<MetaData[]> {
   const slugs = await getAllPostSlugs();
   return await Promise.all(
     slugs.map(async (slug): Promise<MetaData> => {
-      const pathData = await getMdxPath(slug);
+      const pathData = await getMdxPath({ fileName: slug, contentPath });
 
       const fileContents = await fs.promises.readFile(
+        // @ts-ignore since we know these files exist
         pathData.filePath,
         "utf-8"
       );

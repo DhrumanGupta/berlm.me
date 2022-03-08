@@ -38,7 +38,7 @@ const Home: NextPage = () => {
             <Fragment key={route.name}>
               <li
                 key={route.name}
-                className={`md:text-lg underline duration-100  ${route.hover}`}
+                className={`md:text-lg underline duration-100 ${route.hover}`}
               >
                 <a href={route.route} target="_blank" rel="noreferrer">
                   {route.name}

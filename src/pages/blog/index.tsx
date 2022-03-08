@@ -18,10 +18,30 @@ export const getStaticProps: GetStaticProps<{ data: MetaData[] }> = async (
   };
 };
 
+const getKeywords = (metadata: MetaData[]): string[] => {
+  const keywords: string[] = [];
+  metadata.forEach((data) => {
+    data.meta?.keywords?.forEach((keyword) => {
+      if (!keywords.includes(keyword)) {
+        keywords.push(keyword);
+      }
+    });
+  });
+
+  return keywords;
+};
+
 const BlogList: NextPage<{ data: MetaData[] }> = ({ data }) => {
+  // const keywords = getKeywords(datas);
+
   return (
     <main className="relative mx-8vw md:mx-10vw">
       <MetaDecorator title="Blogs" description="Read Dhruman's blogs here" />
+      {/* <div className="max-w-7xl mx-auto mb-20">
+        {keywords.map((keyword) => (
+          <span key={keyword}>{keyword}</span>
+        ))}
+      </div> */}
       <div className="relative grid grid-cols-4 gap-x-6 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-8 mx-auto max-w-7xl mb-64">
         {data.map((blogData) => (
           <div
@@ -31,7 +51,7 @@ const BlogList: NextPage<{ data: MetaData[] }> = ({ data }) => {
             <div className="relative w-full">
               <Link href={`/blog/${blogData.slug}`}>
                 <a className="group peer focus:outline-none relative block w-full">
-                  <div className="aspect-w-16 aspect-h-9 rounded-lg">
+                  <div className="aspect-w-8 aspect-h-5 rounded-lg">
                     <Image
                       layout={"fill"}
                       src={blogData.image}
