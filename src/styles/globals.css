@@ -16,6 +16,20 @@
   --color-red-500: #ff4545;
   --color-blue-100: #e8f2ff;
   --color-blue-500: #4b96ff;
+
+  --color-current: #4b96ff;
+}
+
+.set-color-red {
+  --color-current: var(--color-red-500);
+}
+
+.set-color-blue {
+  --color-current: var(--color-blue-500);
+}
+
+.set-color-yellow {
+  --color-current: var(--color-yellow-500);
 }
 
 .light {
@@ -35,7 +49,7 @@
   --bg-alt: var(--color-gray-700);
   --border-secondary: var(--color-gray-600);
   --text-primary: var(--color-white);
-  --text-secondary: var(--color-blueGray-500);
+  --text-secondary: var(--color-gray-400);
 }
 
 :focus:not(:focus-visible) {
@@ -118,7 +132,7 @@ input:-webkit-autofill::first-line {
 
 @layer utilities {
   .focus-ring {
-    @apply focus:outline-none focus-within:outline-none ring-team-current ring-offset-4 ring-offset-white transition duration-300 focus-within:ring-2 focus-within:ring-team-current hover:ring-2 hover:ring-team-current focus:ring-2 focus:ring-team-current disabled:ring-0 group-hover:ring-2 group-hover:ring-team-current group-focus:ring-2 group-focus:ring-team-current dark:ring-offset-gray-900;
+    @apply focus:outline-none focus-within:outline-none ring-current ring-offset-4 ring-offset-white transition duration-300 focus-within:ring-2 focus-within:ring-current hover:ring-2 hover:ring-current focus:ring-2 focus:ring-current disabled:ring-0 group-hover:ring-2 group-hover:ring-current group-focus:ring-2 group-focus:ring-current dark:ring-offset-gray-900;
   }
 
   .focus-ring.danger {

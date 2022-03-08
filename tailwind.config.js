@@ -6,9 +6,9 @@ module.exports = {
   theme: {
     colors: {
       transparent: "transparent",
-      current: "currentColor",
       white: "var(--color-white)",
       black: "var(--color-black)",
+      current: "var(--color-current)",
 
       gray: {
         100: "var(--color-gray-100)",
@@ -221,6 +221,9 @@ module.exports = {
                 "thead, tbody tr": {
                   borderBottomColor: theme("colors.gray.200"),
                 },
+                a: {
+                  color: theme("colors.current")
+                }
               },
             ],
           },
@@ -229,7 +232,7 @@ module.exports = {
               {
                 color: theme("colors.gray.300"),
                 a: {
-                  color: theme("colors.blue.500"),
+                  color: theme("colors.current"),
                 },
                 strong: {
                   color: theme("colors.white"),
@@ -260,5 +263,8 @@ module.exports = {
   variants: {
     typography: ["dark"],
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/aspect-ratio"),
+  ],
 };

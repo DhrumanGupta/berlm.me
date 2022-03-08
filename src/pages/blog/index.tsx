@@ -2,6 +2,9 @@ import { GetStaticProps, NextPage } from "next";
 import MetaDecorator from "../../components/MetaDecorator";
 import { getAllPostData } from "../../lib/blog";
 import type { MetaData } from "../../lib/blog";
+import Image from "next/image";
+import moment from "moment";
+import Link from "next/link";
 
 export const getStaticProps: GetStaticProps<{ data: MetaData[] }> = async (
   context
@@ -15,32 +18,52 @@ export const getStaticProps: GetStaticProps<{ data: MetaData[] }> = async (
 };
 
 const BlogList: NextPage<{ data: MetaData[] }> = ({ data }) => {
-  const temp = [
-    ...data,
-    ...data,
-    ...data,
-    ...data,
-    ...data,
-    ...data,
-    ...data,
-    ...data,
-  ];
+    const temp = (x: number) => {
+        let arr: MetaData[] = []
+        for (let i = 0; i < x; i++) {
+            arr = [...arr, ...data]
+        }
+        return arr
+    }
+
   return (
-    <main className="relative mx-10vw grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <main className="relative mx-10vw">
       <MetaDecorator title="Blogs" description="Read Dhruman's blogs here" />
-      {temp.map((blogData) => (
-        <div
-          className="w-full h-full bg-gray-200 dark:bg-gray-700 p-5 rounded"
-          key={blogData.slug}
-        >
-          <h3 className={"text-lg"}>{blogData.title}</h3>
-          <p className={"text-base"}>{blogData.description}</p>
-          <p className={"text-base"}>{blogData.image}</p>
-          {!blogData.image.includes("undefined") && (
-            <img src={require(blogData.image)} />
-          )}
-        </div>
-      ))}
+      <div className="relative grid grid-cols-4 gap-x-6 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-8 mx-auto max-w-7xl mb-64">
+        {temp(2).map((blogData) => (
+          <div className={`col-span-4 mb-12 set-color-${blogData.color}`} key={blogData.slug}>
+            <div className="relative w-full">
+              <Link href={`/blog/${blogData.slug}`}>
+                <a className="group peer focus:outline-none relative block w-full">
+                  <div className="aspect-w-4 aspect-h-2 rounded-lg">
+                    <Image
+                        layout={"fill"}
+                      src={blogData.image}
+                      alt={blogData.imageAlt}
+                      className="focus-ring w-full rounded-lg object-cover object-center transition"
+                    />
+                    <div className="focus-ring w-full rounded-lg object-cover object-center transition" />
+                  </div>
+                  <p
+                    className={
+                      "mt-3 text-xl font-medium text-gray-500 dark:text-gray-400"
+                    }
+                  >
+                    {moment(new Date(blogData.date)).format("MMMM Do[,] YYYY")} &ndash; {blogData.readingTime.text}
+                  </p>
+                  <h3
+                    className={
+                      "text-xl font-medium md:text-2xl text-black dark:text-white mt-1"
+                    }
+                  >
+                    {blogData.title}
+                  </h3>
+                </a>
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
     </main>
   );
 };
