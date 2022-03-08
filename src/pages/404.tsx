@@ -6,8 +6,8 @@ const Error: NextPage = () => {
   return (
     <main className={"h-hero flex flex-col justify-center"}>
       <MetaDecorator
-        title="Error"
-        description="Whoops! There was an error loading this page"
+        title="Not found"
+        description="This is not the webpage you are looking for"
       />
       <h1 className="leading text-3xl md:text-4xl xl:text-6xl text-center">
         404 - Oh no!

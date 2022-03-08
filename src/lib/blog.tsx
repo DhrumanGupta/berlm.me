@@ -4,7 +4,7 @@ import path from "path";
 import type * as U from "unified";
 import type * as H from "hast";
 import matter from "gray-matter";
-import calculateReadingTime from 'reading-time'
+import calculateReadingTime from "reading-time";
 
 import { remarkCodeBlocksShiki } from "@kentcdodds/md-temp";
 
@@ -48,8 +48,8 @@ interface RawFrontMatter {
     keywords: string[];
   };
   image: string;
-  imageAlt: string;
-  color: "red" | "blue" | "yellow"
+  imageDescription: string;
+  color: "red" | "blue" | "yellow";
 }
 
 // Typing for our blog's data
@@ -57,11 +57,11 @@ interface PostData {
   slug: string;
   frontmatter: FrontMatter;
   code: string;
-  readingTime: ReturnType<typeof calculateReadingTime>
+  readingTime: ReturnType<typeof calculateReadingTime>;
 }
 
 // Gets a particular blog's data from mdx-bundler
-async function getPostData(slug: string): Promise<PostData | null> {
+async function getPostData(slug: string): Promise<PostData> {
   const pathData = await getMdxPath(slug);
 
   const { default: remarkAutolinkHeadings } = await import(
@@ -70,7 +70,7 @@ async function getPostData(slug: string): Promise<PostData | null> {
   const { default: remarkSlug } = await import("remark-slug");
   const { default: gfm } = await import("remark-gfm");
 
-  const source = await fs.promises.readFile(pathData.filePath, 'utf-8')
+  const source = await fs.promises.readFile(pathData.filePath, "utf-8");
 
   const { code, frontmatter } = await bundleMDX<RawFrontMatter>({
     source,
@@ -98,7 +98,7 @@ async function getPostData(slug: string): Promise<PostData | null> {
       date: frontmatter.date.getTime(),
     },
     code,
-    readingTime: calculateReadingTime(code)
+    readingTime: calculateReadingTime(code),
   };
 }
 
@@ -126,7 +126,7 @@ async function getMdxPath(
 
 interface MetaData extends FrontMatter {
   slug: string;
-  readingTime: ReturnType<typeof calculateReadingTime>
+  readingTime: ReturnType<typeof calculateReadingTime>;
 }
 
 async function getAllPostData(): Promise<MetaData[]> {
@@ -135,14 +135,17 @@ async function getAllPostData(): Promise<MetaData[]> {
     slugs.map(async (slug): Promise<MetaData> => {
       const pathData = await getMdxPath(slug);
 
-      const fileContents = await fs.promises.readFile(pathData.filePath, 'utf-8');
+      const fileContents = await fs.promises.readFile(
+        pathData.filePath,
+        "utf-8"
+      );
       const matterResult = matter(fileContents).data as RawFrontMatter;
 
       return {
         ...matterResult,
         date: matterResult.date.getTime(),
         slug,
-        readingTime: calculateReadingTime(fileContents)
+        readingTime: calculateReadingTime(fileContents),
       };
     })
   );

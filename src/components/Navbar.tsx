@@ -51,7 +51,7 @@ function Navbar() {
       <nav className="text-primary mx-auto flex max-w-8xl items-center justify-between">
         <ul className="flex">
           {ROUTES.map((route) => (
-            <li className="px-5 py-2" key={route.name}>
+            <li className="px-3 py-2 md:px-5" key={route.name}>
               <NavLink
                 to={route.path}
                 exact={route.exact}

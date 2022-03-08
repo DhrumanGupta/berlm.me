@@ -23,7 +23,7 @@ const ROUTES = [
 const Home: NextPage = () => {
   return (
     <>
-      <MetaDecorator description="Hello" />
+      <MetaDecorator description="Welcome to Dhruman's website" />
       <div className="h-hero flex flex-col justify-center px-5vw">
         <header className="px-5">
           <p className="text-secondary text-lg md:text-xl lg:text-2xl">
@@ -38,7 +38,7 @@ const Home: NextPage = () => {
             <Fragment key={route.name}>
               <li
                 key={route.name}
-                className={`md:text-lg underline duration-75 ${route.hover}`}
+                className={`md:text-lg underline duration-100  ${route.hover}`}
               >
                 <a href={route.route} target="_blank" rel="noreferrer">
                   {route.name}

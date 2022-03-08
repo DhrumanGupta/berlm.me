@@ -175,3 +175,15 @@ input:-webkit-autofill::first-line {
     @apply text-white dark:text-black;
   }
 }
+
+body::-webkit-scrollbar {
+  @apply w-2;
+}
+
+body::-webkit-scrollbar-track {
+  @apply bg-white dark:bg-gray-900;
+}
+
+body::-webkit-scrollbar-thumb {
+  @apply bg-current rounded;
+}

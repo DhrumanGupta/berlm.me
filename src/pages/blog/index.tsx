@@ -14,46 +14,43 @@ export const getStaticProps: GetStaticProps<{ data: MetaData[] }> = async (
     props: {
       data: postData,
     },
+    revalidate: 3600, // 1 hour
   };
 };
 
 const BlogList: NextPage<{ data: MetaData[] }> = ({ data }) => {
-    const temp = (x: number) => {
-        let arr: MetaData[] = []
-        for (let i = 0; i < x; i++) {
-            arr = [...arr, ...data]
-        }
-        return arr
-    }
-
   return (
-    <main className="relative mx-10vw">
+    <main className="relative mx-8vw md:mx-10vw">
       <MetaDecorator title="Blogs" description="Read Dhruman's blogs here" />
       <div className="relative grid grid-cols-4 gap-x-6 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-8 mx-auto max-w-7xl mb-64">
-        {temp(2).map((blogData) => (
-          <div className={`col-span-4 mb-12 set-color-${blogData.color}`} key={blogData.slug}>
+        {data.map((blogData) => (
+          <div
+            className={`col-span-4 mb-12 set-color-${blogData.color}`}
+            key={blogData.slug}
+          >
             <div className="relative w-full">
               <Link href={`/blog/${blogData.slug}`}>
                 <a className="group peer focus:outline-none relative block w-full">
-                  <div className="aspect-w-4 aspect-h-2 rounded-lg">
+                  <div className="aspect-w-16 aspect-h-9 rounded-lg">
                     <Image
-                        layout={"fill"}
+                      layout={"fill"}
                       src={blogData.image}
-                      alt={blogData.imageAlt}
+                      alt={blogData.imageDescription}
                       className="focus-ring w-full rounded-lg object-cover object-center transition"
                     />
                     <div className="focus-ring w-full rounded-lg object-cover object-center transition" />
                   </div>
                   <p
                     className={
-                      "mt-3 text-xl font-medium text-gray-500 dark:text-gray-400"
+                      "mt-5 text-xl font-medium text-gray-500 dark:text-gray-400"
                     }
                   >
-                    {moment(new Date(blogData.date)).format("MMMM Do[,] YYYY")} &ndash; {blogData.readingTime.text}
+                    {moment(new Date(blogData.date)).format("MMMM Do[,] YYYY")}{" "}
+                    &ndash; {blogData.readingTime.text}
                   </p>
                   <h3
                     className={
-                      "text-xl font-medium md:text-2xl text-black dark:text-white mt-1"
+                      "text-xl font-medium md:text-2xl text-black dark:text-white mt-1.5"
                     }
                   >
                     {blogData.title}

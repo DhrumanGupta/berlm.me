@@ -7,24 +7,24 @@ import { ParsedUrlQuery } from "querystring";
 import { useRouter } from "next/router";
 import moment from "moment";
 import MetaDecorator from "../../components/MetaDecorator";
+import Image from "next/image";
 
 interface IParams extends ParsedUrlQuery {
   slug: string;
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+const getStaticProps: GetStaticProps = async (context) => {
   const { slug } = context.params as IParams;
   const postData = await getPostData(slug);
   return {
-    props: postData
-      ? {
-          ...postData,
-        }
-      : {},
+    props: {
+      ...postData,
+    },
+    revalidate: 3600, // 1 hour
   };
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
+const getStaticPaths: GetStaticPaths = async () => {
   const slugs = await getAllPostSlugs();
 
   return {
@@ -44,20 +44,31 @@ const Blog: NextPage<BlogPostData> = ({ code, frontmatter, readingTime }) => {
 
   const Component = getMDXComponent(code);
   return (
-    <div className={`set-color-${frontmatter.color}`}>
+    <>
       <MetaDecorator
         description={frontmatter.description}
         title={frontmatter.title}
       />
-      <header className="relative mx-10vw">
+      <header className="relative mx-8vw sm:mx-10vw">
         <div className="relative grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-6 mx-auto max-w-7xl mb-12">
           <div className="col-span-full lg:col-span-8 lg:col-start-3">
             <h2 className="leading-tight text-3xl md:text-4xl text-current">
               {frontmatter.title}
             </h2>
             <p className="text-secondary md:text-lg">
-              {moment(new Date(frontmatter.date)).format("MMMM Do[,] YYYY")}  &ndash; {readingTime.text}
+              {moment(new Date(frontmatter.date)).format("MMMM Do[,] YYYY")}{" "}
+              &ndash; {readingTime.text}
             </p>
+
+            <div className="aspect-w-3 aspect-h-4 sm:aspect-w-3 sm:aspect-h-3 md:aspect-w-16 md:aspect-h-9 rounded-lg mt-10">
+              <Image
+                layout={"fill"}
+                src={frontmatter.image}
+                alt={frontmatter.imageDescription}
+                className="w-full rounded-lg object-cover object-center transition"
+              />
+              <div className="w-full rounded-lg object-cover object-center transition" />
+            </div>
           </div>
         </div>
       </header>
@@ -66,8 +77,9 @@ const Blog: NextPage<BlogPostData> = ({ code, frontmatter, readingTime }) => {
           <Component />
         </article>
       </main>
-    </div>
+    </>
   );
 };
 
 export default Blog;
+export { getStaticPaths, getStaticProps };
