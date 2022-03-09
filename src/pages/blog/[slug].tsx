@@ -17,6 +17,7 @@ interface IParams extends ParsedUrlQuery {
 const getStaticProps: GetStaticProps = async (context) => {
   const { slug } = context.params as IParams;
   const postData = await getPostData(slug);
+
   return {
     props: postData
       ? {
@@ -28,7 +29,7 @@ const getStaticProps: GetStaticProps = async (context) => {
 };
 
 const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = await getAllPostSlugs();
+  let slugs = await getAllPostSlugs();
 
   return {
     paths: slugs.map((slug) => ({
@@ -46,7 +47,7 @@ const Blog: NextPage<BlogPostData> = ({ code, frontmatter, readingTime }) => {
     [code]
   );
 
-  if (router.isFallback) {
+  if (router.isFallback || !code) {
     return <div>Loading...</div>;
   }
 
@@ -80,9 +81,13 @@ const Blog: NextPage<BlogPostData> = ({ code, frontmatter, readingTime }) => {
         </div>
       </header>
       <main className={`relative mx-10vw`}>
-        <article className="relative grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-6 mx-auto max-w-7xl prose prose-light pb-20 dark:prose-dark border-b-2 border-gray-300 dark:border-gray-500 mb-20">
+        <article className="relative grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-6 mx-auto max-w-7xl prose prose-light dark:prose-dark mb-6">
           {Component && <Component components={{ a: BlogLink }} />}
-          <p>Test</p>
+          <hr />
+          <h4>Written by Dhruman Gupta</h4>
+          <a className="text-sm" target={"_blank"} rel={"noopener noreferrer"}>
+            Dhruman Gupta, 2022
+          </a>
         </article>
       </main>
     </>

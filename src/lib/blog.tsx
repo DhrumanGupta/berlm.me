@@ -51,6 +51,7 @@ interface RawFrontMatter {
   image: string;
   imageDescription: string;
   color: "red" | "blue" | "yellow";
+  draft?: boolean;
 }
 
 // Typing for our blog's data
