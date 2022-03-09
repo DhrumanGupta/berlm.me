@@ -5,6 +5,7 @@ import type { MetaData } from "../../lib/blog";
 import Image from "next/image";
 import moment from "moment";
 import Link from "next/link";
+import { frontmatter } from "micromark-extension-frontmatter";
 
 export const getStaticProps: GetStaticProps<{ data: MetaData[] }> = async (
   context
@@ -51,10 +52,25 @@ const BlogList: NextPage<{ data: MetaData[] }> = ({ data }) => {
             <div className="relative w-full">
               <Link href={`/blog/${blogData.slug}`}>
                 <a className="group peer focus:outline-none relative block w-full">
-                  <div className="aspect-w-8 aspect-h-5 rounded-lg">
+                  <div className="aspect-w-8 aspect-h-5 rounded-lg overflow-hidden">
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        transform: "scale(1.1)",
+                        filter: "blur(40px)",
+                        ...blogData.imageFillCss,
+                      }}
+                    />
+
                     <Image
+                      {...blogData.image}
                       layout={"fill"}
-                      src={blogData.image}
                       alt={blogData.imageDescription}
                       className="focus-ring w-full rounded-lg object-cover object-center transition"
                     />

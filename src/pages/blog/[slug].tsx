@@ -39,7 +39,12 @@ const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-const Blog: NextPage<BlogPostData> = ({ code, frontmatter, readingTime }) => {
+const Blog: NextPage<BlogPostData> = ({
+  code,
+  frontmatter,
+  readingTime,
+  slug,
+}) => {
   const router = useRouter();
 
   const Component = useMemo(
@@ -68,10 +73,25 @@ const Blog: NextPage<BlogPostData> = ({ code, frontmatter, readingTime }) => {
               &ndash; {readingTime.text}
             </p>
 
-            <div className="aspect-w-3 aspect-h-4 sm:aspect-w-3 sm:aspect-h-3 md:aspect-w-16 md:aspect-h-9 rounded-lg mt-10">
+            <div className="aspect-w-3 aspect-h-4 sm:aspect-w-3 sm:aspect-h-3 md:aspect-w-16 md:aspect-h-9 rounded-lg mt-10 overflow-hidden">
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  bottom: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  transform: "scale(1.1)",
+                  filter: "blur(40px)",
+                  ...frontmatter.imageFillCss,
+                }}
+              />
+
               <Image
+                {...frontmatter.image}
                 layout={"fill"}
-                src={frontmatter.image}
                 alt={frontmatter.imageDescription}
                 className="w-full rounded-lg object-cover object-center transition"
               />
@@ -85,9 +105,12 @@ const Blog: NextPage<BlogPostData> = ({ code, frontmatter, readingTime }) => {
           {Component && <Component components={{ a: BlogLink }} />}
           <hr />
           <h4>Written by Dhruman Gupta</h4>
-          <a className="text-sm" target={"_blank"} rel={"noopener noreferrer"}>
-            Dhruman Gupta, 2022
-          </a>
+          <BlogLink
+            className="text-sm"
+            href={`https://github.com/DhrumanGupta/berlm.me/src/content/blog/${slug}`}
+          >
+            Edit on GitHub
+          </BlogLink>
         </article>
       </main>
     </>

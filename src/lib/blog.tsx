@@ -8,6 +8,8 @@ import calculateReadingTime from "reading-time";
 
 import { remarkCodeBlocksShiki } from "@kentcdodds/md-temp";
 import { getMdxPath, MdxData } from "./mdx";
+import { getPlaiceholder } from "plaiceholder";
+import { IGetCSSReturn } from "plaiceholder/dist/css";
 
 const contentPath = path.join(process.cwd(), "src", "content", "blog");
 
@@ -37,8 +39,15 @@ const getAllPostSlugs = async (): Promise<string[]> => {
   );
 };
 
-interface FrontMatter extends Omit<RawFrontMatter, "date"> {
+interface FrontMatter extends Omit<RawFrontMatter, "date" | "image"> {
   date: number;
+  image: {
+    src: string;
+    [key: string]: any;
+    height?: number;
+    width?: number;
+  };
+  imageFillCss: IGetCSSReturn;
 }
 
 interface RawFrontMatter {
@@ -94,11 +103,20 @@ async function getPostData(slug: string): Promise<PostData | null> {
     },
   });
 
+  const { css, img }: { css: IGetCSSReturn; img: any } = await getPlaiceholder(
+    frontmatter.image
+  );
+
+  delete img.height;
+  delete img.width;
+
   return {
     slug,
     frontmatter: {
       ...frontmatter,
       date: frontmatter.date.getTime(),
+      image: img,
+      imageFillCss: css,
     },
     code,
     readingTime: calculateReadingTime(code),
@@ -125,11 +143,19 @@ async function getAllPostData(): Promise<MetaData[]> {
       );
       const matterResult = matter(fileContents).data as RawFrontMatter;
 
+      const { css, img }: { css: IGetCSSReturn; img: any } =
+        await getPlaiceholder(matterResult.image);
+
+      delete img.height;
+      delete img.width;
+
       return {
         ...matterResult,
         date: matterResult.date.getTime(),
         slug,
         readingTime: calculateReadingTime(fileContents),
+        image: img,
+        imageFillCss: css,
       };
     })
   );

@@ -4,6 +4,7 @@ import MetaDecorator from "../components/MetaDecorator";
 import { MdxData, readMdx } from "../lib/mdx";
 import { getMDXComponent } from "mdx-bundler/client";
 import BlogLink from "../components/BlogLink";
+import { join } from "path";
 
 const H: any = ({ children }: any) => {
   return <h2 className={"my-2"}>{children}</h2>;
@@ -34,7 +35,7 @@ const Bold: any = ({ children }: any) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const data = await readMdx({ fileName: "aboutme" });
+  const data = await readMdx({ fileName: join("pages", "aboutme") });
   return {
     props: {
       ...data,

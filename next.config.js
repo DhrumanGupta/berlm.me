@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const { withPlaiceholder } = require("@plaiceholder/next");
+
+const nextConfig = withPlaiceholder({
   reactStrictMode: true,
   images: {
     domains: ["res.cloudinary.com"],
   },
-};
+});
 
 module.exports = nextConfig;
