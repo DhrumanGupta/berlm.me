@@ -10,8 +10,9 @@ import { remarkCodeBlocksShiki } from "@kentcdodds/md-temp";
 import { getMdxPath, MdxData } from "./mdx";
 import { getPlaiceholder } from "plaiceholder";
 import { IGetCSSReturn } from "plaiceholder/dist/css";
+import remarkUnwrapImages from "remark-unwrap-images";
 
-const contentPath = path.join(process.cwd(), "src", "content", "blog");
+const contentPath = path.join(process.cwd(), "content", "blog");
 
 function removePreContainerDivs() {
   return async function preContainerDivsTransformer(tree: H.Root) {
@@ -29,7 +30,10 @@ function removePreContainerDivs() {
   };
 }
 
-const remarkPlugins: U.PluggableList = [remarkCodeBlocksShiki];
+const remarkPlugins: U.PluggableList = [
+  remarkCodeBlocksShiki,
+  remarkUnwrapImages,
+];
 const rehypePlugins: U.PluggableList = [removePreContainerDivs];
 
 // Get all the slugs
@@ -103,6 +107,9 @@ async function getPostData(slug: string): Promise<PostData | null> {
     },
   });
 
+  // since we can infer the image from the slug, we can add it to the frontmatter
+  frontmatter.image = `/blog/${slug}/header.png`;
+
   const { css, img }: { css: IGetCSSReturn; img: any } = await getPlaiceholder(
     frontmatter.image
   );
@@ -142,6 +149,9 @@ async function getAllPostData(): Promise<MetaData[]> {
         "utf-8"
       );
       const matterResult = matter(fileContents).data as RawFrontMatter;
+
+      // since we can infer the image from the slug, we can add it to the frontmatter
+      matterResult.image = `/blog/${slug}/header.png`;
 
       const { css, img }: { css: IGetCSSReturn; img: any } =
         await getPlaiceholder(matterResult.image);

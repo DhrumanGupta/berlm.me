@@ -18,7 +18,7 @@ const MetaDecorator: React.FC<MetaDecoratorProps> = ({
   title = "Dhruman Gupta", // page title
   description,
   image,
-  color = "#ec3750",
+  color = "#1f2028",
   manifest = "/manifest.json",
   children,
 }) => (

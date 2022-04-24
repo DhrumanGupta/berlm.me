@@ -9,6 +9,7 @@ import moment from "moment";
 import MetaDecorator from "../../components/MetaDecorator";
 import Image from "next/image";
 import BlogLink from "../../components/BlogLink";
+import BlogImage from "../../components/BlogImage";
 
 interface IParams extends ParsedUrlQuery {
   slug: string;
@@ -65,7 +66,7 @@ const Blog: NextPage<BlogPostData> = ({
       <header className="relative mx-8vw sm:mx-10vw">
         <div className="relative grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-6 mx-auto max-w-7xl mb-12">
           <div className="col-span-full lg:col-span-8 lg:col-start-3">
-            <h2 className="leading-tight text-3xl md:text-4xl text-current">
+            <h2 className="leading-tight text-3xl md:text-4xl">
               {frontmatter.title}
             </h2>
             <p className="text-secondary md:text-lg">
@@ -95,14 +96,21 @@ const Blog: NextPage<BlogPostData> = ({
                 alt={frontmatter.imageDescription}
                 className="w-full rounded-lg object-cover object-center transition"
               />
-              <div className="w-full rounded-lg object-cover object-center transition" />
+              {/* <div className="w-full rounded-lg object-cover object-center transition" /> */}
             </div>
           </div>
         </div>
       </header>
       <main className={`relative mx-10vw`}>
         <article className="relative grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-6 mx-auto max-w-7xl prose prose-light dark:prose-dark mb-6">
-          {Component && <Component components={{ a: BlogLink }} />}
+          {Component && (
+            <Component
+              components={{
+                a: BlogLink,
+                img: (props: any) => <BlogImage {...props} slug={slug} />,
+              }}
+            />
+          )}
           <hr />
           <h4>Written by Dhruman Gupta</h4>
           <BlogLink

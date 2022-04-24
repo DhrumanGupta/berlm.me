@@ -74,7 +74,6 @@ const BlogList: NextPage<{ data: MetaData[] }> = ({ data }) => {
                       alt={blogData.imageDescription}
                       className="focus-ring w-full rounded-lg object-cover object-center transition"
                     />
-                    <div className="focus-ring w-full rounded-lg object-cover object-center transition" />
                   </div>
                   <p
                     className={

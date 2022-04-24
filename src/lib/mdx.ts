@@ -42,7 +42,7 @@ async function getMdxPath({
 
 const readMdx = async ({
   fileName,
-  contentDir = path.join("src", "content"),
+  contentDir = path.join("content"),
 }: {
   fileName: string;
   contentDir?: string;
