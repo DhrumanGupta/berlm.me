@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [pageProps]);
 
   return (
-    <ThemeProvider attribute="class" defaultTheme={Theme.Light}>
+    <ThemeProvider attribute="class" defaultTheme={Theme.Dark}>
       <Navbar />
       <Component {...pageProps} />
     </ThemeProvider>
