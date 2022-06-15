@@ -25,7 +25,7 @@ const getStaticProps: GetStaticProps = async (context) => {
           ...postData,
         }
       : {},
-    revalidate: 3600, // 1 hour
+    revalidate: 3600,
   };
 };
 
@@ -115,7 +115,7 @@ const Blog: NextPage<BlogPostData> = ({
           <h4>Written by Dhruman Gupta</h4>
           <BlogLink
             className="text-sm"
-            href={`https://github.com/DhrumanGupta/berlm.me/src/content/blog/${slug}`}
+            href={`https://github.com/DhrumanGupta/berlm.me/content/blog/${slug}`}
           >
             Edit on GitHub
           </BlogLink>
