@@ -1,0 +1,189 @@
+:root {
+  --color-gray-100: #f7f7f7;
+  --color-gray-200: #e6e9ee;
+  --color-gray-300: #babec4;
+  --color-gray-400: #818890;
+  --color-gray-500: #535661;
+  --color-gray-600: #4b4c53;
+  --color-gray-700: #3a3d4a;
+  --color-gray-800: #2e3039;
+  --color-gray-900: #1f2028;
+
+  --color-black: #000;
+  --color-white: #fff;
+
+  --color-yellow-500: #ffd644;
+  --color-red-500: #ff4545;
+  --color-blue-100: #e8f2ff;
+  --color-blue-500: #4b96ff;
+
+  --color-current: #4b96ff;
+}
+
+.set-color-red {
+  --color-current: var(--color-red-500);
+}
+
+.set-color-blue {
+  --color-current: var(--color-blue-500);
+}
+
+.set-color-yellow {
+  --color-current: var(--color-yellow-500);
+}
+
+.light {
+  --color-yellow-500: #e3be05;
+  --bg-primary: var(--color-white);
+  --bg-secondary: var(--color-gray-100);
+  --bg-alt: var(--color-gray-200);
+  --border-secondary: var(--color-gray-200);
+  --text-primary: var(--color-black);
+  --text-secondary: var(--color-gray-500);
+}
+
+.dark {
+  --color-yellow-500: #ffd644;
+  --bg-primary: var(--color-gray-900);
+  --bg-secondary: var(--color-gray-800);
+  --bg-alt: var(--color-gray-700);
+  --border-secondary: var(--color-gray-600);
+  --text-primary: var(--color-white);
+  --text-secondary: var(--color-gray-400);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: black !important;
+  -webkit-box-shadow: 0 0 0 999px var(--color-gray-100) inset !important;
+  box-shadow: 0 0 0 999px var(--color-gray-100) inset !important;
+  background-clip: content-box !important;
+}
+
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus,
+.dark input:-webkit-autofill:active {
+  -webkit-text-fill-color: white !important;
+  -webkit-box-shadow: 0 0 0 999px var(--color-gray-800) inset !important;
+  box-shadow: 0 0 0 999px var(--color-gray-800) inset !important;
+  background-clip: content-box !important;
+}
+
+#__next {
+  @apply min-h-screen;
+}
+
+input:-webkit-autofill::first-line {
+  font-size: 1.125rem;
+  font-weight: 500;
+  font-family: Matter, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
+}
+
+[hidden] {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :focus {
+    transition: outline-offset 0.1s ease;
+    outline-offset: 4px;
+  }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Matter";
+  src: url("/fonts/Matter-Medium.woff2") format("woff2"),
+    url("/fonts/Matter-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Matter";
+  src: url("/fonts/Matter-Regular.woff2") format("woff2"),
+    url("/fonts/Matter-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer utilities {
+  .focus-ring {
+    @apply focus:outline-none focus-within:outline-none ring-current ring-offset-4 ring-offset-white transition duration-300 focus-within:ring-2 focus-within:ring-current hover:ring-2 hover:ring-current focus:ring-2 focus:ring-current disabled:ring-0 group-hover:ring-2 group-hover:ring-current group-focus:ring-2 group-focus:ring-current dark:ring-offset-gray-900;
+  }
+
+  .focus-ring.danger {
+    @apply ring-red-500 focus-within:ring-red-500 hover:ring-red-500 focus:ring-red-500 group-hover:ring-red-500 group-focus:ring-red-500 dark:focus-within:ring-red-500 dark:hover:ring-red-500 dark:focus:ring-red-500 dark:group-hover:ring-red-500 group-focus:dark:ring-red-500;
+  }
+
+  .bg-primary {
+    @apply bg-white dark:bg-gray-900;
+  }
+
+  .bg-secondary {
+    @apply bg-gray-100 dark:bg-gray-800;
+  }
+
+  .bg-alt {
+    @apply bg-gray-200 dark:bg-gray-700;
+  }
+
+  .bg-inverse {
+    @apply bg-black dark:bg-white;
+  }
+
+  .border-primary {
+    @apply border-gray-900 dark:border-white;
+  }
+
+  .border-secondary {
+    @apply border-gray-600 dark:border-gray-600;
+  }
+
+  .text-primary {
+    @apply text-black dark:text-white;
+  }
+
+  .text-secondary {
+    @apply text-gray-500 dark:text-gray-400;
+  }
+
+  .text-inverse {
+    @apply text-white dark:text-black;
+  }
+}
+
+body::-webkit-scrollbar {
+  @apply w-2;
+}
+
+body::-webkit-scrollbar-track {
+  @apply bg-white dark:bg-gray-900;
+}
+
+body::-webkit-scrollbar-thumb {
+  @apply bg-current rounded;
+}
