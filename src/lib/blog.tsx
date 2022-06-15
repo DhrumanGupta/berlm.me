@@ -107,6 +107,14 @@ async function getPostData(slug: string): Promise<PostData | null> {
     },
   });
 
+  if (
+    frontmatter.draft !== undefined &&
+    frontmatter.draft &&
+    process.env.NODE_ENV !== "development"
+  ) {
+    return null;
+  }
+
   // since we can infer the image from the slug, we can add it to the frontmatter
   frontmatter.image = `/blog/${slug}/header.png`;
 
@@ -139,8 +147,8 @@ interface MetaData extends FrontMatter {
 
 async function getAllPostData(): Promise<MetaData[]> {
   const slugs = await getAllPostSlugs();
-  return await Promise.all(
-    slugs.map(async (slug): Promise<MetaData> => {
+  const posts = await Promise.all(
+    slugs.map(async (slug): Promise<MetaData | null> => {
       const pathData = await getMdxPath({ fileName: slug, contentPath });
 
       const fileContents = await fs.promises.readFile(
@@ -150,6 +158,13 @@ async function getAllPostData(): Promise<MetaData[]> {
       );
       const matterResult = matter(fileContents).data as RawFrontMatter;
 
+      if (
+        matterResult.draft !== undefined &&
+        matterResult.draft &&
+        process.env.NODE_ENV !== "development"
+      ) {
+        return null;
+      }
       // since we can infer the image from the slug, we can add it to the frontmatter
       matterResult.image = `/blog/${slug}/header.png`;
 
@@ -169,6 +184,7 @@ async function getAllPostData(): Promise<MetaData[]> {
       };
     })
   );
+  return posts.filter((x) => Boolean(x)) as MetaData[];
 }
 
 export { getAllPostSlugs, getPostData, getAllPostData };

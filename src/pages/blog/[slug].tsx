@@ -25,7 +25,7 @@ const getStaticProps: GetStaticProps = async (context) => {
           ...postData,
         }
       : {},
-    revalidate: 3600, // 1 hour
+    revalidate: 3600,
   };
 };
 

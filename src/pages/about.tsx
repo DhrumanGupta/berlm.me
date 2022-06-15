@@ -47,14 +47,16 @@ const Home: NextPage<MdxData> = ({ code }) => {
   const Component = useMemo(() => getMDXComponent(code), [code]);
 
   return (
-    <div className={"relative mx-10vw"}>
+    <main className={"relative mx-10vw"}>
       <MetaDecorator
         title="About Dhruman Gupta"
         name={"About Dhruman Gupta"}
         description="Learn about Dhruman Gupta"
       />
-      <main
-        className={"relative max-w-4xl prose prose-light dark:prose-dark mb-16"}
+      <article
+        className={
+          "relative grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-6 mx-auto max-w-7xl prose prose-light dark:prose-dark mb-6"
+        }
       >
         <Component
           components={{
@@ -66,8 +68,8 @@ const Home: NextPage<MdxData> = ({ code }) => {
             strong: Bold,
           }}
         />
-      </main>
-    </div>
+      </article>
+    </main>
   );
 };
 
