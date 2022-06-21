@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { getAllPostSlugs, getPostData } from "../../lib/blog";
 import type { PostData as BlogPostData } from "../../lib/blog";
 import { getMDXComponent } from "mdx-bundler/client";
@@ -10,6 +10,7 @@ import MetaDecorator from "../../components/MetaDecorator";
 import Image from "next/image";
 import BlogLink from "../../components/BlogLink";
 import BlogImage from "../../components/BlogImage";
+import NotFound from "../404";
 
 interface IParams extends ParsedUrlQuery {
   slug: string;
@@ -20,11 +21,7 @@ const getStaticProps: GetStaticProps = async (context) => {
   const postData = await getPostData(slug);
 
   return {
-    props: postData
-      ? {
-          ...postData,
-        }
-      : {},
+    props: postData ? { ...postData } : {},
     revalidate: 3600,
   };
 };
@@ -53,8 +50,12 @@ const Blog: NextPage<BlogPostData> = ({
     [code]
   );
 
-  if (router.isFallback || !code) {
-    return <div>Loading...</div>;
+  if (router.isFallback) {
+    return <div className="relative mx-10vw">Loading...</div>;
+  }
+
+  if (!code) {
+    return <NotFound />;
   }
 
   return (

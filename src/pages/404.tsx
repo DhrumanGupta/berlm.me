@@ -2,7 +2,7 @@ import React from "react";
 import { NextPage } from "next";
 import MetaDecorator from "../components/MetaDecorator";
 
-const Error: NextPage = () => {
+const NotFound: NextPage = () => {
   return (
     <main className={"h-hero flex flex-col justify-center"}>
       <MetaDecorator
@@ -19,4 +19,4 @@ const Error: NextPage = () => {
   );
 };
 
-export default Error;
+export default NotFound;
