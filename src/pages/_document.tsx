@@ -1,6 +1,7 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import clsx from "clsx";
+import Script from "next/script";
 
 export default class MyDocument extends Document {
   render() {
@@ -18,6 +19,10 @@ export default class MyDocument extends Document {
         >
           <Main />
           <NextScript />
+          <Script
+            src="https://getinsights.io/js/insights.js"
+            strategy="beforeInteractive"
+          />
         </body>
       </Html>
     );

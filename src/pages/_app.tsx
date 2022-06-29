@@ -10,12 +10,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider attribute="class" defaultTheme={Theme.Dark}>
       {process.env.NODE_ENV !== "development" && (
-        <>
-          <Script src="https://getinsights.io/js/insights.js"></Script>
-          <Script id="insights">
-            {`insights.init("HNbdPNIpAloCk8kC"); insights.trackPages();`}
-          </Script>
-        </>
+        <Script id="insights">
+          {`insights.init("HNbdPNIpAloCk8kC"); insights.trackPages();`}
+        </Script>
       )}
       <Navbar />
       <Component {...pageProps} />
