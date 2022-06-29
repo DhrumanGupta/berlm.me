@@ -1,6 +1,8 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import clsx from "clsx";
+// not relevant for nextjs 12.1.6 and above
+// eslint-disable-next-line @next/next/no-script-in-document
 import Script from "next/script";
 
 export default class MyDocument extends Document {
