@@ -1,4 +1,5 @@
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import { Theme } from "../types";
 import { MoonIcon } from "./icons/moon-icon";
 import { SunIcon } from "./icons/sun-icon";
@@ -14,7 +15,12 @@ const ROUTES = [
 
 const iconTransformOrigin = { transformOrigin: "50% 100px" };
 function DarkModeToggle() {
+  const [mounted, setMounted] = useState(false);
   const { setTheme, theme } = useTheme();
+
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
   return (
     <button
       onClick={() => {
