@@ -18,6 +18,11 @@ const ROUTES = [
     route: "https://devpost.com/Berlm",
     hover: "hover:text-yellow-500",
   },
+  {
+    name: "Linkedin",
+    route: "https://www.linkedin.com/in/dhrumangupta",
+    hover: "hover:text-blue-800",
+  },
 ];
 
 const Home: NextPage = () => {
@@ -44,7 +49,9 @@ const Home: NextPage = () => {
                   {route.name}
                 </a>
               </li>
-              {index !== ROUTES.length - 1 && <li className="mx-4">&bull;</li>}
+              {index !== ROUTES.length - 1 && (
+                <li className="mx-2 sm:mx-4">&bull;</li>
+              )}
             </Fragment>
           ))}
         </ul>
