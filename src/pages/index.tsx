@@ -48,9 +48,14 @@ const Home: NextPage = () => {
             // <Fragment key={route.name}>
             <li
               key={route.name}
-              className={`flex md:text-lg underline duration-100 ${route.hover} min-w-fit`}
+              className={`flex md:text-lg underline min-w-fit`}
             >
-              <a href={route.route} target="_blank" rel="noreferrer">
+              <a
+                href={route.route}
+                className={`duration-100 ${route.hover}`}
+                target="_blank"
+                rel="noreferrer"
+              >
                 {route.name}
               </a>
               {index !== ROUTES.length - 1 && (
