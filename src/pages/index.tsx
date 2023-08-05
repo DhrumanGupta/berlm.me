@@ -23,6 +23,11 @@ const ROUTES = [
     route: "https://www.linkedin.com/in/dhrumangupta",
     hover: "hover:text-blue-800",
   },
+  {
+    name: "Resume",
+    route: "/resume",
+    hover: "hover:text-gray-300",
+  },
 ];
 
 const Home: NextPage = () => {
@@ -38,21 +43,21 @@ const Home: NextPage = () => {
             I am a student developer 👋
           </h1>
         </header>
-        <ul className="flex mb-24 px-5 font-mono mt-2">
+        <ul className="flex-wrap flex mb-24 px-5 font-mono mt-2">
           {ROUTES.map((route, index) => (
-            <Fragment key={route.name}>
-              <li
-                key={route.name}
-                className={`md:text-lg underline duration-100 ${route.hover}`}
-              >
-                <a href={route.route} target="_blank" rel="noreferrer">
-                  {route.name}
-                </a>
-              </li>
+            // <Fragment key={route.name}>
+            <li
+              key={route.name}
+              className={`flex md:text-lg underline duration-100 ${route.hover} min-w-fit`}
+            >
+              <a href={route.route} target="_blank" rel="noreferrer">
+                {route.name}
+              </a>
               {index !== ROUTES.length - 1 && (
-                <li className="mx-2 sm:mx-4">&bull;</li>
+                <p className="mx-2 sm:mx-4">&bull;</p>
               )}
-            </Fragment>
+            </li>
+            // </Fragment>
           ))}
         </ul>
       </div>

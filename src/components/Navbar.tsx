@@ -7,10 +7,10 @@ import NavLink from "./NavLink";
 
 interface Props {}
 
-const ROUTES = [
-  { name: "Home", path: "/", exact: true },
-  { name: "Blog", path: "/blog" },
-  { name: "About", path: "/about" },
+const ROUTES: any = [
+  // { name: "Home", path: "/", exact: true },
+  // { name: "Blog", path: "/blog" },
+  // { name: "About", path: "/about" },
 ];
 
 const iconTransformOrigin = { transformOrigin: "50% 100px" };
