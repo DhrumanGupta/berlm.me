@@ -10,8 +10,7 @@ const nextConfig = withPlaiceholder({
     return [
       {
         source: "/resume",
-        destination:
-          "https://docs.google.com/viewer?url=https://github.com/DhrumanGupta/DhrumanGupta/blob/master/resume.pdf?raw=true",
+        destination: "https://dhrumangupta.github.io/resume.pdf",
         permanent: false,
       },
     ];
