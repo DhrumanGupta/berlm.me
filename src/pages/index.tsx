@@ -26,7 +26,7 @@ const ROUTES = [
   {
     name: "Resume",
     route: "/resume",
-    hover: "hover:text-gray-300",
+    hover: "hover:text-gray-400",
   },
 ];
 
