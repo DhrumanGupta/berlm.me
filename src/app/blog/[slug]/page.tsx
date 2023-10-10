@@ -19,6 +19,8 @@ const KEYWORD_MAPPING: KeywordMapping = {
   learning: "bg-blue-500",
 };
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs();
   return slugs.map((slug) => ({ slug }));
