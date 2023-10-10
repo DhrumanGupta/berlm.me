@@ -1,4 +1,4 @@
-import { getPostData } from "@/lib/blog";
+import { getAllPostSlugs, getPostData } from "@/lib/blog";
 import moment from "moment";
 import Image from "next/image";
 import BlogLink from "@/components/BlogLink";
@@ -18,6 +18,11 @@ const KEYWORD_MAPPING: KeywordMapping = {
   personal: "bg-red-500",
   learning: "bg-blue-500",
 };
+
+export async function generateStaticParams() {
+  const slugs = await getAllPostSlugs();
+  return slugs.map((slug) => ({ slug }));
+}
 
 export async function generateMetadata({ params }: IParams) {
   const postData = await getPostData(params.slug);
