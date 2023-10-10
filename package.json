@@ -14,7 +14,6 @@
     "os": false
   },
   "dependencies": {
-    "@kentcdodds/md-temp": "^5.0.0",
     "@plaiceholder/next": "^3.0.0",
     "clsx": "^1.1.1",
     "esbuild": "^0.19.4",
@@ -31,7 +30,8 @@
     "remark-gfm": "^3.0.1",
     "remark-slug": "^7.0.1",
     "remark-unwrap-images": "^3.0.1",
-    "sharp": "^0.32.6"
+    "sharp": "^0.32.6",
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.0",

@@ -3,7 +3,6 @@ import path from "path";
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkUnwrapImages from "remark-unwrap-images";
 import type * as H from "hast";
-import { remarkCodeBlocksShiki } from "@kentcdodds/md-temp";
 import { ReactNode } from "react";
 
 export interface MdxData {
@@ -31,7 +30,7 @@ function removePreContainerDivs() {
   };
 }
 
-const remarkPlugins = [remarkCodeBlocksShiki, remarkUnwrapImages];
+const remarkPlugins = [remarkUnwrapImages];
 const rehypePlugins = [removePreContainerDivs];
 
 export const getPostBySlug = async <T>(
