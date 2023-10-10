@@ -9,8 +9,8 @@ interface Props {}
 
 const ROUTES: any = [
   { name: "Home", path: "/", exact: true },
-  // { name: "Blog", path: "/blog" },
   { name: "About", path: "/about" },
+  { name: "Blog", path: "/blog" },
 ];
 
 const iconTransformOrigin = { transformOrigin: "50% 100px" };
