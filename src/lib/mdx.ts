@@ -1,62 +1,108 @@
-import path from "path";
 import fs from "fs";
-import { bundleMDX } from "mdx-bundler";
+import path from "path";
+import { compileMDX } from "next-mdx-remote/rsc";
+import remarkUnwrapImages from "remark-unwrap-images";
+import type * as H from "hast";
+import { remarkCodeBlocksShiki } from "@kentcdodds/md-temp";
+import { ReactNode } from "react";
 
-interface MdxData {
+export interface MdxData {
   frontmatter: {
     [key: string]: any;
   };
-  code: string;
+  code: ReactNode;
 }
 
-async function getMdxPath({
-  fileName,
-  contentPath,
-}: {
-  fileName: string;
-  contentPath: string;
-}): Promise<{ filePath: string; directoryPath: string } | null> {
-  let fullPath = path.join(contentPath, fileName);
+const rootDirectory = `${process.cwd()}/content`;
 
-  // if it is a directory, set it as index.mdx
-  if (
-    fs.existsSync(fullPath) &&
-    (await fs.promises.lstat(fullPath)).isDirectory()
-  ) {
-    return {
-      filePath: path.resolve(path.join(fullPath, `index.mdx`)),
-      directoryPath: path.resolve(fullPath),
-    };
-  }
-  // if not a folder, check for existence
-  fullPath = `${fullPath}.mdx`;
-  if (fs.existsSync(fullPath)) {
-    return {
-      filePath: path.resolve(fullPath),
-      directoryPath: path.resolve(contentPath),
-    };
-  }
-
-  return null;
+function removePreContainerDivs() {
+  return async function preContainerDivsTransformer(tree: H.Root) {
+    const { visit } = await import("unist-util-visit");
+    visit(
+      tree,
+      { type: "element", tagName: "pre" },
+      function visitor(node, index, parent) {
+        if (parent?.type !== "element") return;
+        if (parent.tagName !== "div") return;
+        if (parent.children.length !== 1 && index === 0) return;
+        Object.assign(parent, node);
+      }
+    );
+  };
 }
 
-const readMdx = async ({
-  fileName,
-  contentDir = path.join("content"),
-}: {
-  fileName: string;
-  contentDir?: string;
-}): Promise<MdxData | null> => {
-  const pathInfo = await getMdxPath({
-    fileName: fileName,
-    contentPath: contentDir,
+const remarkPlugins = [remarkCodeBlocksShiki, remarkUnwrapImages];
+const rehypePlugins = [removePreContainerDivs];
+
+export const getPostBySlug = async <T>(
+  slug: string,
+  directory: string,
+  components?: any
+) => {
+  const realSlug = slug.replace(/\.mdx$/, "");
+  const dirPath =
+    directory.length > 0 ? path.join(rootDirectory, directory) : rootDirectory;
+  const filePath = path.join(dirPath, `${realSlug}.mdx`);
+
+  if (!fs.existsSync(filePath)) {
+    return null;
+  }
+
+  const { default: remarkAutolinkHeadings } = await import(
+    "remark-autolink-headings"
+  );
+  const { default: remarkSlug } = await import("remark-slug");
+  const { default: gfm } = await import("remark-gfm");
+
+  const fileContent = fs.readFileSync(filePath, { encoding: "utf8" });
+
+  const { frontmatter, content } = await compileMDX({
+    source: fileContent,
+    options: {
+      parseFrontmatter: true,
+      mdxOptions: {
+        remarkPlugins: [
+          remarkSlug,
+          [remarkAutolinkHeadings, { behavior: "wrap" }],
+          gfm,
+          ...remarkPlugins,
+        ],
+        rehypePlugins: rehypePlugins,
+      },
+    },
+    components: components,
   });
-  if (!pathInfo) return null;
-  return await bundleMDX({
-    file: pathInfo.filePath,
-    cwd: pathInfo.directoryPath,
-  });
+
+  if (frontmatter?.draft && process.env.NODE_ENV === "production") {
+    return null;
+  }
+
+  // @ts-ignore
+  const meta: T = { ...frontmatter, slug: realSlug };
+
+  return { meta, content, fileContent };
 };
 
-export type { MdxData };
-export { getMdxPath, readMdx };
+export const getAllPostsMeta = async (directory: string) => {
+  const dir = path.join(rootDirectory, directory);
+  const files = fs.readdirSync(dir);
+
+  let posts = [];
+
+  for (const file of files) {
+    const { meta, content } = (await getPostBySlug(file, directory))!;
+    if (!content) {
+      continue;
+    }
+    posts.push(meta);
+  }
+
+  let sortedPosts = posts.sort((p1: any, p2: any) => {
+    let date1 = new Date(p1.publishDate);
+    let date2 = new Date(p2.publishDate);
+
+    return date1 < date2 ? 1 : date1 > date2 ? -1 : 0;
+  });
+
+  return sortedPosts;
+};

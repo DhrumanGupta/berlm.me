@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
-import { Fragment } from "react";
-import MetaDecorator from "../components/MetaDecorator";
+import { makeMetaData } from "../lib/metadata";
 
 const ROUTES = [
   {
@@ -30,10 +29,14 @@ const ROUTES = [
   },
 ];
 
+export const metadata = makeMetaData({
+  description:
+    "Hi there! I'm Dhruman Gupta, a student and software dev studying at Ashoka University.",
+});
+
 const Home: NextPage = () => {
   return (
     <>
-      <MetaDecorator description="Welcome to Dhruman's website" />
       <div className="h-hero flex flex-col justify-center px-5vw">
         <header className="px-5">
           <p className="text-secondary text-lg md:text-xl lg:text-2xl">

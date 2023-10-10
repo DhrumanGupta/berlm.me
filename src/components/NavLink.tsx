@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
+import { ReactNode } from "react";
 
 interface Props {
   to: string;
@@ -10,6 +11,7 @@ interface Props {
   props?: {
     [key: string]: any;
   };
+  children: ReactNode;
 }
 
 const NavLink: React.FC<Props> = ({
@@ -20,14 +22,16 @@ const NavLink: React.FC<Props> = ({
   activeClassName,
   ...props
 }) => {
-  const { pathname } = useRouter();
+  const pathname = usePathname()!;
   const isActive = exact ? pathname === to : pathname.startsWith(to);
 
   return (
-    <Link href={to}>
-      <a className={clsx(className, isActive && activeClassName)} {...props}>
-        {children}
-      </a>
+    <Link
+      href={to}
+      className={clsx(className, isActive && activeClassName)}
+      {...props}
+    >
+      {children}
     </Link>
   );
 };

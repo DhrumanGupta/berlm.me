@@ -7,7 +7,7 @@ const BlogLink = ({ children, href }: any) => {
   }
 
   if (href.startsWith("/")) {
-    return <Link href={href}>{children}</Link>;
+    return <Link href={href} legacyBehavior>{children}</Link>;
   }
 
   if (href.startsWith("#")) {

@@ -1,20 +1,29 @@
-/** @type {import('next').NextConfig} */
-const { withPlaiceholder } = require("@plaiceholder/next");
+// import withPlaiceholder from "@plaiceholder/next";
 
-const nextConfig = withPlaiceholder({
-  reactStrictMode: true,
-  // images: {
-  //   domains: ["res.cloudinary.com"],
-  // },
-  async redirects() {
-    return [
-      {
-        source: "/resume",
-        destination: "https://dhrumangupta.github.io/resume.pdf",
-        permanent: false,
-      },
-    ];
+// /**
+//  * @type {import('next').NextConfig}
+//  */
+// const nextConfig = {
+//   reactStrictMode: true,
+//   async redirects() {
+//     return [
+//       {
+//         source: "/resume",
+//         destination: "https://dhrumangupta.github.io/resume.pdf",
+//         permanent: false,
+//       },
+//     ];
+//   },
+// };
+
+// export default withPlaicholder(nextConfig);
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  compiler: {
+    styledComponents: true,
   },
-});
+};
 
 module.exports = nextConfig;

@@ -9,7 +9,7 @@ const BlogImage = ({ children, slug, src, alt, ...props }: any) => {
         alt={alt}
         src={`/blog/${slug}/${src.substring(2, src.length)}`}
         className="w-full rounded-lg object-cover object-center transition"
-        layout={"fill"}
+        fill={true}
       />
     </div>
   );
