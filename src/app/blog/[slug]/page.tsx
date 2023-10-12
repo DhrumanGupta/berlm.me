@@ -80,30 +80,11 @@ const Blog = async ({ params }: IParams) => {
             </div>
 
             <div className="aspect-w-3 aspect-h-4 sm:aspect-w-3 sm:aspect-h-3 md:aspect-w-16 md:aspect-h-9 rounded-lg mt-10 overflow-hidden">
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  right: 0,
-                  bottom: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  transform: "scale(1.1)",
-                  filter: "blur(40px)",
-                }}
-              >
-                <Image
-                  src={frontmatter.base64}
-                  className="h-full w-full"
-                  alt={frontmatter.imageDescription}
-                  fill={true}
-                />
-              </div>
-
               <Image
                 src={frontmatter.image}
                 layout={"fill"}
+                placeholder="blur"
+                blurDataURL={frontmatter.base64}
                 alt={frontmatter.imageDescription}
                 className="w-full rounded-lg object-cover object-center transition"
               />

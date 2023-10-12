@@ -47,30 +47,11 @@ const BlogList = async () => {
                 className="block md:flex group peer focus:outline-none relative w-full md:mb-16"
               >
                 <div className="w-full md:w-60  aspect-w-3 aspect-h-2 md:aspect-w-5 md:aspect-h-1 rounded-lg overflow-hidden">
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      right: 0,
-                      bottom: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                      transform: "scale(1.1)",
-                      filter: "blur(40px)",
-                    }}
-                  >
-                    <Image
-                      src={blogData.base64}
-                      className="h-full w-full"
-                      alt={blogData.imageDescription}
-                      fill={true}
-                    />
-                  </div>
-
                   <Image
                     src={blogData.image}
                     fill={true}
+                    placeholder="blur"
+                    blurDataURL={blogData.base64}
                     alt={blogData.imageDescription}
                     className="focus-ring w-full rounded-lg object-cover object-center transition"
                   />
