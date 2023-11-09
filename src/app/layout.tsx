@@ -21,12 +21,11 @@ export default function RootLayout({
           href={"/logo/dark/72x72.png"}
           type="image/x-icon"
         />
-        {process.env.NODE_ENV === "production" && (
-          <script id="insights">
-            {`insights.init("HNbdPNIpAloCk8kC"); insights.trackPages();`}
-          </script>
-        )}
-        <Script src="https://getinsights.io/js/insights.js" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6670854316805103"
+          crossOrigin="anonymous"
+        ></script>
       </head>
       <body
         className={clsx(
