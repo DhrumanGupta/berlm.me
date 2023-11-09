@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@plaiceholder/next": "^3.0.0",
+    "@vercel/analytics": "^1.1.1",
     "clsx": "^1.1.1",
     "esbuild": "^0.19.4",
     "fs": "^0.0.1-security",

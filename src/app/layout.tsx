@@ -1,5 +1,7 @@
 "use client";
 
+import { Analytics } from "@vercel/analytics/react";
+
 import "../styles/globals.css";
 import "../styles/prose.css";
 import { ThemeProvider } from "next-themes";
@@ -40,6 +42,7 @@ export default function RootLayout({
 
           {children}
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
