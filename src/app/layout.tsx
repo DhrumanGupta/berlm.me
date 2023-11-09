@@ -23,12 +23,6 @@ export default function RootLayout({
           href={"/logo/dark/72x72.png"}
           type="image/x-icon"
         />
-        <script
-          async
-          defer={true}
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6670854316805103"
-          crossOrigin="anonymous"
-        ></script>
       </head>
       <body
         className={clsx(
