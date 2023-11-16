@@ -5,6 +5,7 @@ import Image from "next/image";
 import moment from "moment";
 import Link from "next/link";
 import { makeMetaData } from "@/lib/metadata";
+import PageHeader from "@/components/typography/PageHeader";
 
 export const metadata: Metadata = makeMetaData({
   title: "Blogs",
@@ -26,11 +27,36 @@ const getKeywords = (metadata: MetaData[]): string[] => {
 };
 
 const BlogList = async () => {
-  const data = await getAllPostData();
+  const data: MetaData[] = await getAllPostData();
+  // const data: MetaData[] = [];
 
   return (
-    <main className="relative">
-      <div className={"relative mx-auto mb-6"}>
+    <main className="relative min-h-[calc(30vh-16rem)]">
+      <PageHeader>Blog</PageHeader>
+      <div className="prose dark:prose-dark pb-4 border-b border-gray-700 dark:border-gray-300">
+        <p>
+          Diving into the world of blogging for the first time, come along as I
+          share my life – one post at a time!
+        </p>
+      </div>
+      <div className={"relative mx-auto my-6"}>
+        {data.length <= 0 && (
+          <main
+            className={
+              "h-[calc(30vh)] sm:h-[calc(100vh-27rem)] flex flex-col justify-center"
+            }
+          >
+            <h1 className="leading text-2xl md:text-3xl text-center">
+              Wow, such empty
+            </h1>
+            <p className="text-lg mt-2 text-center">
+              Coming soon.{" "}
+              <Link href="/" className="text-current hover:underline">
+                Go home?
+              </Link>
+            </p>
+          </main>
+        )}
         {data.map((blogData: MetaData) => (
           <div
             className={`mb-12 set-color-${blogData.color}`}
@@ -65,7 +91,7 @@ const BlogList = async () => {
                     }
                   >
                     {moment(new Date(blogData.date)).format("MMMM Do[,] YYYY")}{" "}
-                    &ndash; {blogData.readingTime.text}
+                    • {blogData.readingTime.text}
                   </p>
                   <p
                     className={

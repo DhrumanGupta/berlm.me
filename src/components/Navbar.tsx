@@ -18,8 +18,8 @@ function Navbar() {
                 <NavLink
                   to={route.path}
                   exact={route.exact}
-                  className="text-secondary underlined focus:outline-none block whitespace-nowrap lg:text-lg font-medium hover:text-gray-900 focus:text-gray-900 dark:hover:text-gray-100 dark:focus:text-gray-100 duration-75"
-                  activeClassName="!text-gray-800 dark:!text-gray-200"
+                  className="text-secondary underlined focus:outline-none block whitespace-nowrap lg:text-lg  hover:text-gray-900 focus:text-gray-900 dark:hover:text-gray-100 dark:focus:text-gray-100 duration-75"
+                  activeClassName="!text-gray-900 font-medium dark:!text-gray-200"
                 >
                   {route.name}
                 </NavLink>

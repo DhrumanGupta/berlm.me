@@ -118,7 +118,6 @@ async function getAllPostData(): Promise<MetaData[]> {
       const { meta, content, fileContent } = postData;
 
       // const matterResult = matter(fileContents).data as RawFrontMatter;
-
       if (
         meta.draft !== undefined &&
         meta.draft &&

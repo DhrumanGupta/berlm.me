@@ -5,6 +5,8 @@ import BlogLink from "@/components/BlogLink";
 import { redirect } from "next/navigation";
 import { makeMetaData } from "@/lib/metadata";
 import clsx from "clsx";
+import SchemaData from "@/components/SchemaData";
+import { baseUrl } from "@/lib/constants";
 
 interface IParams {
   params: { slug: string };
@@ -52,8 +54,29 @@ const Blog = async ({ params }: IParams) => {
 
   const { frontmatter, readingTime, code } = postData;
 
+  const jsonLd = {
+    "@type": "BlogPosting",
+    name: "Dhruman Gupta",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${baseUrl}/blogs/${params.slug}`,
+    },
+    author: {
+      "@type": "Person",
+      name: "Dhruman Gupta",
+      url: baseUrl,
+    },
+    description: frontmatter.description,
+    headline: frontmatter.title,
+    datePublished: new Date(frontmatter.date),
+    url: `/blogs/${params.slug}`,
+    keywords: frontmatter.meta.keywords,
+    image: frontmatter.image,
+  };
+
   return (
     <>
+      <SchemaData data={jsonLd} />
       <header className="relative 'mx-8vw 'sm:mx-10vw">
         <div className="relative mb-12">
           {/* grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-6

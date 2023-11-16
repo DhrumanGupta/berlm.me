@@ -6,11 +6,17 @@ import clsx from "clsx";
 import { Providers } from "./providers";
 
 import { Poppins } from "next/font/google";
+import Footer from "@/components/Footer";
+import { Metadata, Viewport } from "next";
+import { makeMetaData, makeViewport } from "@/lib/metadata";
 
 const font = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
 });
+
+export const metadata: Metadata = makeMetaData({});
+export const viewport: Viewport = makeViewport({});
 
 export default function RootLayout({
   children,
@@ -41,6 +47,7 @@ export default function RootLayout({
           <div className="mx-8">
             <div className="mx-auto max-w-[65ch]">{children}</div>
           </div>
+          <Footer />
         </Providers>
 
         <Analytics />
