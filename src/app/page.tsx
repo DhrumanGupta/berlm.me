@@ -40,7 +40,7 @@ const Home: NextPage = () => {
           <p>
             Hi! I&apos;m Dhruman Gupta, a tech enthusiant and an aspiring
             Software Engineer. I&apos;m a first-year at Ashoka University,
-            studying Computer Science and Mathematics, currently working
+            studying Computer Science and Mathematics, currently working on
             personal and open source projects.
           </p>
         </article>

@@ -1,4 +1,6 @@
 import withPlaiceholder from "@plaiceholder/next";
+import withBundleAnalyzer from "@next/bundle-analyzer";
+import withPlugins from "next-compose-plugins";
 
 /**
  * @type {import('next').NextConfig}
@@ -17,15 +19,6 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/(.*).jpg",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=180, stale-while-revalidate=180",
-          },
-        ],
-      },
-      {
         source: "/_next/image(.*)",
         headers: [
           {
@@ -38,4 +31,14 @@ const nextConfig = {
   },
 };
 
-export default withPlaiceholder(nextConfig);
+// export default withPlaiceholder(nextConfig);
+
+const analyzerConfig = {
+  enabled: process.env.ANALYZE === "true",
+  // openAnalyzer: false,
+};
+
+export default withPlugins(
+  [[withBundleAnalyzer(analyzerConfig)], [withPlaiceholder]],
+  nextConfig
+);
