@@ -24,7 +24,7 @@ export const makeMetaData = ({
   manifest = "/manifest.json",
 }: MetaDecoratorProps): Metadata => {
   const metadata: Metadata = {
-    metadataBase: new URL(altUrl),
+    metadataBase: new URL(baseUrl),
     title: {
       default: makeTitle(title, name),
       template: `%s – ${name}`,
