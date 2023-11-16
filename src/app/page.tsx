@@ -1,5 +1,7 @@
-import type { NextPage } from "next";
-import { makeMetaData } from "../lib/metadata";
+import type { Metadata, NextPage, Viewport } from "next";
+import { makeMetaData, makeViewport } from "../lib/metadata";
+import heroImage from "../../public/hero.jpg";
+import Image from "next/image";
 
 const ROUTES = [
   {
@@ -29,16 +31,14 @@ const ROUTES = [
   },
 ];
 
-export const metadata = makeMetaData({
-  description:
-    "Hi there! I'm Dhruman Gupta, a student and software dev studying at Ashoka University.",
-});
+export const metadata: Metadata = makeMetaData({});
+export const viewport: Viewport = makeViewport({});
 
-const Home: NextPage = () => {
+const Home_: NextPage = () => {
   return (
     <>
-      <div className="h-hero flex flex-col justify-center px-5vw">
-        <header className="px-5">
+      <div className="h-hero flex flex-col justify-center">
+        <header>
           <p className="text-secondary text-lg md:text-xl lg:text-2xl">
             Hi, I am Dhruman Gupta
           </p>
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
             I am a student developer 👋
           </h1>
         </header>
-        <ul className="flex-wrap flex mb-24 px-5 font-mono mt-2">
+        <ul className="flex-wrap flex mb-24 font-mono mt-2">
           {ROUTES.map((route, index) => (
             // <Fragment key={route.name}>
             <li
@@ -69,6 +69,36 @@ const Home: NextPage = () => {
           ))}
         </ul>
       </div>
+    </>
+  );
+};
+
+const Home: NextPage = () => {
+  return (
+    <>
+      <div className="w-full aspect-w-3 aspect-h-2 relative rounded-md overflow-hidden mb-4">
+        <Image
+          src={heroImage}
+          alt="A picture of me on a sunset"
+          placeholder="blur"
+          priority
+          width={900}
+          height={600}
+          quality={100}
+          className="object-cover"
+        />
+      </div>
+      <header>
+        <h1 className="text-3xl md:text-4xl font-bold">Dhruman Gupta</h1>
+        <article className="pt-2 prose dark:prose-dark child:mb-2 last:child:mb-0">
+          <p>
+            Hi! I&apos;m Dhruman Gupta, a tech enthusiant and an aspiring
+            Software Engineer. I&apos;m a first-year at Ashoka University,
+            studying Computer Science and Mathematics, currently working
+            personal and open source projects.
+          </p>
+        </article>
+      </header>
     </>
   );
 };

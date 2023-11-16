@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 
 const makeTitle = (title: string, name: string) =>
   title === name ? title : `${title} – ${name}`;
@@ -6,18 +6,20 @@ const makeTitle = (title: string, name: string) =>
 interface MetaDecoratorProps {
   name?: string;
   title?: string;
-  description: string;
+  description?: string;
   image?: string;
-  color?: string;
   manifest?: string;
+}
+
+interface ViewportProps {
+  color?: string;
 }
 
 export const makeMetaData = ({
   name = "Dhruman Gupta", // site name
   title = "Dhruman Gupta", // page title
-  description,
+  description = "Hi there! I'm Dhruman Gupta, a student and software developer studying at Ashoka University.",
   image,
-  color = "#1f2028",
   manifest = "/manifest.json",
 }: MetaDecoratorProps): Metadata => {
   const metadata: Metadata = {
@@ -28,7 +30,6 @@ export const makeMetaData = ({
     ),
     title: makeTitle(title, name),
     description,
-    themeColor: color,
     manifest: manifest,
     openGraph: {
       locale: "en_US",
@@ -50,4 +51,16 @@ export const makeMetaData = ({
   }
 
   return metadata;
+};
+
+export const makeViewport = ({
+  color = "#1f2028",
+}: ViewportProps): Viewport => {
+  const viewport: Viewport = {
+    themeColor: color,
+    width: "device-width",
+    initialScale: 1,
+  };
+
+  return viewport;
 };

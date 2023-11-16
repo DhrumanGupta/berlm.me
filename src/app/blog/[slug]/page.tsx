@@ -54,8 +54,10 @@ const Blog = async ({ params }: IParams) => {
 
   return (
     <>
-      <header className="relative mx-8vw sm:mx-10vw">
-        <div className="relative grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-6 mx-auto max-w-7xl mb-12">
+      <header className="relative 'mx-8vw 'sm:mx-10vw">
+        <div className="relative mb-12">
+          {/* grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-6
+          mx-auto max-w-7xl */}
           <div className="col-span-full lg:col-span-8 lg:col-start-3">
             <h2 className="leading-tight text-3xl md:text-4xl">
               {frontmatter.title}
@@ -92,8 +94,10 @@ const Blog = async ({ params }: IParams) => {
           </div>
         </div>
       </header>
-      <main className={`relative mx-10vw`}>
-        <article className="relative grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-6 mx-auto max-w-7xl prose prose-light dark:prose-dark mb-6">
+      <main className={`relative 'mx-10vw`}>
+        <article className="relative prose prose-light dark:prose-dark mb-6">
+          {/* grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-6
+          mx-auto max-w-7xl */}
           {code}
           <hr />
           <h4>Written by Dhruman Gupta</h4>

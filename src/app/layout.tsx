@@ -1,14 +1,16 @@
-"use client";
-
-import { Analytics } from "@vercel/analytics/react";
-
 import "../styles/globals.css";
 import "../styles/prose.css";
-import { ThemeProvider } from "next-themes";
+import { Analytics } from "@vercel/analytics/react";
 import Navbar from "../components/Navbar";
-import { Theme } from "../types";
 import clsx from "clsx";
-import Script from "next/script";
+import { Providers } from "./providers";
+
+import { Poppins } from "next/font/google";
+
+const font = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 export default function RootLayout({
   children,
@@ -26,17 +28,21 @@ export default function RootLayout({
       </head>
       <body
         className={clsx(
-          "transition duration-500 bg-white dark:bg-gray-900",
-          "set-color-blue"
+          "transition duration-500 bg-white dark:bg-gray-900 set-color-blue",
+          font.className
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme={Theme.Dark}>
-          {/* <Icon /> */}
-
+        {/* <Icon /> */}
+        <Providers>
+          {/* <div className="mx-auto max-w-[65ch]"> */}
           <Navbar />
+          {/* </div> */}
 
-          {children}
-        </ThemeProvider>
+          <div className="mx-8">
+            <div className="mx-auto max-w-[65ch]">{children}</div>
+          </div>
+        </Providers>
+
         <Analytics />
       </body>
     </html>

@@ -29,13 +29,8 @@ const BlogList = async () => {
   const data = await getAllPostData();
 
   return (
-    <main className="relative mx-8vw md:mx-10vw lg:mx-20vw">
-      <div
-        className={
-          "relative mx-auto max-w-7xl mb-6"
-          // + grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-6
-        }
-      >
+    <main className="relative">
+      <div className={"relative mx-auto mb-6"}>
         {data.map((blogData: MetaData) => (
           <div
             className={`mb-12 set-color-${blogData.color}`}
@@ -66,7 +61,7 @@ const BlogList = async () => {
                   </h3>
                   <p
                     className={
-                      "text-xl font-medium text-gray-500 dark:text-gray-400"
+                      "text-lg font-medium text-gray-500 dark:text-gray-400"
                     }
                   >
                     {moment(new Date(blogData.date)).format("MMMM Do[,] YYYY")}{" "}

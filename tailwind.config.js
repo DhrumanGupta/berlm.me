@@ -35,12 +35,6 @@ module.exports = {
       },
     },
     extend: {
-      fontFamily: {
-        sans: ["Matter", ...defaultTheme.fontFamily.sans],
-      },
-      height: {
-        hero: "calc(100vh - 10rem)",
-      },
       gridTemplateRows: {
         "max-content": "max-content",
       },
@@ -64,7 +58,6 @@ module.exports = {
         const breakout = {
           marginLeft: 0,
           marginRight: 0,
-          gridColumn: "2 / span 10",
         };
 
         return {
@@ -73,13 +66,6 @@ module.exports = {
           DEFAULT: {
             css: [
               {
-                "> *": {
-                  gridColumn: "1 / -1",
-
-                  [`@media (min-width: ${theme("screens.lg")})`]: {
-                    gridColumn: "3 / span 8",
-                  },
-                },
                 p: {
                   marginTop: 0,
                   marginBottom: theme("spacing.8"),
@@ -272,5 +258,8 @@ module.exports = {
   plugins: [
     require("@tailwindcss/typography"),
     require("@tailwindcss/aspect-ratio"),
+    function ({ addVariant, addComponents }) {
+      addVariant("child", "& > *");
+    },
   ],
 };
