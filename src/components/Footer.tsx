@@ -1,7 +1,7 @@
 import { FaLinkedin, FaGithubSquare, FaItchIo } from "react-icons/fa";
 import { SiDevpost } from "react-icons/si";
 import { MdOutlineContactPage } from "react-icons/md";
-import Link from "next/link";
+import Link from "@/components/Link";
 import clsx from "clsx";
 
 const ROUTES = [
@@ -35,6 +35,7 @@ const ROUTES = [
     route: "/resume",
     hover: "hover:!text-gray-900 dark:hover:!text-gray-300",
     Icon: MdOutlineContactPage,
+    external: true,
   },
 ];
 
@@ -51,6 +52,7 @@ function Navbar() {
               route.hover
             )}
             key={route.route}
+            external={route.external}
           >
             <route.Icon className="w-full h-full" key={route.route} />
           </Link>
