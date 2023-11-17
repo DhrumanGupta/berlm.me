@@ -1,11 +1,20 @@
 import type { NextPage } from "next";
-import heroImage from "../../public/hero.webp";
-import Image from "next/image";
 import PageHeader from "@/components/typography/PageHeader";
 import { linkedInUrl } from "@/lib/constants";
 import SchemaData from "@/components/SchemaData";
+import HeroImage from "@/components/home/HeroImage";
+import { getPlaceholderLocal } from "@/lib/getPlaceholder";
 
-const Home: NextPage = () => {
+const Images: HeroImage[] = [
+  { src: "/hero0.webp", alt: "A picture of me next to a sunset", base64: "" },
+  { src: "/hero1.webp", alt: "Me on the beach", base64: "" },
+];
+
+const Home: NextPage = async () => {
+  for (const image of Images) {
+    image.base64 = await getPlaceholderLocal(image.src);
+  }
+
   const jsonLd = {
     "@type": "Person",
     name: "Dhruman Gupta",
@@ -23,16 +32,7 @@ const Home: NextPage = () => {
     <>
       <SchemaData data={jsonLd} />
       <div className="w-full aspect-w-3 aspect-h-2 relative rounded-md overflow-hidden mb-4">
-        <Image
-          src={heroImage}
-          alt="A picture of me on a sunset"
-          placeholder="blur"
-          priority
-          width={900}
-          height={600}
-          quality={100}
-          className="object-cover"
-        />
+        <HeroImage images={Images} />
       </div>
       <header>
         <PageHeader>Dhruman Gupta</PageHeader>
