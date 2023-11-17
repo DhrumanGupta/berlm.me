@@ -1,5 +1,5 @@
 import { Metadata, Viewport } from "next";
-import { altUrl, baseUrl } from "./constants";
+import { baseUrl } from "./constants";
 
 const makeTitle = (title: string, name: string) =>
   title === name ? title : `${title} – ${name}`;
@@ -19,7 +19,7 @@ interface ViewportProps {
 export const makeMetaData = ({
   name = "Dhruman Gupta", // site name
   title = "Dhruman Gupta", // page title
-  description = "Hi! I'm Dhruman Gupta, a tech enthusiant and an aspiring Software Engineer. I'm a first-year at Ashoka University, studying Computer Science and Mathematics, currently working personal and open source projects.",
+  description = "Hi! I'm Dhruman Gupta, a tech enthusiant and an aspiring Software Engineer, currently working personal and open source projects.",
   image,
   manifest = "/manifest.json",
 }: MetaDecoratorProps): Metadata => {
