@@ -5,8 +5,8 @@ import calculateReadingTime from "reading-time";
 
 import { getPostBySlug, MdxData } from "./mdx";
 import { getPlaiceholder } from "plaiceholder";
-import BlogImage from "@/components/BlogImage";
-import BlogLink from "@/components/BlogLink";
+import BlogImage from "@/components/blog/BlogImage";
+import BlogLink from "@/components/blog/BlogLink";
 
 const contentPath = path.join(process.cwd(), "content", "blog");
 // Get all the slugs
@@ -143,5 +143,23 @@ async function getAllPostData(): Promise<MetaData[]> {
   return posts.filter((x) => Boolean(x)) as MetaData[];
 }
 
-export { getAllPostSlugs, getPostData, getAllPostData };
+interface KeywordMapping {
+  [key: string]: string;
+}
+
+const KEYWORD_MAPPING: KeywordMapping = {
+  personal: "bg-red-500",
+  learning: "bg-blue-500",
+};
+
+const getClassnameFromKeyword = (keyword: string): string => {
+  return KEYWORD_MAPPING[keyword] || "bg-yellow-500";
+};
+
+export {
+  getAllPostSlugs,
+  getPostData,
+  getAllPostData,
+  getClassnameFromKeyword,
+};
 export type { PostData, FrontMatter, MetaData };

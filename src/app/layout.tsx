@@ -2,17 +2,17 @@ import "../styles/globals.css";
 import "../styles/prose.css";
 import { Analytics } from "@vercel/analytics/react";
 import Navbar from "../components/Navbar";
-import clsx from "clsx";
 import { Providers } from "./providers";
 
 import { Poppins } from "next/font/google";
 import Footer from "@/components/Footer";
 import { Metadata, Viewport } from "next";
 import { makeMetaData, makeViewport } from "@/lib/metadata";
+import { cn } from "@/lib/cn";
 
 const font = Poppins({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = makeMetaData({});
@@ -33,7 +33,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={clsx(
+        className={cn(
           "transition duration-500 bg-white dark:bg-gray-900 set-color-blue",
           font.className
         )}

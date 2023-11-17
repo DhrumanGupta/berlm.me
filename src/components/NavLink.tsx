@@ -1,6 +1,6 @@
 "use client";
 
-import clsx from "clsx";
+import { cn } from "@/lib/cn";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
@@ -30,7 +30,7 @@ const NavLink: React.FC<Props> = ({
   return (
     <Link
       href={to}
-      className={clsx(className, isActive && activeClassName)}
+      className={cn(className, isActive && activeClassName)}
       {...props}
     >
       {children}

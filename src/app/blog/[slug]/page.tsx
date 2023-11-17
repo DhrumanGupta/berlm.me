@@ -1,25 +1,20 @@
-import { getAllPostSlugs, getPostData } from "@/lib/blog";
+import {
+  getAllPostSlugs,
+  getClassnameFromKeyword,
+  getPostData,
+} from "@/lib/blog";
 import moment from "moment";
 import Image from "next/image";
-import BlogLink from "@/components/BlogLink";
+import BlogLink from "@/components/blog/BlogLink";
 import { redirect } from "next/navigation";
 import { makeMetaData } from "@/lib/metadata";
-import clsx from "clsx";
 import SchemaData from "@/components/SchemaData";
 import { baseUrl } from "@/lib/constants";
+import Keywords from "@/components/blog/Keywords";
 
 interface IParams {
   params: { slug: string };
 }
-
-interface KeywordMapping {
-  [key: string]: string;
-}
-
-const KEYWORD_MAPPING: KeywordMapping = {
-  personal: "bg-red-500",
-  learning: "bg-blue-500",
-};
 
 export const dynamicParams = false;
 
@@ -77,11 +72,11 @@ const Blog = async ({ params }: IParams) => {
   return (
     <>
       <SchemaData data={jsonLd} />
-      <header className="relative 'mx-8vw 'sm:mx-10vw">
+      <header className="relative">
         <div className="relative mb-12">
           {/* grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-x-6
           mx-auto max-w-7xl */}
-          <div className="col-span-full lg:col-span-8 lg:col-start-3">
+          <div className="col-span-full">
             <h2 className="leading-tight text-3xl md:text-4xl">
               {frontmatter.title}
             </h2>
@@ -90,24 +85,12 @@ const Blog = async ({ params }: IParams) => {
               &ndash; {readingTime.text}
             </p>
 
-            <div className="flex gap-x-4 mt-4">
-              {frontmatter.meta.keywords.map((keyword) => (
-                <span
-                  key={keyword}
-                  className={clsx(
-                    "rounded py-1 px-3 text-sm",
-                    KEYWORD_MAPPING[keyword]
-                  )}
-                >
-                  {keyword}
-                </span>
-              ))}
-            </div>
+            <Keywords keywords={frontmatter.meta.keywords} />
 
             <div className="aspect-w-3 aspect-h-4 sm:aspect-w-3 sm:aspect-h-3 md:aspect-w-16 md:aspect-h-9 rounded-lg mt-10 overflow-hidden">
               <Image
                 src={frontmatter.image}
-                layout={"fill"}
+                fill={true}
                 placeholder="blur"
                 blurDataURL={frontmatter.base64}
                 alt={frontmatter.imageDescription}

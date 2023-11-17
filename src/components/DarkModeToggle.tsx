@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Theme } from "../types";
 import { MoonIcon } from "./icons/moon-icon";
 import { SunIcon } from "./icons/sun-icon";
-import clsx from "clsx";
+import { cn } from "@/lib/cn";
 
 const iconTransformOrigin = { transformOrigin: "50% 100px" };
 const shiftSafeSize = "h-10 w-10 lg:h-12 lg:w-12";
@@ -22,7 +22,7 @@ export function DarkModeToggle() {
       onClick={() => {
         setTheme(theme === Theme.Dark ? Theme.Light : Theme.Dark);
       }}
-      className={clsx(
+      className={cn(
         "border-secondary hover:border-primary focus:border-primary focus:outline-none inline-flex  items-center justify-center overflow-hidden rounded-full border-2 p-1 transition",
         shiftSafeSize
       )}

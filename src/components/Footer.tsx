@@ -2,7 +2,7 @@ import { FaLinkedin, FaGithubSquare, FaItchIo } from "react-icons/fa";
 import { SiDevpost } from "react-icons/si";
 import { MdOutlineContactPage } from "react-icons/md";
 import Link from "@/components/Link";
-import clsx from "clsx";
+import { cn } from "@/lib/cn";
 
 const ROUTES = [
   {
@@ -47,7 +47,7 @@ function Navbar() {
           <Link
             href={route.route}
             aria-label={route.name}
-            className={clsx(
+            className={cn(
               "w-8 h-8 text-gray-500 dark:text-gray-200 duration-100",
               route.hover
             )}
