@@ -1,12 +1,11 @@
 import React from "react";
 import { Metadata } from "next";
-import { makeMetaData } from "@/lib/metadata";
 import Link from "next/link";
 
-export const metadata: Metadata = makeMetaData({
+export const metadata: Metadata = {
   title: "Not found",
   description: "This is not the webpage you are looking for",
-});
+};
 
 const NotFound = () => {
   return (

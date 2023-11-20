@@ -2,15 +2,17 @@ import { Metadata } from "next";
 import { getAllPostData } from "@/lib/blog";
 import type { MetaData } from "@/lib/blog";
 import Link from "next/link";
-import { makeMetaData } from "@/lib/metadata";
 import PageHeader from "@/components/typography/PageHeader";
 import { BlogListing } from "@/components/blog/BlogListing";
 
-export const metadata: Metadata = makeMetaData({
+export const metadata: Metadata = {
   title: "Blogs",
   description:
     "Welcome to my blog! Here I share and record parts of my life, and cover random topics that I find interesting.",
-});
+  alternates: {
+    canonical: `/blog`,
+  },
+};
 
 const getKeywords = (metadata: MetaData[]): string[] => {
   const keywords: string[] = [];

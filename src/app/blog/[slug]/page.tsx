@@ -7,10 +7,10 @@ import moment from "moment";
 import Image from "next/image";
 import BlogLink from "@/components/blog/BlogLink";
 import { redirect } from "next/navigation";
-import { makeMetaData } from "@/lib/metadata";
 import SchemaData from "@/components/SchemaData";
 import { baseUrl } from "@/lib/constants";
 import Keywords from "@/components/blog/Keywords";
+import { Metadata } from "next";
 
 interface IParams {
   params: { slug: string };
@@ -23,21 +23,30 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: IParams) {
+export async function generateMetadata({ params }: IParams): Promise<Metadata> {
   const postData = await getPostData(params.slug);
   if (!postData) {
-    return makeMetaData({
+    return {
       title: "Not Found",
       description: "The page you were looking for was not found.",
-    });
+    };
   }
 
   const { frontmatter } = postData;
 
-  return makeMetaData({
+  return {
     description: frontmatter.description,
     title: frontmatter.title,
-  });
+    alternates: {
+      canonical: `/blog/${params.slug}`,
+    },
+    openGraph: {
+      title: frontmatter.title,
+      description: frontmatter.description,
+      url: `${baseUrl}/blog/${params.slug}`,
+      type: "website",
+    },
+  };
 }
 
 const Blog = async ({ params }: IParams) => {

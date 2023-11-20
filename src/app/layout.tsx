@@ -7,16 +7,61 @@ import { Providers } from "./providers";
 import { Poppins } from "next/font/google";
 import Footer from "@/components/Footer";
 import { Metadata, Viewport } from "next";
-import { makeMetaData, makeViewport } from "@/lib/metadata";
 import { cn } from "@/lib/cn";
+import { baseUrl } from "@/lib/constants";
 
 const font = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
 
-export const metadata: Metadata = makeMetaData({});
-export const viewport: Viewport = makeViewport({});
+const title = "Dhruman Gupta";
+const description =
+  "Hi! I'm Dhruman Gupta, a tech enthusiant and an aspiring Software Engineer, currently working personal and open source projects.";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
+  title: {
+    default: title,
+    template: `%s – Dhruman Gupta`,
+  },
+  description,
+  manifest: "/manifest.json",
+  openGraph: {
+    locale: "en_US",
+    type: "website",
+    siteName: "Dhruman Gupta",
+    title: {
+      default: title,
+      template: `%s – Dhruman Gupta`,
+    },
+    description,
+    url: baseUrl,
+  },
+  twitter: {
+    site: "@dhrumangupta",
+    title: {
+      default: title,
+      template: `%s – Dhruman Gupta`,
+    },
+    description,
+  },
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+  },
+  authors: [{ name: "Dhruman Gupta", url: baseUrl }],
+};
+
+export const viewport: Viewport = {
+  themeColor: "#1f2028",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export default function RootLayout({
   children,
