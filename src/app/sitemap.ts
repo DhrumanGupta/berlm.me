@@ -6,7 +6,7 @@ export default async function sitemap() {
   const blogs = await getAllPostData();
   const blogsUrls =
     blogs?.map((post) => ({
-      url: `${baseUrl}/blogs/${post.slug}`,
+      url: `${baseUrl}/blog/${post.slug}`,
       lastModified: new Date(),
     })) ?? [];
 
@@ -16,7 +16,7 @@ export default async function sitemap() {
       lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/blogs`,
+      url: `${baseUrl}/blog`,
       lastModified: new Date(),
     },
     {
