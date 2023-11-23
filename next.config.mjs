@@ -11,7 +11,8 @@ const nextConfig = {
     return [
       {
         source: "/resume",
-        destination: "https://dhrumangupta.github.io/resume.pdf",
+        destination:
+          "https://dhrumangupta.github.io/Resume - Dhruman Gupta.pdf",
         permanent: false,
       },
     ];
