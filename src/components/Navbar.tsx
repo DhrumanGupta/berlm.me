@@ -5,6 +5,7 @@ const ROUTES: any = [
   { name: "Home", path: "/", exact: true },
   // { name: "About", path: "/about" },
   { name: "Blog", path: "/blog" },
+  { name: "Projects", path: "/projects" },
 ];
 
 function Navbar() {

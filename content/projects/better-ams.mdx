@@ -1,0 +1,25 @@
+---
+title: Better AMS
+description: A website to simplify finding your course schedule and information
+date: 2023-11-31
+color: blue
+draft: false
+links:
+  website: https://better-ams.berlm.me
+---
+
+TLDR; Tired of using AMS, I made a [website to find your course information](https://better-ams.berlm.me) - lecture/DS timings and your course syllabus. **Even for the next semester!**
+
+## Why?
+
+Using AMS can be quite a hassle. It's clunky and not user-friendly, and finding specific course information like lecture times, discussion sections, and syllabus details is too time-consuming. This led me to think, "Why not create a solution myself?" That's when the idea struck - a tool I can use to find this information. Soon, what was a tool for me became a website everyone can use.
+
+## How it was made
+
+To build this project, I chose Svelte for its simplicity and reactivity - perfect for building a fast and responsive user interface. Being sane, I integrated TypeScript to ensure code reliability and maintainability.
+
+But, the real challenge was gathering the course data. With Puppeteer, I could programmatically navigate AMS, extract the necessary course details, and update the site's database. This Svelte, TypeScript, and Puppeteer blend was the perfect recipe for a seamless, efficient, and user-friendly platform.
+
+## How can I use it?
+
+Head over to [better-ams.berlm.me](https://better-ams.berlm.me) and search for your course name or professor!

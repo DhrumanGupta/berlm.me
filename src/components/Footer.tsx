@@ -39,7 +39,7 @@ const ROUTES = [
   },
 ];
 
-function Navbar() {
+function Footer() {
   return (
     <footer className="py-9 w-full flex flex-col items-center justify-center">
       <ul className="mb-4 flex gap-4 lg:gap-6">
@@ -65,4 +65,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default Footer;

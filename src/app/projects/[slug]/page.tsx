@@ -1,16 +1,11 @@
-import {
-  getAllPostSlugs,
-  getClassnameFromKeyword,
-  getPostData,
-} from "@/lib/blog";
-import moment from "moment";
-import Image from "next/image";
 import BlogLink from "@/components/blog/BlogLink";
 import { redirect } from "next/navigation";
 import SchemaData from "@/components/SchemaData";
 import { baseUrl } from "@/lib/constants";
-import Keywords from "@/components/blog/Keywords";
 import { Metadata } from "next";
+import { getAllProjectSlugs, getProjectData } from "@/lib/projects";
+import moment from "moment";
+import ProjectLinks from "@/components/projects/ProjectLinks";
 
 interface IParams {
   params: { slug: string };
@@ -19,12 +14,12 @@ interface IParams {
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const slugs = await getAllPostSlugs();
+  const slugs = await getAllProjectSlugs();
   return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: IParams): Promise<Metadata> {
-  const postData = await getPostData(params.slug);
+  const postData = await getProjectData(params.slug);
   if (!postData) {
     return {
       title: "Not Found",
@@ -38,25 +33,25 @@ export async function generateMetadata({ params }: IParams): Promise<Metadata> {
     description: frontmatter.description,
     title: frontmatter.title,
     alternates: {
-      canonical: `/blog/${params.slug}`,
+      canonical: `/projects/${params.slug}`,
     },
     openGraph: {
       title: frontmatter.title,
       description: frontmatter.description,
-      url: `${baseUrl}/blog/${params.slug}`,
+      url: `${baseUrl}/projects/${params.slug}`,
       type: "website",
     },
   };
 }
 
 const Blog = async ({ params }: IParams) => {
-  const postData = await getPostData(params.slug);
+  const postData = await getProjectData(params.slug);
 
   if (!postData) {
-    return redirect("/blog");
+    return redirect("/projects");
   }
 
-  const { frontmatter, readingTime, code } = postData;
+  const { frontmatter, code } = postData;
 
   const jsonLd = {
     "@type": "BlogPosting",
@@ -74,8 +69,6 @@ const Blog = async ({ params }: IParams) => {
     headline: frontmatter.title,
     datePublished: new Date(frontmatter.date),
     url: `/blogs/${params.slug}`,
-    keywords: frontmatter.meta.keywords,
-    image: frontmatter.image,
   };
 
   return (
@@ -87,21 +80,16 @@ const Blog = async ({ params }: IParams) => {
             <h2 className="leading-tight text-3xl md:text-4xl">
               {frontmatter.title}
             </h2>
-            <p className="text-secondary md:text-lg">
-              {moment(new Date(frontmatter.date)).format("MMMM Do[,] YYYY")}{" "}
-              &ndash; {readingTime.text}
-            </p>
 
-            <Keywords keywords={frontmatter.meta.keywords} />
-
-            <div className="aspect-w-3 aspect-h-4 sm:aspect-w-3 sm:aspect-h-3 md:aspect-w-16 md:aspect-h-9 rounded-lg mt-10 overflow-hidden">
-              <Image
-                src={frontmatter.image}
-                fill={true}
-                placeholder="blur"
-                blurDataURL={frontmatter.base64}
-                alt={frontmatter.imageDescription}
-                className="w-full rounded-lg object-cover object-center transition"
+            <p className="text-lg my-2">{frontmatter.description}</p>
+            <div className="flex gap-x-2 text-secondary">
+              <p className="text-secondary md:text-lg">
+                {moment(new Date(frontmatter.date)).format("MMMM Do[,] YYYY")}
+              </p>
+              <p>•</p>
+              <ProjectLinks
+                className="child:text-secondary"
+                links={frontmatter.links}
               />
             </div>
           </div>
@@ -114,7 +102,7 @@ const Blog = async ({ params }: IParams) => {
           <h4>Written by Dhruman Gupta</h4>
           <BlogLink
             className="text-sm"
-            href={`https://github.com/DhrumanGupta/berlm.me/tree/master/content/blog/${params.slug}.mdx`}
+            href={`https://github.com/DhrumanGupta/berlm.me/tree/master/content/projects/${params.slug}.mdx`}
           >
             Edit on GitHub
           </BlogLink>

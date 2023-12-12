@@ -1,5 +1,6 @@
 import { baseUrl } from "@/lib/constants";
 import { getAllPostData } from "@/lib/blog";
+import { getAllProjectData } from "@/lib/projects";
 
 export default async function sitemap() {
   // Get all blogs
@@ -7,7 +8,13 @@ export default async function sitemap() {
   const blogsUrls =
     blogs?.map((post) => ({
       url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: new Date(),
+      lastModified: post.date,
+    })) ?? [];
+  const projects = await getAllProjectData();
+  const projectUrls =
+    projects?.map((post) => ({
+      url: `${baseUrl}/projects/${post.slug}`,
+      lastModified: post.date,
     })) ?? [];
 
   return [
@@ -24,5 +31,6 @@ export default async function sitemap() {
       lastModified: new Date(),
     },
     ...blogsUrls,
+    ...projectUrls,
   ];
 }

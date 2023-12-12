@@ -149,8 +149,8 @@ module.exports = {
                 // tailwind doesn't stick to this property order, so we can't make 'h3' overrule 'h2, h3, h4'
                 "h1, h2": {
                   fontSize: fontSize("2xl"),
-                  marginTop: theme("spacing.20"),
-                  marginBottom: theme("spacing.10"),
+                  marginTop: theme("spacing.8"),
+                  marginBottom: theme("spacing.4"),
                   [`@media (min-width: ${theme("screens.lg")})`]: {
                     fontSize: fontSize("3xl"),
                   },
