@@ -71,7 +71,7 @@ async function getPostData(slug: string): Promise<PostData | null> {
   }
 
   // since we can infer the image from the slug, we can add it to the frontmatter
-  frontmatter.image = `/blog/${slug}/header.png`;
+  frontmatter.image = `/blog/${slug}/header.webp`;
 
   const base64 = await getImagePlaiceholder(frontmatter.image);
 
@@ -127,7 +127,7 @@ async function getAllPostData(): Promise<MetaData[]> {
       }
 
       // since we can infer the image from the slug, we can add it to the frontmatter
-      meta.image = `/blog/${slug}/header.png`;
+      meta.image = `/blog/${slug}/header.webp`;
 
       const base64 = await getImagePlaiceholder(meta.image);
 
@@ -148,8 +148,8 @@ interface KeywordMapping {
 }
 
 const KEYWORD_MAPPING: KeywordMapping = {
-  personal: "bg-red-500",
-  learning: "bg-blue-500",
+  life: "bg-red-500",
+  university: "bg-green-500",
 };
 
 const getClassnameFromKeyword = (keyword: string): string => {

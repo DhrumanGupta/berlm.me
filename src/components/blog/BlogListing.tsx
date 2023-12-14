@@ -13,7 +13,7 @@ export function BlogListing({ data }: BlogListing) {
     <div className={`mb-12 set-color-${data.color}`}>
       <Link
         href={`/blog/${data.slug}`}
-        className="group block md:grid md:grid-cols-4 hover:scale-[1.02] duration-200 ease-in-out transition-all peer focus:outline-none relative w-full md:mb-16"
+        className="group block md:grid md:grid-cols-3 hover:scale-[1.02] duration-200 ease-in-out transition-all peer focus:outline-none relative w-full md:mb-16"
       >
         <div className="relative w-full aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
           <Image
@@ -25,7 +25,7 @@ export function BlogListing({ data }: BlogListing) {
             className="focus-ring w-full rounded-lg object-cover object-center transition"
           />
         </div>
-        <div className="md:ml-5 col-span-3">
+        <div className="md:ml-5 col-span-2">
           <h3
             className={
               "text-xl font-medium md:text-2xl text-black dark:text-white mt-5 md:mt-0"

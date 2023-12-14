@@ -4,37 +4,37 @@ module.exports = {
   darkMode: "class",
   content: ["./src/**/*.{js,ts,jsx,tsx,md,mdx}"],
   theme: {
-    colors: {
-      transparent: "transparent",
-      white: "var(--color-white)",
-      black: "var(--color-black)",
-      current: "var(--color-current)",
-
-      gray: {
-        100: "var(--color-gray-100)",
-        200: "var(--color-gray-200)",
-        300: "var(--color-gray-300)",
-        400: "var(--color-gray-400)",
-        500: "var(--color-gray-500)",
-        600: "var(--color-gray-600)",
-        700: "var(--color-gray-700)",
-        800: "var(--color-gray-800)",
-        900: "var(--color-gray-900)",
-      },
-
-      yellow: {
-        500: "var(--color-yellow-500)",
-      },
-      blue: {
-        100: "var(--color-blue-100)",
-        500: "var(--color-blue-500)",
-        800: "var(--color-blue-800)",
-      },
-      red: {
-        500: "var(--color-red-500)",
-      },
-    },
     extend: {
+      colors: {
+        transparent: "transparent",
+        white: "var(--color-white)",
+        black: "var(--color-black)",
+        current: "var(--color-current)",
+
+        gray: {
+          100: "var(--color-gray-100)",
+          200: "var(--color-gray-200)",
+          300: "var(--color-gray-300)",
+          400: "var(--color-gray-400)",
+          500: "var(--color-gray-500)",
+          600: "var(--color-gray-600)",
+          700: "var(--color-gray-700)",
+          800: "var(--color-gray-800)",
+          900: "var(--color-gray-900)",
+        },
+
+        yellow: {
+          500: "var(--color-yellow-500)",
+        },
+        blue: {
+          100: "var(--color-blue-100)",
+          500: "var(--color-blue-500)",
+          800: "var(--color-blue-800)",
+        },
+        red: {
+          500: "var(--color-red-500)",
+        },
+      },
       gridTemplateRows: {
         "max-content": "max-content",
       },

@@ -18,17 +18,19 @@ const nextConfig = {
     ];
   },
   async headers() {
-    return [
-      {
-        source: "/_next/image(.*)",
-        headers: [
+    return process.env.NODE_ENV === "production"
+      ? [
           {
-            key: "Cache-Control",
-            value: "public, max-age=180, stale-while-revalidate=180",
+            source: "/_next/image(.*)",
+            headers: [
+              {
+                key: "Cache-Control",
+                value: "public, max-age=180, stale-while-revalidate=180",
+              },
+            ],
           },
-        ],
-      },
-    ];
+        ]
+      : [];
   },
 };
 
