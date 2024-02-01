@@ -11,12 +11,12 @@ dependencies:
   '@plaiceholder/next':
     specifier: ^3.0.0
     version: 3.0.0(next@14.0.2)(plaiceholder@3.0.0)(sharp@0.32.6)
-  '@types/hast':
-    specifier: ^3.0.3
-    version: 3.0.3
   '@vercel/analytics':
     specifier: ^1.1.1
     version: 1.1.1
+  '@vercel/speed-insights':
+    specifier: ^1.0.9
+    version: 1.0.9(next@14.0.2)(react@18.2.0)
   clsx:
     specifier: ^1.1.1
     version: 1.2.1
@@ -85,6 +85,9 @@ devDependencies:
   '@tailwindcss/typography':
     specifier: ^0.5.2
     version: 0.5.10(tailwindcss@3.3.5)
+  '@types/hast':
+    specifier: ^3.0.4
+    version: 3.0.4
   '@types/node':
     specifier: ^20.8.4
     version: 20.9.0
@@ -620,11 +623,11 @@ packages:
       '@types/unist': 2.0.10
     dev: false
 
-  /@types/hast@3.0.3:
-    resolution: {integrity: sha512-2fYGlaDy/qyLlhidX42wAH0KBi2TCjKMH8CHmBXgRlJ3Y+OXTiqsPQ6IWarZKwF1JoUcAJdPogv1d4b0COTpmQ==}
+  /@types/hast@3.0.4:
+    resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
     dependencies:
       '@types/unist': 3.0.2
-    dev: false
+    dev: true
 
   /@types/js-yaml@4.0.9:
     resolution: {integrity: sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg==}
@@ -673,7 +676,6 @@ packages:
 
   /@types/unist@3.0.2:
     resolution: {integrity: sha512-dqId9J8K/vGi5Zr7oo212BGii5m3q5Hxlkwy3WpYuKPklmBEvsbMYYyLxAQpSffdLl/gdW0XUpKWFvYmyoWCoQ==}
-    dev: false
 
   /@typescript-eslint/parser@6.11.0(eslint@8.10.0)(typescript@5.2.2):
     resolution: {integrity: sha512-+whEdjk+d5do5nxfxx73oanLL9ghKO3EwM9kBCkUtWMRwWuPaFv9ScuqlYfQ6pAD6ZiJhky7TZ2ZYhrMsfMxVQ==}
@@ -742,6 +744,34 @@ packages:
     resolution: {integrity: sha512-+NqgNmSabg3IFfxYhrWCfB/H+RCUOCR5ExRudNG2+pcRehq628DJB5e1u1xqwpLtn4pAYii4D98w7kofORAGQA==}
     dependencies:
       server-only: 0.0.1
+    dev: false
+
+  /@vercel/speed-insights@1.0.9(next@14.0.2)(react@18.2.0):
+    resolution: {integrity: sha512-f+XFP0O+aZ4Olj9h+BitkB1b4NJQaxtyCb69wWuDxytJHY6Pa4QtZPdBUftHOcajUCHRVeq062fk3MKXKtjNVQ==}
+    requiresBuild: true
+    peerDependencies:
+      '@sveltejs/kit': ^1 || ^2
+      next: '>= 13'
+      react: ^18 || ^19
+      svelte: ^4
+      vue: ^3
+      vue-router: ^4
+    peerDependenciesMeta:
+      '@sveltejs/kit':
+        optional: true
+      next:
+        optional: true
+      react:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+      vue-router:
+        optional: true
+    dependencies:
+      next: 14.0.2(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
     dev: false
 
   /acorn-jsx@5.3.2(acorn@8.11.2):
