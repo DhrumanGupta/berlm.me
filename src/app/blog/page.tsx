@@ -32,7 +32,7 @@ const BlogList = async () => {
   // const data: MetaData[] = [];
 
   return (
-    <main className="relative min-h-[calc(100vh-16rem)]">
+    <main className="relative min-h-hero">
       <PageHeader>Blog</PageHeader>
       <div className="prose dark:prose-dark pb-4 border-b border-gray-700 dark:border-gray-300">
         <p>

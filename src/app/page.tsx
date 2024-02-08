@@ -4,6 +4,8 @@ import { linkedInUrl } from "@/lib/constants";
 import SchemaData from "@/components/SchemaData";
 import HeroImage from "@/components/home/HeroImage";
 import { getPlaceholderLocal } from "@/lib/getPlaceholder";
+import Quotes from "@/data/qotw.json";
+import Link from "@/components/Link";
 
 const Images: HeroImage[] = [
   { src: "/hero0.webp", alt: "A picture of me next to a sunset", base64: "" },
@@ -14,6 +16,8 @@ const Home: NextPage = async () => {
   for (const image of Images) {
     image.base64 = await getPlaceholderLocal(image.src);
   }
+
+  const latestQuote = Quotes[0];
 
   const jsonLd = {
     "@type": "Person",
@@ -31,6 +35,17 @@ const Home: NextPage = async () => {
   return (
     <>
       <SchemaData data={jsonLd} />
+      <p className="text-center italic mb-4">
+        &ldquo;{latestQuote.quote}&rdquo; ~ {latestQuote.author}
+        <br />
+        <Link
+          href="/qotw"
+          className="text-current hover:underline text-sm text-center"
+        >
+          (What&apos;s this?)
+        </Link>
+      </p>
+
       <div className="w-full aspect-w-3 aspect-h-2 relative rounded-md overflow-hidden mb-4">
         <HeroImage images={Images} />
       </div>
