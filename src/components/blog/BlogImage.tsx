@@ -7,19 +7,21 @@ const BlogImage = ({ children, slug, src, alt, ...props }: any) => {
   const realSrc = `/blog/${slug}/${src.substring(2, src.length)}`;
   return (
     <div className=" w-auto h-auto relative rounded-lg mt-3 -mb-2 overflow-hidden">
-      {/* <Image
-        {...props}
-        alt={alt}
-        src={realSrc}
-        className="w-full rounded-lg object-contain object-center transition"
-        fill={true}
-      /> */}
+      {/* <div className="relative">
+        <Image
+          {...props}
+          alt={alt}
+          src={realSrc}
+          className="w-[90%] mx-auto border-2 border-black dark:border-white"
+          fill={true}
+        />
+      </div> */}
       <img
         className="w-[90%] mx-auto border-2 border-black dark:border-white"
         src={realSrc}
         alt={alt}
       />
-      <p className="italic text-center mt-3">{alt}</p>
+      <p className="italic text-center mt-2">{alt}</p>
     </div>
   );
 };
