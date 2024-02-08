@@ -1,5 +1,3 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
-
 module.exports = {
   darkMode: "class",
   content: ["./src/**/*.{js,ts,jsx,tsx,md,mdx}"],
@@ -249,6 +247,9 @@ module.exports = {
             ],
           },
         };
+      },
+      minHeight: {
+        hero: "calc(100vh - 16rem)",
       },
     },
   },
