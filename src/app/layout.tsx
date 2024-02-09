@@ -1,10 +1,10 @@
 import "../styles/globals.css";
 import "../styles/prose.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/react";
+// import { Analytics } from "@vercel/analytics/react";
 import Navbar from "../components/Navbar";
 import { Providers } from "./providers";
-
+import Script from "next/script";
 import { Poppins } from "next/font/google";
 import Footer from "@/components/Footer";
 import { Metadata, Viewport } from "next";
@@ -72,6 +72,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <Script
+          src="https://app.tinyanalytics.io/pixel/QwXiuy3TXp3ug2wH"
+          defer={true}
+        />
+
         <link
           rel="shortcut icon"
           href={"/logo/dark/72x72.png"}
@@ -96,7 +101,7 @@ export default function RootLayout({
           <Footer />
         </Providers>
 
-        <Analytics />
+        {/* <Analytics /> */}
         <SpeedInsights />
       </body>
     </html>
