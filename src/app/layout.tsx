@@ -73,8 +73,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <Script
-          src="https://app.tinyanalytics.io/pixel/QwXiuy3TXp3ug2wH"
-          defer={true}
+          src="https://eu.umami.is/script.js"
+          data-website-id="3ed452bf-ee1c-4c6f-8c02-eefc7dcdea45"
+          async={true}
         />
 
         <link
