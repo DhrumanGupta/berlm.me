@@ -4,7 +4,7 @@ import { linkedInUrl } from "@/lib/constants";
 import SchemaData from "@/components/SchemaData";
 import HeroImage from "@/components/home/HeroImage";
 import { getPlaceholderLocal } from "@/lib/getPlaceholder";
-import Quotes from "@/data/qotw.json";
+// import Quotes from "@/data/qotw.json";
 import Link from "@/components/Link";
 
 const Images: HeroImage[] = [
@@ -17,7 +17,7 @@ const Home: NextPage = async () => {
     image.base64 = await getPlaceholderLocal(image.src);
   }
 
-  const latestQuote = Quotes[0];
+  // const latestQuote = Quotes[0];
 
   const jsonLd = {
     "@type": "Person",
@@ -35,7 +35,7 @@ const Home: NextPage = async () => {
   return (
     <>
       <SchemaData data={jsonLd} />
-      <p className="text-center italic mb-4">
+      {/* <p className="text-center italic mb-4">
         &ldquo;{latestQuote.quote}&rdquo; ~ {latestQuote.author}
         <br />
         <Link
@@ -44,7 +44,7 @@ const Home: NextPage = async () => {
         >
           (What&apos;s this?)
         </Link>
-      </p>
+      </p> */}
 
       <div className="w-full aspect-w-3 aspect-h-2 relative rounded-md overflow-hidden mb-4">
         <HeroImage images={Images} />

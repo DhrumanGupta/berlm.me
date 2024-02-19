@@ -6,6 +6,7 @@ const ROUTES: any = [
   // { name: "About", path: "/about" },
   { name: "Blog", path: "/blog" },
   { name: "Projects", path: "/projects" },
+  { name: "QOTW", path: "/qotw" },
 ];
 
 function Navbar() {
@@ -15,7 +16,7 @@ function Navbar() {
         <nav className="text-primary mx-auto max-w-[75ch] flex items-center justify-between">
           <ul className="flex">
             {ROUTES.map((route: any) => (
-              <li className="first:pl-0 px-3 py-2 md:px-5" key={route.name}>
+              <li className="first:pl-0 px-2 py-2 md:px-5" key={route.name}>
                 <NavLink
                   to={route.path}
                   exact={route.exact}
