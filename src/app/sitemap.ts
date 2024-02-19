@@ -30,6 +30,8 @@ export default async function sitemap() {
       url: `${baseUrl}/resume`,
       lastModified: new Date(),
     },
+    { url: `${baseUrl}/projects`, lastModified: new Date() },
+    { url: `${baseUrl}/qotw`, lastModified: new Date() },
     ...blogsUrls,
     ...projectUrls,
   ];
