@@ -1,5 +1,4 @@
 import Quotes from "@/data/qotw.json";
-import { Fragment } from "react";
 
 const latestQuote = Quotes[0];
 
@@ -11,17 +10,19 @@ function qotw() {
       </h1> */}
       <div className="prose dark:prose-dark">
         <p className="font-semibold text-black dark:text-white md:text-center text-xl">
-          &ldquo;{latestQuote.quote}&rdquo; ~ {latestQuote.author}
+          &ldquo;{latestQuote.quote}&rdquo;
+          {latestQuote.author && `~ ${latestQuote.author}`}
         </p>
 
         <h2>What is this?</h2>
         <p>
-          As of February 2024, I have decided to put up a quote to refer to
-          every day of the week. The goal of this is to improve my reading
-          habits and hold myself accountable publicly.
+          As of February 2024, I have decided to put up a phrase, question,
+          quote, or something to think about for rest of the week. The goal of
+          this is to improve my reading habits and hold myself accountable
+          publicly.
         </p>
         <p>
-          I also wanted to keep a track of some of the cool quotes I hear in my
+          I also wanted to keep a track of some of the cool things I hear in my
           life &mdash; in books, classes, or conversations! My goal is to keep
           one phrase of significance in my mind every week, and be mindful of my
           actions in accordance to it.
@@ -32,7 +33,8 @@ function qotw() {
         {Quotes.map((quote, index) => (
           <p key={index} className="mt-0 mb-3">
             <span className="font-semibold">{quote.date}: </span>
-            &nbsp;&ldquo;{quote.quote}&rdquo; ~ {quote.author}
+            &nbsp;&ldquo;{quote.quote}&rdquo;{" "}
+            {quote.author && `~ ${quote.author}`}
           </p>
         ))}
 
