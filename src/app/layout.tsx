@@ -1,15 +1,15 @@
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import "../styles/globals.css";
 import "../styles/prose.css";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 // import { Analytics } from "@vercel/analytics/react";
-import Navbar from "../components/Navbar";
-import { Providers } from "./providers";
-import Script from "next/script";
-import { Poppins } from "next/font/google";
 import Footer from "@/components/Footer";
-import { Metadata, Viewport } from "next";
 import { cn } from "@/lib/cn";
 import { baseUrl } from "@/lib/constants";
+import { Metadata, Viewport } from "next";
+import { Poppins } from "next/font/google";
+import Navbar from "../components/Navbar";
+import { Providers } from "./providers";
 
 const font = Poppins({
   subsets: ["latin"],
@@ -72,12 +72,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <Script
-          src="https://eu.umami.is/script.js"
-          data-website-id="3ed452bf-ee1c-4c6f-8c02-eefc7dcdea45"
-          async={true}
-        />
-
         <link
           rel="shortcut icon"
           href={"/logo/dark/72x72.png"}
@@ -102,7 +96,7 @@ export default function RootLayout({
           <Footer />
         </Providers>
 
-        {/* <Analytics /> */}
+        <Analytics />
         <SpeedInsights />
       </body>
     </html>
