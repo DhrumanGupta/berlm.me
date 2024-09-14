@@ -1,5 +1,5 @@
-import { baseUrl } from "@/lib/constants";
 import { getAllPostData } from "@/lib/blog";
+import { baseUrl } from "@/lib/constants";
 import { getAllProjectData } from "@/lib/projects";
 
 export default async function sitemap() {
@@ -26,10 +26,10 @@ export default async function sitemap() {
       url: `${baseUrl}/blog`,
       lastModified: new Date(),
     },
-    {
-      url: `${baseUrl}/resume`,
-      lastModified: new Date(),
-    },
+    // {
+    //   url: `${baseUrl}/resume`,
+    //   lastModified: new Date(),
+    // },
     { url: `${baseUrl}/projects`, lastModified: new Date() },
     { url: `${baseUrl}/qotw`, lastModified: new Date() },
     ...blogsUrls,

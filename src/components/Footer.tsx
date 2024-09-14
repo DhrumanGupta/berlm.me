@@ -1,10 +1,15 @@
-import { FaLinkedin, FaGithubSquare, FaItchIo } from "react-icons/fa";
-import { SiDevpost } from "react-icons/si";
-import { MdOutlineContactPage } from "react-icons/md";
 import Link from "@/components/Link";
 import { cn } from "@/lib/cn";
+import { FaGithubSquare, FaItchIo, FaLinkedin } from "react-icons/fa";
+import { SiDevpost } from "react-icons/si";
 
-const ROUTES = [
+const ROUTES: {
+  name: string;
+  route: string;
+  hover: string;
+  Icon: React.ElementType;
+  external?: boolean;
+}[] = [
   {
     name: "Linkedin",
     route: "https://www.linkedin.com/in/dhrumangupta",
@@ -30,13 +35,13 @@ const ROUTES = [
     Icon: SiDevpost,
   },
 
-  {
-    name: "Resume",
-    route: "/resume",
-    hover: "hover:!text-gray-900 dark:hover:!text-gray-300",
-    Icon: MdOutlineContactPage,
-    external: true,
-  },
+  // {`
+  //   name: "Resume",
+  //   route: "/resume",
+  //   hover: "hover:!text-gray-900 dark:hover:!text-gray-300",
+  //   Icon: MdOutlineContactPage,
+  //   external: true,
+  // }`,
 ];
 
 function Footer() {

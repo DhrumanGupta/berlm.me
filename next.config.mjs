@@ -1,5 +1,5 @@
-import withPlaiceholder from "@plaiceholder/next";
 import withBundleAnalyzer from "@next/bundle-analyzer";
+import withPlaiceholder from "@plaiceholder/next";
 import withPlugins from "next-compose-plugins";
 
 /**
@@ -7,16 +7,16 @@ import withPlugins from "next-compose-plugins";
  */
 const nextConfig = {
   reactStrictMode: true,
-  async redirects() {
-    return [
-      {
-        source: "/resume",
-        destination:
-          "https://dhrumangupta.github.io/Resume - Dhruman Gupta.pdf",
-        permanent: false,
-      },
-    ];
-  },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: "/resume",
+  //       destination:
+  //         "https://dhrumangupta.github.io/Resume - Dhruman Gupta.pdf",
+  //       permanent: false,
+  //     },
+  //   ];
+  // },
   async headers() {
     return process.env.NODE_ENV === "production"
       ? [
