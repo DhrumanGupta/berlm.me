@@ -1,9 +1,9 @@
-import { Metadata } from "next";
-import { getAllProjectData } from "@/lib/projects";
-import type { MetaData } from "@/lib/projects";
-import Link from "next/link";
-import PageHeader from "@/components/typography/PageHeader";
 import { ProjectListing } from "@/components/projects/ProjectListing";
+import PageHeader from "@/components/typography/PageHeader";
+import type { MetaData } from "@/lib/projects";
+import { getAllProjectData } from "@/lib/projects";
+import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 
 const BlogList = async () => {
   const data: MetaData[] = await getAllProjectData();
+  data.sort((a, b) => b.date - a.date);
   // const data: MetaData[] = [];
 
   return (
