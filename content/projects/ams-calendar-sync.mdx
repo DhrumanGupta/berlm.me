@@ -1,0 +1,60 @@
+---
+title: AMS Calendar Sync
+description: Automatically sync your AMS schedule to your calendar with calendar invites
+date: 2024-09-01
+color: green
+draft: false
+links:
+  website: https://better-ams-calendar.berlm.me
+---
+
+**TLDR;** I've expanded Better AMS to automatically sync your class schedule from AMS to your calendar, complete with location-based notifications before each class.
+
+## Why?
+
+While manually syncing AMS courses to a calendar is a simple 10-minute process, I found myself procrastinating on it this semester. This project solves that problem and serves as an experiment in building a small-scale application using groupware concepts.
+
+## Technical Stack
+
+- Backend: Node.js with Express.js
+- Database: MongoDB with Mongoose ODM
+- Calendar Integration: Google Calendar API
+- Task Scheduling: GitHub Actions
+- Deployment: Fly.io
+- Email Service: Nodemailer with Gmail SMTP
+
+## How it works
+
+1. Daily data extraction:
+
+   - Network requests pull course data from AMS using axios.
+   - Data is parsed and stored in MongoDB using Mongoose models.
+
+2. Hourly sync:
+
+   - A GitHub Action runs every hour to sync calendars with the database.
+   - The action uses pnpm for package management and runs in a Node.js environment.
+
+3. User integration:
+
+   - Users register through an Express.js endpoint.
+   - Email verification is handled using Nodemailer.
+   - When verified, users are added as participants to relevant calendar events.
+
+4. Calendar management:
+
+   - The Google Calendar API is used to create, update, and delete events.
+   - Location information is included for each event.
+
+5. Database schema:
+
+   - Mongoose models define schemas for Courses, Events, and ScheduledEvents.
+   - Indexes are used on frequently queried fields for performance.
+
+6. Deployment:
+   - The application is containerized using Docker.
+   - Fly.io is used for hosting, with configuration specified in fly.toml.
+
+## How can I use it?
+
+Simply add your email to the list at [better-ams-calendar.berlm.me](https://better-ams-calendar.berlm.me) to start syncing your AMS schedule automatically!

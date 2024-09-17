@@ -1,0 +1,67 @@
+---
+title: Mockstock - Simulated Trading Platform
+description: A simulated trading platform for Ashoka's Economics Fest - Equilibrium 2.0
+date: 2024-02-18
+color: blue
+draft: false
+---
+
+TLDR; Developed a sophisticated, real-time trading simulation platform for the "Mockstock" event at Ashoka University's annual Economics Fest - Equilibrium 2.0.
+
+## What is Mockstock?
+
+Mockstock is a simulated trading and investment environment organized by the Ashoka Investment Club. Participants engage in buying and selling stocks based on news updates, mimicking real-world market dynamics.
+
+## Platform Features
+
+- Real-time stock price updates
+- News feed integration
+- Portfolio tracking and performance metrics
+- Leaderboard for competitive engagement
+
+## Technical Implementation
+
+The Mockstock platform uses:
+
+- Next.js 14 and React 18 for the frontend
+- Firebase Realtime Database for real-time stock updates
+- Firestore for user data and portfolio management
+- Tailwind CSS for responsive design
+- Framer Motion for UI animations
+- Firebase Authentication for user security and authentication
+
+### Backend Architecture
+
+The backend of the Mockstock platform is built using Node.js with Express.js, providing a robust and scalable server-side infrastructure. It leverages Firebase Admin SDK for secure server-side operations and database interactions. The server is responsible for managing critical operations such as:
+
+1. User Account Management: Handles user creation, authentication, and email notifications using Nodemailer for account credentials.
+
+2. Stock Data Management: Manages the setup and updating of stock symbols, prices, and related information in the Firebase Realtime Database.
+
+3. News Feed Control: Orchestrates the timing and distribution of news updates to simulate market-influencing events.
+
+4. Leaderboard Updates: Calculates and updates the leaderboard based on real-time portfolio values.
+
+5. Trading Simulation: Processes buy/sell orders, updates user portfolios, and manages margin accounts.
+
+The backend implements various endpoints to control the game flow, including setting rounds, updating news, managing trading status, and refreshing the leaderboard. It also includes middleware for request authentication, ensuring that only authorized admin actions can be performed.
+
+### Data Flow and Real-time Updates
+
+The server utilizes Firebase's real-time capabilities to push updates to clients instantly. It periodically updates stock prices with small random fluctuations to simulate market volatility.
+
+## Why it matters
+
+This platform provides students with hands-on experience in stock trading, helping them understand market forces and investment strategies in a risk-free environment. The technical implementation mirrors real-world trading platforms, offering:
+
+1. Real-time Market Simulation: Students experience the fast-paced nature of stock markets through live price updates and news feeds.
+
+2. Risk-Free Learning: Participants can experiment with various trading strategies without financial risk.
+
+3. Data-Driven Decision Making: The platform's portfolio tracking and performance metrics encourage analytical thinking and strategic planning.
+
+4. Competitive Element: The leaderboard feature adds a competitive aspect, motivating participants to optimize their trading strategies.
+
+5. Scalable Architecture: Built on cloud services and modern web frameworks, the platform can handle multiple concurrent users, simulating the load of a real trading environment.
+
+Most importantly, it makes sure that the students have a good time and learn a lot of things.

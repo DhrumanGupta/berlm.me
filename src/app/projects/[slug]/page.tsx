@@ -1,11 +1,11 @@
 import BlogLink from "@/components/blog/BlogLink";
-import { redirect } from "next/navigation";
+import ProjectLinks from "@/components/projects/ProjectLinks";
 import SchemaData from "@/components/SchemaData";
 import { baseUrl } from "@/lib/constants";
-import { Metadata } from "next";
 import { getAllProjectSlugs, getProjectData } from "@/lib/projects";
 import moment from "moment";
-import ProjectLinks from "@/components/projects/ProjectLinks";
+import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 interface IParams {
   params: { slug: string };
@@ -86,11 +86,16 @@ const Blog = async ({ params }: IParams) => {
               <p className="text-secondary md:text-lg">
                 {moment(new Date(frontmatter.date)).format("MMMM Do[,] YYYY")}
               </p>
-              <p>•</p>
-              <ProjectLinks
-                className="child:text-secondary"
-                links={frontmatter.links}
-              />
+
+              {frontmatter.links && (
+                <>
+                  <p>•</p>
+                  <ProjectLinks
+                    className="child:text-secondary"
+                    links={frontmatter.links}
+                  />
+                </>
+              )}
             </div>
           </div>
         </div>
