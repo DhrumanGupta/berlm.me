@@ -22,7 +22,13 @@ const BlogList = async () => {
     <main className="relative min-h-hero">
       <PageHeader>Projects</PageHeader>
       <div className="prose dark:prose-dark pb-4 border-b border-gray-700 dark:border-gray-300">
-        <p>{metadata.description}</p>
+        <p>
+          A list of some of my projects that I find cool or useful. If you want
+          a list of all my open-source projects, please visit{" "}
+          <a target="_blank" href="https://github.com/DhrumanGupta">
+            my GitHub
+          </a>
+        </p>
       </div>
       <div className={"relative mx-auto my-6"}>
         {data.length <= 0 && (
