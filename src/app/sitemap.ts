@@ -8,13 +8,13 @@ export default async function sitemap() {
   const blogsUrls =
     blogs?.map((post) => ({
       url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: post.date,
+      lastModified: new Date(post.date),
     })) ?? [];
   const projects = await getAllProjectData();
   const projectUrls =
     projects?.map((post) => ({
       url: `${baseUrl}/projects/${post.slug}`,
-      lastModified: post.date,
+      lastModified: new Date(post.date),
     })) ?? [];
 
   return [
