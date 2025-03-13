@@ -22,19 +22,18 @@ const ROUTES: {
     hover: "hover:!text-gray-900 dark:hover:!text-gray-300",
     Icon: FaGithubSquare,
   },
-  {
-    name: "Itch",
-    route: "https://berlm.itch.io/",
-    hover: "hover:!text-red-500",
-    Icon: FaItchIo,
-  },
-  {
-    name: "Devpost",
-    route: "https://devpost.com/Berlm",
-    hover: "hover:!text-yellow-500",
-    Icon: SiDevpost,
-  },
-
+  // {
+  //   name: "Itch",
+  //   route: "https://berlm.itch.io/",
+  //   hover: "hover:!text-red-500",
+  //   Icon: FaItchIo,
+  // },
+  // {
+  //   name: "Devpost",
+  //   route: "https://devpost.com/Berlm",
+  //   hover: "hover:!text-yellow-500",
+  //   Icon: SiDevpost,
+  // },
   // {`
   //   name: "Resume",
   //   route: "/resume",
