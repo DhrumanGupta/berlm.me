@@ -1,8 +1,8 @@
 // import { getClassnameFromKeyword } from "@/lib/blog";
-import { FaLink } from "react-icons/fa6";
 import { cn } from "@/lib/cn";
-import { ProjectLinks } from "@/lib/projects";
+import { ProjectLinks as TProjectLinks } from "@/lib/projects";
 import React from "react";
+import { FaLink } from "react-icons/fa6";
 import Link from "../Link";
 
 const IconContainer = ({
@@ -24,7 +24,7 @@ function ProjectLinks({
   className,
 }: {
   className?: string;
-  links?: ProjectLinks;
+  links?: TProjectLinks;
 }) {
   return (
     <div className={cn("flex gap-x-2", className)}>
