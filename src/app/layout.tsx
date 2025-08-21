@@ -72,6 +72,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+      <meta name="google-adsense-account" content="ca-pub-6670854316805103"></meta>
         <link
           rel="shortcut icon"
           href={"/logo/dark/72x72.png"}
