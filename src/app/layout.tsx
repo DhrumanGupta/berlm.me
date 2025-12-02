@@ -56,6 +56,9 @@ export const metadata: Metadata = {
     nocache: true,
   },
   authors: [{ name: "Dhruman Gupta", url: baseUrl }],
+  other: {
+    "google-adsense-account": "ca-pub-6670854316805103",
+  },
 };
 
 export const viewport: Viewport = {
