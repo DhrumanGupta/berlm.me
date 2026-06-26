@@ -3,10 +3,15 @@ module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx,md,mdx}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "ui-serif", "Georgia", "serif"],
+      },
       colors: {
         transparent: "transparent",
         white: "var(--color-white)",
         black: "var(--color-black)",
+        accent: "var(--color-accent)",
         current: "var(--color-current)",
 
         gray: {
@@ -66,13 +71,15 @@ module.exports = {
               {
                 p: {
                   marginTop: 0,
-                  marginBottom: theme("spacing.8"),
-                  fontSize: fontSize("lg"),
+                  marginBottom: theme("spacing.5"),
+                  fontSize: fontSize("base"),
+                  lineHeight: "1.75",
                 },
                 "> div": {
                   marginTop: 0,
-                  marginBottom: theme("spacing.8"),
-                  fontSize: fontSize("lg"),
+                  marginBottom: theme("spacing.5"),
+                  fontSize: fontSize("base"),
+                  lineHeight: "1.75",
                 },
                 a: {
                   textDecoration: "none",
@@ -83,20 +90,19 @@ module.exports = {
                 },
                 strong: {
                   fontWeight: theme("fontWeight.medium"),
-                  fontSize: fontSize("lg"),
                 },
                 hr: {
-                  marginTop: theme("spacing.8"),
-                  marginBottom: theme("spacing.16"),
+                  marginTop: theme("spacing.10"),
+                  marginBottom: theme("spacing.10"),
                 },
                 pre: {
                   color: "var(--base05)",
                   backgroundColor: "var(--base00)",
                   marginTop: 0,
-                  marginBottom: theme("spacing.8"),
+                  marginBottom: theme("spacing.6"),
                   marginLeft: `-${theme("spacing.10vw")}`,
                   marginRight: `-${theme("spacing.10vw")}`,
-                  padding: theme("spacing.8"),
+                  padding: theme("spacing.6"),
                   borderRadius: 0,
 
                   [`@media (min-width: ${theme("screens.lg")})`]: {
@@ -104,41 +110,23 @@ module.exports = {
                     ...breakout,
                   },
                 },
-                ".embed": {
-                  position: "relative",
-                  marginLeft: "-10vw",
-                  marginRight: "-10vw",
-                  [`@media (min-width: ${theme("screens.lg")})`]: {
-                    ...breakout,
-                  },
-                },
-                ".embed > div": {
-                  height: "0px",
-                },
-                ".embed > div > iframe": {
-                  height: "100% !important",
-                  width: "100% !important",
-                  top: "0",
-                  left: "0",
-                  position: "absolute",
-                  border: "none",
-                  borderRadius: "0 !important",
-                  [`@media (min-width: ${theme("screens.lg")})`]: {
-                    borderRadius: "0.5rem !important",
-                  },
-                },
                 ul: {
                   marginTop: 0,
-                  marginBottom: theme("spacing.8"),
+                  marginBottom: theme("spacing.5"),
                 },
                 ol: {
                   marginTop: 0,
-                  marginBottom: theme("spacing.8"),
+                  marginBottom: theme("spacing.5"),
+                },
+                li: {
+                  marginTop: theme("spacing.1"),
+                  marginBottom: theme("spacing.1"),
                 },
                 "h1, h2, h3, h4, h5, h6": {
                   marginTop: 0,
                   marginBottom: 0,
-                  fontWeight: theme("fontWeight.normal"),
+                  fontWeight: theme("fontWeight.medium"),
+                  lineHeight: "1.3",
 
                   [`@media (min-width: ${theme("screens.lg")})`]: {
                     fontWeight: theme("fontWeight.medium"),
@@ -146,25 +134,27 @@ module.exports = {
                 },
                 // tailwind doesn't stick to this property order, so we can't make 'h3' overrule 'h2, h3, h4'
                 "h1, h2": {
-                  fontSize: fontSize("2xl"),
-                  marginTop: theme("spacing.8"),
-                  marginBottom: theme("spacing.4"),
-                  [`@media (min-width: ${theme("screens.lg")})`]: {
-                    fontSize: fontSize("3xl"),
-                  },
-                },
-                h3: {
                   fontSize: fontSize("xl"),
-                  marginTop: theme("spacing.16"),
-                  marginBottom: theme("spacing.10"),
+                  marginTop: theme("spacing.10"),
+                  marginBottom: theme("spacing.3"),
                   [`@media (min-width: ${theme("screens.lg")})`]: {
                     fontSize: fontSize("2xl"),
                   },
                 },
-                "h4, h5, h6": {
+                h3: {
                   fontSize: fontSize("lg"),
+                  marginTop: theme("spacing.8"),
+                  marginBottom: theme("spacing.3"),
                   [`@media (min-width: ${theme("screens.lg")})`]: {
                     fontSize: fontSize("xl"),
+                  },
+                },
+                "h4, h5, h6": {
+                  fontSize: fontSize("base"),
+                  marginTop: theme("spacing.6"),
+                  marginBottom: theme("spacing.2"),
+                  [`@media (min-width: ${theme("screens.lg")})`]: {
+                    fontSize: fontSize("lg"),
                   },
                 },
                 img: {
@@ -175,11 +165,14 @@ module.exports = {
                 },
                 blockquote: {
                   fontWeight: theme("fontWeight.normal"),
-                  border: "none",
-                  borderRadius: theme("borderRadius.lg"),
-                  padding: theme("spacing.8"),
+                  fontStyle: "italic",
+                  borderLeft: `3px solid ${theme("colors.gray.300")}`,
+                  borderRadius: 0,
+                  paddingLeft: theme("spacing.5"),
+                  paddingTop: theme("spacing.1"),
+                  paddingBottom: theme("spacing.1"),
                   marginTop: 0,
-                  marginBottom: theme("spacing.10"),
+                  marginBottom: theme("spacing.6"),
                 },
                 "blockquote > :last-child": {
                   marginBottom: 0,
@@ -206,7 +199,11 @@ module.exports = {
                 },
                 blockquote: {
                   color: theme("colors.gray.500"),
-                  backgroundColor: theme("colors.gray.100"),
+                  borderLeftColor: theme("colors.gray.300"),
+                },
+                "blockquote strong": {
+                  color: "inherit",
+                  fontWeight: theme("fontWeight.medium"),
                 },
                 "thead, tbody tr": {
                   borderBottomColor: theme("colors.gray.200"),
@@ -237,8 +234,12 @@ module.exports = {
                   color: theme("colors.white"),
                 },
                 blockquote: {
-                  color: theme("colors.gray.400"),
-                  backgroundColor: theme("colors.gray.800"),
+                  color: theme("colors.gray.300"),
+                  borderLeftColor: theme("colors.gray.600"),
+                },
+                "blockquote strong": {
+                  color: "inherit",
+                  fontWeight: theme("fontWeight.medium"),
                 },
                 "thead, tbody tr": {
                   borderBottomColor: theme("colors.gray.600"),
@@ -252,9 +253,6 @@ module.exports = {
         hero: "calc(100vh - 16rem)",
       },
     },
-  },
-  variants: {
-    typography: ["dark"],
   },
   plugins: [
     require("@tailwindcss/typography"),

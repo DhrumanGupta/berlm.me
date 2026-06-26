@@ -1,6 +1,5 @@
-import { getClassnameFromKeyword } from "@/lib/blog";
+import { getClassnameFromKeyword } from "@/lib/note-tags";
 import { cn } from "@/lib/cn";
-import React from "react";
 
 function Keywords({
   keywords,
@@ -15,7 +14,7 @@ function Keywords({
         <span
           key={keyword}
           className={cn(
-            "rounded py-1 px-3 text-sm text-black dark:text-white duration-500 ease-in-out",
+            "rounded py-1 px-3 text-sm duration-500 ease-in-out",
             getClassnameFromKeyword(keyword)
           )}
         >

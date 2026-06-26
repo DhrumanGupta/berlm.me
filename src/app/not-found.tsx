@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const NotFound = () => {
   return (
-    <main className={"h-[calc(100vh-16rem)] flex flex-col justify-center"}>
+    <div className="h-[calc(100vh-16rem)] flex flex-col justify-center">
       <h1 className="leading text-2xl md:text-3xl text-center">
         This is not the page you are looking for
       </h1>
@@ -19,7 +19,7 @@ const NotFound = () => {
       >
         Go home?
       </Link>
-    </main>
+    </div>
   );
 };
 

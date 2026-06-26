@@ -1,20 +1,12 @@
-import { getAllPostData } from "@/lib/blog";
+import { getAllNoteData } from "@/lib/notes";
 import { baseUrl } from "@/lib/constants";
-import { getAllProjectData } from "@/lib/projects";
 
 export default async function sitemap() {
-  // Get all blogs
-  const blogs = await getAllPostData();
-  const blogsUrls =
-    blogs?.map((post) => ({
-      url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: new Date(post.date),
-    })) ?? [];
-  const projects = await getAllProjectData();
-  const projectUrls =
-    projects?.map((post) => ({
-      url: `${baseUrl}/projects/${post.slug}`,
-      lastModified: new Date(post.date),
+  const notes = await getAllNoteData();
+  const noteUrls =
+    notes?.map((note) => ({
+      url: `${baseUrl}/notes/${note.slug}`,
+      lastModified: new Date(note.date),
     })) ?? [];
 
   return [
@@ -23,16 +15,18 @@ export default async function sitemap() {
       lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/blog`,
+      url: `${baseUrl}/notes`,
       lastModified: new Date(),
     },
-    // {
-    //   url: `${baseUrl}/resume`,
-    //   lastModified: new Date(),
-    // },
-    { url: `${baseUrl}/projects`, lastModified: new Date() },
+    {
+      url: `${baseUrl}/resources`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/publications`,
+      lastModified: new Date(),
+    },
     { url: `${baseUrl}/qotw`, lastModified: new Date() },
-    ...blogsUrls,
-    ...projectUrls,
+    ...noteUrls,
   ];
 }

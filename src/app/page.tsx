@@ -1,28 +1,35 @@
+import Link from "@/components/Link";
 import SchemaData from "@/components/SchemaData";
-import HeroImage from "@/components/home/HeroImage";
-import PageHeader from "@/components/typography/PageHeader";
-import { linkedInUrl } from "@/lib/constants";
-import { getPlaceholderLocal } from "@/lib/getPlaceholder";
+import PublicationEntry from "@/components/publications/PublicationEntry";
+import { emailId, githubUrl, linkedInUrl, scholarUrl } from "@/lib/constants";
+import { getAllNoteData } from "@/lib/notes";
+import {
+  getLatestPublications,
+  getPrimaryPublicationLink,
+} from "@/lib/publications";
+import { formatNoteDateShort } from "@/lib/format-date";
 import type { NextPage } from "next";
-// import Quotes from "@/data/qotw.json";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { HiArrowUpRight, HiOutlineEnvelope } from "react-icons/hi2";
+import { SiGooglescholar } from "react-icons/si";
 
-const Images: HeroImage[] = [
-  { src: "/hero0.webp", alt: "A picture of me next to a sunset", base64: "" },
-  { src: "/hero1.webp", alt: "Me on the beach", base64: "" },
+const socials = [
+  { name: "Google Scholar", href: scholarUrl, Icon: SiGooglescholar },
+  { name: "GitHub", href: githubUrl, Icon: FaGithub },
+  { name: "LinkedIn", href: linkedInUrl, Icon: FaLinkedin },
+  { name: "Email", href: emailId, Icon: HiOutlineEnvelope },
 ];
 
 const Home: NextPage = async () => {
-  for (const image of Images) {
-    image.base64 = await getPlaceholderLocal(image.src);
-  }
-
-  // const latestQuote = Quotes[0];
+  const posts = await getAllNoteData();
+  const latestPosts = posts.sort((a, b) => b.date - a.date).slice(0, 3);
+  const latestPublications = getLatestPublications(3);
 
   const jsonLd = {
     "@type": "Person",
     name: "Dhruman Gupta",
-    jobTitle: "Student Developer",
-    sameAs: [linkedInUrl],
+    jobTitle: "Machine Learning Researcher",
+    sameAs: [linkedInUrl, scholarUrl],
     email: "dhrumangupta06@gmail.com",
     affiliation: {
       "@type": "Organization",
@@ -34,31 +41,104 @@ const Home: NextPage = async () => {
   return (
     <>
       <SchemaData data={jsonLd} />
-      {/* <p className="text-center italic mb-4">
-        &ldquo;{latestQuote.quote}&rdquo; ~ {latestQuote.author}
-        <br />
-        <Link
-          href="/qotw"
-          className="text-current hover:underline text-sm text-center"
-        >
-          (What&apos;s this?)
-        </Link>
-      </p> */}
 
-      <div className="w-full aspect-w-3 aspect-h-2 relative rounded-md overflow-hidden mb-4">
-        <HeroImage images={Images} />
-      </div>
-      <header>
-        <PageHeader>Dhruman Gupta</PageHeader>
-        <article className="prose dark:prose-dark child:mb-2 last:child:mb-0">
-          <p>
-            Hi! I&apos;m Dhruman Gupta, a tech enthusiant and an aspiring
-            Software Engineer. I&apos;m a second-year at Ashoka University,
-            studying Computer Science and Mathematics, currently working on
-            personal and open source projects.
-          </p>
-        </article>
-      </header>
+      <section className="py-4">
+        <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
+          Dhruman Gupta
+        </p>
+
+        <p className="mt-5 max-w-[65ch] text-base leading-relaxed text-gray-700 dark:text-gray-400 md:text-lg">
+          I&apos;m a final-year student at Ashoka University studying Computer
+          Science and Mathematics. I'm interested in pushing the boundaries of
+          machine intelligence and understanding how machines learn in a
+          principled way.
+        </p>
+
+        <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-gray-600 dark:text-gray-400">
+          {socials.map(({ name, href, Icon }) => (
+            <li key={name}>
+              <Link
+                href={href}
+                aria-label={name}
+                className="inline-flex items-center gap-1.5 transition-colors hover:text-accent"
+              >
+                <Icon className="h-3.5 w-3.5" />
+                {name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {latestPublications.length > 0 && (
+        <section className="border-t border-secondary pt-5 pb-3">
+          <div className="mb-3 flex items-baseline justify-between gap-4">
+            <h2 className="text-xl text-primary">Latest publications</h2>
+            <Link
+              href="/publications"
+              className="group inline-flex shrink-0 items-center gap-1 text-sm font-medium text-gray-600 transition-colors hover:text-accent dark:text-gray-400"
+            >
+              View all
+              <HiArrowUpRight className="h-3.5 w-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
+            </Link>
+          </div>
+
+          <ul className="flex flex-col">
+            {latestPublications.map((publication) => {
+              const href = getPrimaryPublicationLink(publication);
+              const rowClassName =
+                "group flex flex-col gap-0.5 border-b border-secondary py-3 last:border-b-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6";
+
+              return (
+                <li key={publication.title}>
+                  {href ? (
+                    <Link href={href} className={rowClassName}>
+                      <PublicationEntry publication={publication} compact />
+                    </Link>
+                  ) : (
+                    <div className={rowClassName}>
+                      <PublicationEntry publication={publication} compact />
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {latestPosts.length > 0 && (
+        <section className="border-t border-b border-secondary pt-5 pb-3">
+          <div className="mb-3 flex items-baseline justify-between gap-4">
+            <h2 className="text-xl text-primary">Latest writing</h2>
+            <Link
+              href="/notes"
+              className="group inline-flex shrink-0 items-center gap-1 text-sm font-medium text-gray-600 transition-colors hover:text-accent dark:text-gray-400"
+            >
+              View all
+              <HiArrowUpRight className="h-3.5 w-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
+            </Link>
+          </div>
+
+          <ul className="flex flex-col">
+            {latestPosts.map((post) => (
+              <li key={post.slug}>
+                <Link
+                  href={`/notes/${post.slug}`}
+                  className="group flex flex-col gap-0.5 border-b border-secondary py-3 last:border-b-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                >
+                  <span className="text-gray-600 transition-colors group-hover:text-accent dark:text-gray-400">
+                    {post.title}
+                  </span>
+                  <span className="shrink-0 text-sm text-gray-600 dark:text-gray-400">
+                    {formatNoteDateShort(post.date)}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </>
   );
 };

@@ -6,6 +6,10 @@ color: blue
 draft: false
 links:
   website: https://better-ams.berlm.me
+meta:
+  keywords:
+    - project
+    - university
 ---
 
 TLDR; Tired of using AMS, I made a [website to find your course information](https://better-ams.berlm.me) - lecture/DS timings and your course syllabus. **Even for the next semester!**
@@ -23,3 +27,27 @@ But, the real challenge was gathering the course data. With Puppeteer, I could p
 ## How can I use it?
 
 Head over to [better-ams.berlm.me](https://better-ams.berlm.me) and search for your course name or professor!
+
+## Update September 1, 2024: adding calendar sync
+
+**TLDR;** I've expanded Better AMS to automatically sync your class schedule from AMS to your calendar, complete with location-based notifications before each class.
+
+### Why?
+
+While manually syncing AMS courses to a calendar is a simple 10-minute process, I found myself procrastinating on it this semester. This project solves that problem and serves as an experiment in building a small-scale application using groupware concepts.
+
+Tech Stack: Express/MongoDB/GCal API/GitHub Actions/Fly.io/Nodemailer
+
+### How it works
+
+1. Daily data extraction: pull course data from AMS and store in MongoDB using Mongoose models.
+
+2. Hourly sync: action runs every hour to sync calendars with the database.
+
+3. Calendar management: GCal API manages calendar events, each class has 1 invite with all verified users in that class as participants.
+
+4. Deployment: Fly.io with docker for free hosting :)
+
+### How can I use it?
+
+Simply add your email to the list at [better-ams.berlm.me](https://better-ams.berlm.me) to start syncing your AMS schedule automatically!

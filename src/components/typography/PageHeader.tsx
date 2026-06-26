@@ -1,7 +1,11 @@
 import React from "react";
 
 function PageHeader({ children }: { children: React.ReactNode }) {
-  return <h1 className="text-3xl md:text-4xl font-bold mb-2">{children}</h1>;
+  return (
+    <h1 className="font-serif text-3xl md:text-4xl font-normal mb-2 text-primary">
+      {children}
+    </h1>
+  );
 }
 
 export default PageHeader;

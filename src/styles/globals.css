@@ -15,10 +15,11 @@
   --color-yellow-500: #ffd644;
   --color-red-500: #ff4545;
   --color-blue-100: #e8f2ff;
-  --color-blue-500: #4b96ff;
+  --color-blue-500: #4a6278;
   --color-blue-800: #1e40af;
 
-  --color-current: #4b96ff;
+  --color-accent: #2b6cb0;
+  --color-current: var(--color-gray-700);
 }
 
 .set-color-red {
@@ -26,31 +27,32 @@
 }
 
 .set-color-blue {
-  --color-current: var(--color-blue-500);
+  --color-current: #4a6278;
 }
 
 .set-color-yellow {
   --color-current: var(--color-yellow-500);
 }
 
+.set-color-green {
+  --color-current: #22c55e;
+}
+
 .light {
   --color-yellow-500: #e3be05;
-  --bg-primary: var(--color-white);
-  --bg-secondary: var(--color-gray-100);
-  --bg-alt: var(--color-gray-200);
-  --border-secondary: var(--color-gray-200);
-  --text-primary: var(--color-black);
-  --text-secondary: var(--color-gray-500);
+  --color-accent: #2b6cb0;
+  --color-current: var(--color-gray-700);
 }
 
 .dark {
   --color-yellow-500: #ffd644;
-  --bg-primary: var(--color-gray-900);
-  --bg-secondary: var(--color-gray-800);
-  --bg-alt: var(--color-gray-700);
-  --border-secondary: var(--color-gray-600);
-  --text-primary: var(--color-white);
-  --text-secondary: var(--color-gray-400);
+  --color-accent: #3c8ad3;
+  --color-current: var(--color-gray-400);
+  --color-blue-500: #7a92a8;
+}
+
+.dark .set-color-blue {
+  --color-current: #8a9bab;
 }
 
 :focus:not(:focus-visible) {
@@ -109,47 +111,9 @@ input:-webkit-autofill::first-line {
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Matter";
-  src: url("/fonts/Matter-Medium.woff2") format("woff2"),
-    url("/fonts/Matter-Medium.woff") format("woff");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Matter";
-  src: url("/fonts/Matter-Regular.woff2") format("woff2"),
-    url("/fonts/Matter-Regular.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 @layer utilities {
   .focus-ring {
     @apply focus:outline-none focus-within:outline-none ring-current ring-offset-4 ring-offset-white transition duration-300 focus-within:ring-2 focus-within:ring-current hover:ring-2 hover:ring-current focus:ring-2 focus:ring-current disabled:ring-0 group-hover:ring-2 group-hover:ring-current group-focus:ring-2 group-focus:ring-current dark:ring-offset-gray-900;
-  }
-
-  .focus-ring.danger {
-    @apply ring-red-500 focus-within:ring-red-500 hover:ring-red-500 focus:ring-red-500 group-hover:ring-red-500 group-focus:ring-red-500 dark:focus-within:ring-red-500 dark:hover:ring-red-500 dark:focus:ring-red-500 dark:group-hover:ring-red-500 group-focus:dark:ring-red-500;
-  }
-
-  .bg-primary {
-    @apply bg-white dark:bg-gray-900;
-  }
-
-  .bg-secondary {
-    @apply bg-gray-100 dark:bg-gray-800;
-  }
-
-  .bg-alt {
-    @apply bg-gray-200 dark:bg-gray-700;
-  }
-
-  .bg-inverse {
-    @apply bg-black dark:bg-white;
   }
 
   .border-primary {
@@ -157,7 +121,7 @@ input:-webkit-autofill::first-line {
   }
 
   .border-secondary {
-    @apply border-gray-600 dark:border-gray-600;
+    @apply border-gray-300 dark:border-gray-600;
   }
 
   .text-primary {
@@ -165,11 +129,75 @@ input:-webkit-autofill::first-line {
   }
 
   .text-secondary {
-    @apply text-gray-500 dark:text-gray-400;
+    @apply text-gray-600 dark:text-gray-400;
   }
 
-  .text-inverse {
-    @apply text-white dark:text-black;
+  .text-accent {
+    color: var(--color-accent);
+  }
+
+  .tag-life {
+    background-color: color-mix(
+      in srgb,
+      var(--color-red-500) 12%,
+      var(--color-gray-100)
+    );
+    color: #8f4545;
+  }
+
+  .dark .tag-life {
+    background-color: color-mix(
+      in srgb,
+      var(--color-red-500) 18%,
+      var(--color-gray-800)
+    );
+    color: #d9a0a0;
+  }
+
+  .tag-university {
+    background-color: color-mix(in srgb, #4a8f62 14%, var(--color-gray-100));
+    color: #3d6650;
+  }
+
+  .dark .tag-university {
+    background-color: color-mix(in srgb, #4a8f62 20%, var(--color-gray-800));
+    color: #9bc4ab;
+  }
+
+  .tag-project {
+    background-color: color-mix(
+      in srgb,
+      var(--color-blue-500) 14%,
+      var(--color-gray-100)
+    );
+    color: #3d5266;
+  }
+
+  .dark .tag-project {
+    background-color: color-mix(
+      in srgb,
+      var(--color-blue-500) 22%,
+      var(--color-gray-800)
+    );
+    color: #9eb3c4;
+  }
+
+  .tag-default {
+    background-color: color-mix(
+      in srgb,
+      var(--color-yellow-500) 16%,
+      var(--color-gray-100)
+    );
+    color: #6b5a2e;
+  }
+
+  .dark .tag-default {
+    background-color: color-mix(
+      in srgb,
+      var(--color-yellow-500) 14%,
+      var(--color-gray-800)
+    );
+    color: #c4b06a;
   }
 }
 
@@ -182,5 +210,6 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  @apply bg-current rounded;
+  background-color: var(--color-accent);
+  @apply rounded;
 }

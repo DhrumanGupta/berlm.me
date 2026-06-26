@@ -1,22 +1,23 @@
 import { baseUrl } from "@/lib/constants";
 
-export default function SchemaData({ data }: { data: any }) {
-  if (!data.url) {
-    data.url = baseUrl;
-  }
+function resolveSchemaUrl(url: string | undefined): string {
+  if (!url) return baseUrl;
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  if (url.startsWith("/")) return `${baseUrl}${url}`;
+  return `${baseUrl}/${url}`;
+}
 
-  if (data.url !== baseUrl) {
-    data.url = `${baseUrl}${data.url}`;
-  }
+export default function SchemaData({ data }: { data: Record<string, unknown> }) {
+  const schema = {
+    "@context": "https://schema.org",
+    ...data,
+    url: resolveSchemaUrl(data.url as string | undefined),
+  };
+
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          "@context": "https://schema.org",
-          ...data,
-        }),
-      }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );
 }

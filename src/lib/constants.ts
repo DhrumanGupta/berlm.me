@@ -3,4 +3,6 @@ export const altUrl = "https://berlm-me-dhrumangupta.vercel.app/";
 
 export const linkedInUrl = "https://www.linkedin.com/in/dhrumangupta";
 export const githubUrl = "https://github.com/DhrumanGupta";
+export const scholarUrl =
+  "https://scholar.google.com/citations?user=C9QKf4oAAAAJ&hl=en&authuser=1";
 export const emailId = "mailto:dhrumangupta06@gmail.com";

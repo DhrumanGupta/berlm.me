@@ -4,15 +4,16 @@ import NavLink from "./NavLink";
 const ROUTES: any = [
   { name: "Home", path: "/", exact: true },
   // { name: "About", path: "/about" },
-  { name: "Blog", path: "/blog" },
-  { name: "Projects", path: "/projects" },
+  { name: "Notes", path: "/notes" },
+  { name: "Publications", path: "/publications" },
+  { name: "Resources", path: "/resources" },
   // { name: "QOTW", path: "/qotw" },
 ];
 
 function Navbar() {
   return (
     <div className="sticky top-0 z-10 backdrop-blur-sm transition-all duration-100 ease-in-out">
-      <div className="mx-8 py-8">
+      <div className="mx-8 py-5">
         <nav className="text-primary mx-auto max-w-[75ch] flex items-center justify-between">
           <ul className="flex">
             {ROUTES.map((route: any) => (
@@ -20,8 +21,8 @@ function Navbar() {
                 <NavLink
                   to={route.path}
                   exact={route.exact}
-                  className="text-secondary underlined focus:outline-none block whitespace-nowrap lg:text-lg  hover:text-gray-900 focus:text-gray-900 dark:hover:text-gray-100 dark:focus:text-gray-100 duration-75"
-                  activeClassName="!text-gray-900 font-medium dark:!text-gray-200"
+                  className="text-secondary underlined focus:outline-none block whitespace-nowrap lg:text-lg hover:text-accent focus:text-accent duration-75"
+                  activeClassName="!text-accent font-medium"
                 >
                   {route.name}
                 </NavLink>

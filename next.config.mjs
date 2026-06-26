@@ -7,16 +7,18 @@ import withPlugins from "next-compose-plugins";
  */
 const nextConfig = {
   reactStrictMode: true,
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: "/resume",
-  //       destination:
-  //         "https://dhrumangupta.github.io/Resume - Dhruman Gupta.pdf",
-  //       permanent: false,
-  //     },
-  //   ];
-  // },
+  async redirects() {
+    return [
+      { source: "/blog", destination: "/notes", permanent: true },
+      { source: "/blog/:slug", destination: "/notes/:slug", permanent: true },
+      { source: "/projects", destination: "/notes", permanent: true },
+      {
+        source: "/projects/:slug",
+        destination: "/notes/:slug",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return process.env.NODE_ENV === "production"
       ? [

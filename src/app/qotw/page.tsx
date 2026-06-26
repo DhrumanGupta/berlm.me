@@ -4,7 +4,7 @@ const latestQuote = Quotes[0];
 
 function qotw() {
   return (
-    <main className="min-h-hero">
+    <div className="min-h-hero">
       {/* <h1 className="text-3xl md:text-4xl font-semibold mb-2">
         Qoute of The Week
       </h1> */}
@@ -44,7 +44,7 @@ function qotw() {
           </span>
         </p> */}
       </div>
-    </main>
+    </div>
   );
 }
 

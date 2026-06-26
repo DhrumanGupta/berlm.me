@@ -1,6 +1,9 @@
 import fs from "fs";
+import matter from "gray-matter";
 import path from "path";
 import { compileMDX } from "next-mdx-remote/rsc";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
 import remarkUnwrapImages from "remark-unwrap-images";
 import type * as H from "hast";
 import { ReactNode } from "react";
@@ -33,23 +36,54 @@ function removePreContainerDivs() {
 const remarkPlugins = [remarkUnwrapImages];
 const rehypePlugins = [removePreContainerDivs];
 
-export const getPostBySlug = async <T>(
-  slug: string,
-  directory: string,
-  components?: any
-) => {
+function getMdxFilePath(slug: string, directory: string) {
   const realSlug = slug.replace(/\.mdx$/, "");
   const dirPath =
     directory.length > 0 ? path.join(rootDirectory, directory) : rootDirectory;
-  const filePath = path.join(dirPath, `${realSlug}.mdx`);
+
+  return {
+    realSlug,
+    filePath: path.join(dirPath, `${realSlug}.mdx`),
+  };
+}
+
+export const getPostMetaBySlug = async <T>(
+  slug: string,
+  directory: string
+) => {
+  const { realSlug, filePath } = getMdxFilePath(slug, directory);
 
   if (!fs.existsSync(filePath)) {
     return null;
   }
 
-  const { default: remarkAutolinkHeadings } = await import(
-    "remark-autolink-headings"
-  );
+  const fileContent = fs.readFileSync(filePath, { encoding: "utf8" });
+  const { data: frontmatter } = matter(fileContent);
+
+  if (frontmatter?.draft && process.env.NODE_ENV === "production") {
+    return null;
+  }
+
+  const meta = {
+    ...frontmatter,
+    ...(frontmatter.date && { date: new Date(frontmatter.date as string) }),
+    slug: realSlug,
+  } as T;
+
+  return { meta, fileContent };
+};
+
+export const getPostBySlug = async <T>(
+  slug: string,
+  directory: string,
+  components?: any
+) => {
+  const { realSlug, filePath } = getMdxFilePath(slug, directory);
+
+  if (!fs.existsSync(filePath)) {
+    return null;
+  }
+
   const { default: remarkSlug } = await import("remark-slug");
   const { default: gfm } = await import("remark-gfm");
 
@@ -60,13 +94,9 @@ export const getPostBySlug = async <T>(
     options: {
       parseFrontmatter: true,
       mdxOptions: {
-        remarkPlugins: [
-          remarkSlug,
-          [remarkAutolinkHeadings, { behavior: "wrap" }],
-          gfm,
-          ...remarkPlugins,
-        ],
-        rehypePlugins: rehypePlugins,
+        remarkPlugins: [remarkSlug, gfm, remarkMath, ...remarkPlugins],
+        // rehype-katex uses vfile@6; next-mdx-remote expects vfile@5
+        rehypePlugins: [...rehypePlugins, rehypeKatex as any],
       },
     },
     components: components,

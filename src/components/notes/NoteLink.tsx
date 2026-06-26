@@ -1,13 +1,16 @@
-import * as React from "react";
 import Link from "next/link";
 
-const BlogLink = ({ children, href }: any) => {
+const NoteLink = ({ children, href }: any) => {
   if (!href) {
     return <>{children}</>;
   }
 
   if (href.startsWith("/")) {
-    return <Link href={href} legacyBehavior>{children}</Link>;
+    return (
+      <Link href={href} legacyBehavior>
+        {children}
+      </Link>
+    );
   }
 
   if (href.startsWith("#")) {
@@ -21,4 +24,4 @@ const BlogLink = ({ children, href }: any) => {
   );
 };
 
-export default BlogLink;
+export default NoteLink;

@@ -1,5 +1,6 @@
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import "katex/dist/katex.min.css";
 import "../styles/globals.css";
 import "../styles/prose.css";
 // import { Analytics } from "@vercel/analytics/react";
@@ -7,13 +8,24 @@ import Footer from "@/components/Footer";
 import { cn } from "@/lib/cn";
 import { baseUrl } from "@/lib/constants";
 import { Metadata, Viewport } from "next";
-import { Poppins } from "next/font/google";
+import { Inter, Newsreader } from "next/font/google";
 import Navbar from "../components/Navbar";
 import { Providers } from "./providers";
 
-const font = Poppins({
+const sans = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const serif = Newsreader({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
+  variable: "--font-serif",
+  display: "swap",
+  adjustFontFallback: false,
 });
 
 const title = "Dhruman Gupta";
@@ -73,7 +85,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="scroll-pt-24">
       <head>
         <meta name="google-adsense-account" content="ca-pub-6670854316805103" />
         <link
@@ -84,8 +96,9 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          "transition duration-500 bg-white dark:bg-gray-900 set-color-blue",
-          font.className
+          "transition duration-500 bg-white dark:bg-gray-900 font-sans",
+          sans.variable,
+          serif.variable
         )}
       >
         {/* <Icon /> */}
@@ -95,9 +108,11 @@ export default function RootLayout({
           {/* </div> */}
 
           <div className="mx-8">
-            <div className="mx-auto max-w-[65ch]">{children}</div>
+            <main className="mx-auto max-w-[75ch]">
+              {children}
+              <Footer />
+            </main>
           </div>
-          <Footer />
         </Providers>
 
         <Analytics />
