@@ -49,7 +49,7 @@ const Home: NextPage = async () => {
 
         <p className="mt-5 max-w-[65ch] text-base leading-relaxed text-gray-700 dark:text-gray-400 md:text-lg">
           I&apos;m a final-year student at Ashoka University studying Computer
-          Science and Mathematics. I'm interested in pushing the boundaries of
+          Science and Mathematics. I&apos;m interested in pushing the boundaries of
           machine intelligence and understanding how machines learn in a
           principled way.
         </p>

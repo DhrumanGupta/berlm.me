@@ -3,8 +3,9 @@ import matter from "gray-matter";
 import path from "path";
 import { compileMDX } from "next-mdx-remote/rsc";
 import rehypeKatex from "rehype-katex";
+import rehypeSlug from "rehype-slug";
+import rehypeUnwrapImages from "rehype-unwrap-images";
 import remarkMath from "remark-math";
-import remarkUnwrapImages from "remark-unwrap-images";
 import type * as H from "hast";
 import { ReactNode } from "react";
 
@@ -33,8 +34,11 @@ function removePreContainerDivs() {
   };
 }
 
-const remarkPlugins = [remarkUnwrapImages];
-const rehypePlugins = [removePreContainerDivs];
+const rehypePlugins = [
+  removePreContainerDivs,
+  rehypeSlug,
+  rehypeUnwrapImages,
+];
 
 function getMdxFilePath(slug: string, directory: string) {
   const realSlug = slug.replace(/\.mdx$/, "");
@@ -84,7 +88,6 @@ export const getPostBySlug = async <T>(
     return null;
   }
 
-  const { default: remarkSlug } = await import("remark-slug");
   const { default: gfm } = await import("remark-gfm");
 
   const fileContent = fs.readFileSync(filePath, { encoding: "utf8" });
@@ -94,9 +97,8 @@ export const getPostBySlug = async <T>(
     options: {
       parseFrontmatter: true,
       mdxOptions: {
-        remarkPlugins: [remarkSlug, gfm, remarkMath, ...remarkPlugins],
-        // rehype-katex uses vfile@6; next-mdx-remote expects vfile@5
-        rehypePlugins: [...rehypePlugins, rehypeKatex as any],
+        remarkPlugins: [gfm, remarkMath],
+        rehypePlugins: [...rehypePlugins, rehypeKatex],
       },
     },
     components: components,

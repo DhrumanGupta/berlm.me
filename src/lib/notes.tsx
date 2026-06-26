@@ -12,6 +12,10 @@ import { getClassnameFromKeyword } from "./note-tags";
 
 const contentPath = path.join(process.cwd(), "content", "notes");
 
+function toTimestamp(date: string | Date): number {
+  return date instanceof Date ? date.getTime() : new Date(date).getTime();
+}
+
 const getAllNoteSlugs = async (): Promise<string[]> => {
   return (await fs.promises.readdir(contentPath)).map((x) =>
     x.replace(/\.mdx?$/, "")
@@ -32,7 +36,7 @@ interface FrontMatter
 
 interface RawFrontMatter {
   title: string;
-  date: Date;
+  date: string | Date;
   description: string;
   color: "red" | "blue" | "yellow" | "green";
   kind?: "writing" | "project";
@@ -98,7 +102,7 @@ async function getNoteData(slug: string): Promise<NoteData | null> {
     slug,
     frontmatter: {
       ...frontmatter,
-      date: frontmatter.date.getTime(),
+      date: toTimestamp(frontmatter.date),
       ...(imageAssets ?? {}),
     },
     code: content,
@@ -128,7 +132,7 @@ async function getAllNoteData(): Promise<MetaData[]> {
 
       return {
         ...meta,
-        date: meta.date.getTime(),
+        date: toTimestamp(meta.date),
         slug,
         readingTime: calculateReadingTime(fileContent),
       };
