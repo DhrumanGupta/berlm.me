@@ -60,7 +60,7 @@ function FilteredNotesList({
 
   return (
     <>
-      <div className="py-4 space-y-4 border-b border-secondary">
+      <div className="flex flex-col gap-2 border-b border-secondary py-3 sm:flex-row sm:items-center sm:gap-3">
         <label className="sr-only" htmlFor="notes-search">
           Search notes
         </label>
@@ -69,21 +69,22 @@ function FilteredNotesList({
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search notes..."
-          className="!mt-0 w-full rounded border border-secondary bg-transparent px-3 py-2 text-sm text-primary placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-accent dark:placeholder:text-gray-400"
+          placeholder="Search..."
+          className="w-full shrink-0 rounded border border-secondary bg-transparent px-2.5 py-1.5 text-sm text-primary placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-accent sm:max-w-[10.5rem] dark:placeholder:text-gray-400"
         />
 
         {tags.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-sm text-secondary">Tags</span>
+          <div className="flex flex-wrap items-center gap-1.5">
             <button
               type="button"
               onClick={() => setSelectedTags([])}
+              aria-pressed={selectedTags.length === 0}
               className={cn(
-                "rounded py-1 px-3 text-sm transition-colors",
+                "rounded px-2.5 py-0.5 text-sm transition-opacity duration-200",
+                "tag-default",
                 selectedTags.length === 0
-                  ? "tag-default"
-                  : "border border-secondary text-secondary hover:text-primary"
+                  ? "opacity-100 ring-2 ring-accent"
+                  : "opacity-60 hover:opacity-100"
               )}
             >
               All
@@ -98,7 +99,7 @@ function FilteredNotesList({
                   onClick={() => toggleTag(tag)}
                   aria-pressed={isSelected}
                   className={cn(
-                    "rounded py-1 px-3 text-sm transition-opacity duration-200",
+                    "rounded px-2.5 py-0.5 text-sm transition-opacity duration-200",
                     getClassnameFromKeyword(tag),
                     isSelected
                       ? "opacity-100 ring-2 ring-accent"

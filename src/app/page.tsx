@@ -2,12 +2,12 @@ import Link from "@/components/Link";
 import SchemaData from "@/components/SchemaData";
 import PublicationEntry from "@/components/publications/PublicationEntry";
 import { emailId, githubUrl, linkedInUrl, scholarUrl } from "@/lib/constants";
+import { formatNoteDateShort } from "@/lib/format-date";
 import { getAllNoteData } from "@/lib/notes";
 import {
   getLatestPublications,
   getPrimaryPublicationLink,
 } from "@/lib/publications";
-import { formatNoteDateShort } from "@/lib/format-date";
 import type { NextPage } from "next";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { HiArrowUpRight, HiOutlineEnvelope } from "react-icons/hi2";
@@ -48,10 +48,8 @@ const Home: NextPage = async () => {
         </p>
 
         <p className="mt-5 max-w-[65ch] text-base leading-relaxed text-gray-700 dark:text-gray-400 md:text-lg">
-          I&apos;m a final-year student at Ashoka University studying Computer
-          Science and Mathematics. I&apos;m interested in pushing the boundaries of
-          machine intelligence and understanding how machines learn in a
-          principled way.
+          I like building things, studying math and CS, and ML research.
+          Currently a final-year student at Ashoka University.
         </p>
 
         <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-gray-600 dark:text-gray-400">
