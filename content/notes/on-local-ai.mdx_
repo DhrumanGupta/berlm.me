@@ -1,0 +1,63 @@
+---
+title: On Local AI and How I use it
+description: Thoughts on what agents solve, and what I use them for.
+date: 2026-06-27
+color: blue
+draft: true
+meta:
+  keywords:
+    - tech
+---
+
+Last year, I remember seeing [Karpathy's post](https://x.com/karpathy/status/1938626382248149433) (snippet):
+
+> - Aggressively tool-using.
+> - On-device finetuning LoRA slots for test-time training, personalization and customization.
+> - Delegates and double checks just the right parts with the oracles in the cloud if internet is available.
+>
+> It doesn't know that William the Conqueror's reign ended in September 9 1087, but it vaguely recognizes the name and can look up the date. It can't recite the SHA-256 of empty string as e3b0c442..., but it can calculate it quickly should you really want it.
+
+This felt obvious. We've achieved some parts, while some remain non trivial (finetuning and personalisation). Yet, seeing it spelt out made me think - how far have we gotten? What can I actually do with it for myself? So, I decided to set across to actually integrate "AI" in my life.
+
+## _Where_ can agents even help?
+
+There is all this "agentic" hype. But for me, this is the most natural question to ask &mdash; "_Where_ can agents even help?" My answer: they must meet the following criteria.
+
+1. **The task should be meaningful.** You should not be able to automate this with deterministic code. It should require _some_ intelligence to execute. An agent for simply searching the web is not a game changer. Give it your current knowledge base and allow it to do deep reasearch? Now it is.
+2. **It should be repetitive enough to benefit from automation.** You don't want to spend 2 hours to setup an agent that saves 10 minutes every month. It needs to increase accessibility, reduce time, or both.
+
+## What capabilities are required?
+
+The most common issue with an agent is fear of hallucination, doing irreversible actions, and being inconsistent. Many can be solved with the right tool permissions. But, what should the agent gaurantee?
+
+1. **The quality should be consistent and reasonably high.** Low quality output is obviously bad. But so are agents that are inconsistent &mdash; delegating work that you need to double check is not very useful.
+2. **It should be cheap and fast.** AI costs money. For an agent to be feasible, it should be cheaper than the next best option for the task.
+3. **Privacy.** For most workloads, I do not want my data being sent to anyone. I should be able to run it locally, or with Zero Data Retention (ZDR).
+4. **Long context.** Most uses largely benefit from long context windows. Good news is that most models now natively support decently long contexts.
+
+These are competing objectives. A decently complex task requires a good quality model, which is often expensive and slower. Local models are often worse, or require expensive GPUs to run. This is changing, but we are yet to see models which have that density of intelligence.
+
+## What I wanted to use agents for
+
+### Task 1: Expense Logging
+
+The one thing I've always wanted is a good breakdown of where I've spent money. My categories, my metrics. I tried logging manually for a few months, but wasn't able to be consistent enough. Eventually, I'd settled for total monthly expenditure.
+
+The issue with me was accessibility. To track my daily expenses, I either have to:
+
+- **Log it as soon as I pay.** Ideally the best, but I could not get myself to open an app and log an expense every time I pay.
+- **Log it daily / weekly.** Easier to execute, but I need to remember where all I did spend. Cash payments and recalling where I spent money from logs hard to remember.
+
+The solution? Once I've defined my categories, I want to talk to my agent to log the expense.
+
+### Task 2: Food Logging
+
+Similar to expenses, I've always wanted to track my macros. Could I talk to my agent, tell it what I ate, and it automatically finds the closest named food, understands units, etc, to log it for me?
+
+### Task 3: Calendar Scheduling
+
+This is the more standard and common use case. If I have many items I want to schedule, can my agent automatically push around other events for me? Keep the ones that are important fixed, and adjust the rest of my day accordingly?
+
+## The results
+
+I

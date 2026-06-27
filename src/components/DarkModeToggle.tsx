@@ -17,13 +17,18 @@ export function DarkModeToggle() {
 
   if (!mounted) return <i className={shiftSafeSize}>...</i>;
 
+  const label =
+    theme === Theme.Dark ? "Switch to light mode" : "Switch to dark mode";
+
   return (
     <button
+      type="button"
+      aria-label={label}
       onClick={() => {
         setTheme(theme === Theme.Dark ? Theme.Light : Theme.Dark);
       }}
       className={cn(
-        "border-secondary hover:border-primary focus:border-primary focus:outline-none inline-flex  items-center justify-center overflow-hidden rounded-full border-2 p-1 transition",
+        "relative shrink-0 border-secondary hover:border-primary focus:border-primary focus:outline-none inline-flex items-center justify-center overflow-hidden rounded-full border-2 p-1 transition",
         shiftSafeSize
       )}
     >
@@ -41,9 +46,6 @@ export function DarkModeToggle() {
           <SunIcon />
         </span>
       </div>
-      <span className={"ml-4 text-black dark:text-white sr-only"}>
-        {theme === Theme.Dark ? "Switch to light mode" : "Switch to dark mode"}
-      </span>
     </button>
   );
 }

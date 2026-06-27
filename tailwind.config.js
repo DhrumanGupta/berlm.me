@@ -209,7 +209,7 @@ module.exports = {
                   borderBottomColor: theme("colors.gray.200"),
                 },
                 a: {
-                  color: theme("colors.current"),
+                  color: theme("colors.accent"),
                 },
               },
             ],
@@ -219,7 +219,7 @@ module.exports = {
               {
                 color: theme("colors.gray.300"),
                 a: {
-                  color: theme("colors.current"),
+                  color: theme("colors.accent"),
                 },
                 strong: {
                   color: theme("colors.white"),

@@ -29,7 +29,7 @@ export const publications: Publication[] = [
     ],
     venue: "arXiv preprint",
     year: 2026,
-    status: "Under review",
+    status: "Preprint",
     links: {
       arxiv: "https://arxiv.org/abs/2603.06829",
     },
@@ -58,19 +58,12 @@ export const publications: Publication[] = [
 ];
 
 export function getLatestPublications(count = 3) {
-  return [...publications]
-    .sort((a, b) => b.year - a.year)
-    .slice(0, count);
+  return [...publications].sort((a, b) => b.year - a.year).slice(0, count);
 }
 
 export function getPrimaryPublicationLink(publication: Publication) {
   const { links } = publication;
   if (!links) return undefined;
 
-  return (
-    links.paper ??
-    links.arxiv ??
-    links.openreview ??
-    links.code
-  );
+  return links.paper ?? links.arxiv ?? links.openreview ?? links.code;
 }

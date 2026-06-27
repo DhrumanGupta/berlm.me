@@ -5,7 +5,7 @@ interface KeywordMapping {
 const KEYWORD_MAPPING: KeywordMapping = {
   life: "tag-life",
   university: "tag-university",
-  project: "tag-project",
+  tech: "tag-tech",
 };
 
 const getClassnameFromKeyword = (keyword: string): string => {

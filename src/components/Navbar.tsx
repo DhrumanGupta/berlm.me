@@ -13,15 +13,15 @@ const ROUTES: any = [
 function Navbar() {
   return (
     <div className="sticky top-0 z-10 backdrop-blur-sm transition-all duration-100 ease-in-out">
-      <div className="mx-8 py-5">
-        <nav className="text-primary mx-auto max-w-[75ch] flex items-center justify-between">
-          <ul className="flex">
+      <div className="mx-4 py-4 sm:mx-8 sm:py-5">
+        <nav className="text-primary mx-auto flex max-w-[75ch] items-center gap-3">
+          <ul className="flex min-w-0 flex-1 items-center overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {ROUTES.map((route: any) => (
-              <li className="first:pl-0 px-2 py-2 md:px-5" key={route.name}>
+              <li className="shrink-0 px-1.5 py-2 first:pl-0 sm:px-2 md:px-5" key={route.name}>
                 <NavLink
                   to={route.path}
                   exact={route.exact}
-                  className="text-secondary underlined focus:outline-none block whitespace-nowrap lg:text-lg hover:text-accent focus:text-accent duration-75"
+                  className="text-secondary underlined focus:outline-none block whitespace-nowrap text-sm hover:text-accent focus:text-accent duration-75 sm:text-base lg:text-lg"
                   activeClassName="!text-accent font-medium"
                 >
                   {route.name}

@@ -25,8 +25,7 @@ export function NoteListing({ data }: { data: MetaData }) {
           href={`/notes/${data.slug}`}
           className="transition-colors hover:text-accent"
         >
-          {formatNoteDateLong(data.date)}
-          {data.kind !== "project" && <> · {data.readingTime.text}</>}
+          {formatNoteDateLong(data.date)} · {data.readingTime.text}
         </Link>
         {hasLinks && (
           <>

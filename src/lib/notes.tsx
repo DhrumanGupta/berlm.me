@@ -39,7 +39,6 @@ interface RawFrontMatter {
   date: string | Date;
   description: string;
   color: "red" | "blue" | "yellow" | "green";
-  kind?: "writing" | "project";
   draft?: boolean;
   meta?: {
     keywords?: string[];

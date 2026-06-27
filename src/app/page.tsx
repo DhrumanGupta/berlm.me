@@ -48,8 +48,16 @@ const Home: NextPage = async () => {
         </p>
 
         <p className="mt-5 max-w-[65ch] text-base leading-relaxed text-gray-700 dark:text-gray-400 md:text-lg">
-          I like building things, studying math and CS, and ML research.
-          Currently a final-year student at Ashoka University.
+          Building things, studying Math and CS, ML research. Currently a
+          final-year student at Ashoka University, Research Intern{" "}
+          <a
+            href="https://truthauditlabs.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @TAL
+          </a>
+          .
         </p>
 
         <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-gray-600 dark:text-gray-400">

@@ -87,16 +87,9 @@ const Note = async ({ params }: IParams) => {
               {frontmatter.title}
             </h2>
 
-            {frontmatter.kind === "project" && (
-              <p className="text-lg my-2">{frontmatter.description}</p>
-            )}
-
             <div className="flex gap-x-2 text-secondary flex-wrap items-center">
               <p className="text-secondary md:text-lg">
-                {formatNoteDateLong(frontmatter.date)}
-                {frontmatter.kind !== "project" && (
-                  <> &ndash; {readingTime.text}</>
-                )}
+                {formatNoteDateLong(frontmatter.date)} &ndash; {readingTime.text}
               </p>
 
               {frontmatter.links && (
