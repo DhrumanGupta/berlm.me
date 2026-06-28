@@ -59,28 +59,34 @@ pre {
   color: var(--color-blueGray-500);
 }
 
-.light .prose.prose-light
+.light
+  .prose.prose-light
   :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *)) {
   color: var(--color-black);
 }
 
-.light .prose.prose-light
+.light
+  .prose.prose-light
   :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *))
   :where(a) {
   color: inherit;
 }
 
-.dark .prose.prose-light
+.dark
+  .prose.prose-light
   :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *)),
-.dark .prose.prose-dark
+.dark
+  .prose.prose-dark
   :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *)) {
   color: var(--color-white);
 }
 
-.dark .prose.prose-light
+.dark
+  .prose.prose-light
   :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *))
   :where(a),
-.dark .prose.prose-dark
+.dark
+  .prose.prose-dark
   :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *))
   :where(a) {
   color: inherit;
@@ -187,8 +193,6 @@ pre {
   display: inline-block;
   transform: translate(-16px, 24px);
   text-align: right;
-  width: 200px;
-  margin-left: -200px;
 }
 
 /* KaTeX math */
@@ -216,4 +220,42 @@ pre {
 .dark .prose .katex .mclose,
 .dark .prose .katex .mpunct {
   color: inherit;
+}
+
+/* Mermaid diagrams */
+.prose .mermaid {
+  border: 1px solid var(--color-gray-200);
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--color-gray-100) 55%, transparent);
+  padding: 0.5rem 0.25rem;
+}
+
+.dark .prose .mermaid {
+  border-color: var(--color-gray-700);
+  background: color-mix(in srgb, var(--color-gray-800) 70%, transparent);
+}
+
+.prose .mermaid svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.prose .mermaid .edgeLabel {
+  font-size: 0.8125rem;
+}
+
+.prose .mermaid .nodeLabel,
+.prose .mermaid .label {
+  line-height: 1.45;
+}
+
+.prose .mermaid .nodeLabel p {
+  margin: 0;
+}
+
+.prose .mermaid .node rect,
+.prose .mermaid .node polygon {
+  rx: 8px;
+  ry: 8px;
 }

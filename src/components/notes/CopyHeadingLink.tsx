@@ -2,8 +2,7 @@
 
 import { cn } from "@/lib/cn";
 import { useCallback, useState } from "react";
-import { FaLink } from "react-icons/fa6";
-import { HiCheck } from "react-icons/hi2";
+import { CheckIcon, LinkIcon } from "@/components/icons";
 
 export default function CopyHeadingLink({ id }: { id: string }) {
   const [copied, setCopied] = useState(false);
@@ -34,9 +33,9 @@ export default function CopyHeadingLink({ id }: { id: string }) {
       )}
     >
       {copied ? (
-        <HiCheck className="h-5 w-5" aria-hidden />
+        <CheckIcon className="h-5 w-5" />
       ) : (
-        <FaLink className="h-5 w-5" aria-hidden />
+        <LinkIcon className="h-5 w-5" />
       )}
     </button>
   );

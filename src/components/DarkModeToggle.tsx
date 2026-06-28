@@ -1,19 +1,24 @@
 "use client";
-import { useTheme } from "next-themes";
+import { cn } from "@/lib/cn";
 import { useEffect, useState } from "react";
 import { Theme } from "../types";
 import { MoonIcon } from "./icons/moon-icon";
 import { SunIcon } from "./icons/sun-icon";
-import { cn } from "@/lib/cn";
 
 const iconTransformOrigin = { transformOrigin: "50% 100px" };
 const shiftSafeSize = "h-10 w-10 lg:h-12 lg:w-12";
 
 export function DarkModeToggle() {
-  const { setTheme, theme } = useTheme();
-
+  const [theme, setTheme] = useState<Theme>(Theme.Dark);
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    const initialTheme = storedTheme === Theme.Light ? Theme.Light : Theme.Dark;
+
+    setTheme(initialTheme);
+    setMounted(true);
+  }, []);
 
   if (!mounted) return <i className={shiftSafeSize}>...</i>;
 
@@ -25,7 +30,17 @@ export function DarkModeToggle() {
       type="button"
       aria-label={label}
       onClick={() => {
-        setTheme(theme === Theme.Dark ? Theme.Light : Theme.Dark);
+        const nextTheme = theme === Theme.Dark ? Theme.Light : Theme.Dark;
+        localStorage.setItem("theme", nextTheme);
+        document.documentElement.classList.toggle(
+          Theme.Dark,
+          nextTheme === Theme.Dark
+        );
+        document.documentElement.classList.toggle(
+          Theme.Light,
+          nextTheme === Theme.Light
+        );
+        setTheme(nextTheme);
       }}
       className={cn(
         "relative shrink-0 border-secondary hover:border-primary focus:border-primary focus:outline-none inline-flex items-center justify-center overflow-hidden rounded-full border-2 p-1 transition",

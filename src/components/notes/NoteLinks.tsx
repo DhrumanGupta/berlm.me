@@ -1,6 +1,6 @@
 import { cn } from "@/lib/cn";
 import type { NoteLinks as TNoteLinks } from "@/lib/notes";
-import { FaLink } from "react-icons/fa6";
+import { LinkIcon } from "@/components/icons";
 import Link from "../Link";
 
 const IconContainer = ({
@@ -45,7 +45,7 @@ function NoteLinks({
     <div className={cn("flex gap-x-2", className)}>
       {links?.website && (
         <IconContainer href={links.website} compact={compact}>
-          <FaLink className={compact ? "h-3.5 w-3.5" : "h-full w-full"} />
+          <LinkIcon className={compact ? "h-3.5 w-3.5" : "h-full w-full"} />
         </IconContainer>
       )}
     </div>

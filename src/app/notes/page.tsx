@@ -1,5 +1,4 @@
 import FilteredNotesList from "@/components/notes/FilteredNotesList";
-import type { MetaData } from "@/lib/notes";
 import { getAllNoteData } from "@/lib/notes";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -14,15 +13,14 @@ export const metadata: Metadata = {
 };
 
 const NotesList = async () => {
-  const data: MetaData[] = await getAllNoteData();
-  data.sort((a, b) => b.date - a.date);
+  const data = [...(await getAllNoteData())].sort((a, b) => b.date - a.date);
   const tags = Array.from(
     new Set(data.flatMap((note) => note.meta?.keywords ?? []))
   ).sort();
 
   return (
     <div className="relative min-h-hero">
-      <div className="prose dark:prose-dark max-w-none pb-4 border-b border-gray-700 dark:border-gray-300">
+      <div className="prose prose-light dark:prose-dark max-w-none pb-4 border-b border-gray-700 dark:border-gray-300">
         <p>Things I&apos;ve been working on or thinking about.</p>
       </div>
       {data.length <= 0 ? (

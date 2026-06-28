@@ -8,7 +8,7 @@ function qotw() {
       {/* <h1 className="text-3xl md:text-4xl font-semibold mb-2">
         Qoute of The Week
       </h1> */}
-      <div className="prose dark:prose-dark">
+      <div className="prose prose-light dark:prose-dark">
         <p className="font-semibold text-black dark:text-white md:text-center text-xl">
           &ldquo;{latestQuote.quote}&rdquo;
           {latestQuote.author && `~ ${latestQuote.author}`}

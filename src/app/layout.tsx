@@ -1,16 +1,12 @@
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/react";
-import "katex/dist/katex.min.css";
-import "../styles/globals.css";
-import "../styles/prose.css";
-// import { Analytics } from "@vercel/analytics/react";
 import Footer from "@/components/Footer";
 import { cn } from "@/lib/cn";
 import { baseUrl } from "@/lib/constants";
-import { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Inter, Newsreader } from "next/font/google";
 import Navbar from "../components/Navbar";
-import { Providers } from "./providers";
+import "../styles/globals.css";
+import "../styles/prose.css";
 
 const sans = Inter({
   subsets: ["latin"],
@@ -21,8 +17,7 @@ const sans = Inter({
 
 const serif = Newsreader({
   subsets: ["latin"],
-  weight: ["400", "500"],
-  style: ["normal", "italic"],
+  weight: ["400"],
   variable: "--font-serif",
   display: "swap",
   adjustFontFallback: false,
@@ -31,8 +26,15 @@ const serif = Newsreader({
 const title = "Dhruman Gupta";
 const description =
   "Hi! I'm Dhruman Gupta, a tech enthusiant and an aspiring Software Engineer, currently working personal and open source projects.";
+const themeScript = `
+try {
+  const theme = localStorage.getItem("theme") || "dark";
+  document.documentElement.classList.toggle("dark", theme === "dark");
+  document.documentElement.classList.toggle("light", theme === "light");
+} catch {}
+`;
 
-export const metadata: Metadata = {
+export const metadata = {
   metadataBase: new URL(baseUrl),
   title: {
     default: title,
@@ -65,7 +67,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    nocache: true,
   },
   authors: [{ name: "Dhruman Gupta", url: baseUrl }],
   other: {
@@ -73,7 +74,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
+export const viewport = {
   themeColor: "#12141a",
   width: "device-width",
   initialScale: 1,
@@ -87,6 +88,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-pt-24">
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <meta name="google-adsense-account" content="ca-pub-6670854316805103" />
         <link
           rel="shortcut icon"
@@ -101,19 +103,14 @@ export default function RootLayout({
           serif.variable
         )}
       >
-        {/* <Icon /> */}
-        <Providers>
-          {/* <div className="mx-auto max-w-[65ch]"> */}
-          <Navbar />
-          {/* </div> */}
+        <Navbar />
 
-          <div className="mx-8">
-            <main className="mx-auto max-w-[75ch]">
-              {children}
-              <Footer />
-            </main>
-          </div>
-        </Providers>
+        <div className="mx-5 sm:mx-8">
+          <main className="mx-auto max-w-[75ch]">
+            {children}
+            <Footer />
+          </main>
+        </div>
 
         <Analytics />
         <SpeedInsights />

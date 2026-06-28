@@ -168,6 +168,25 @@ input:-webkit-autofill::first-line {
     color: #d9a0a0;
   }
 
+  .tag-life[aria-pressed="true"] {
+    background-color: color-mix(
+      in srgb,
+      var(--color-red-500) 32%,
+      var(--color-gray-100)
+    );
+    color: #6b2a2a;
+    font-weight: 500;
+  }
+
+  .dark .tag-life[aria-pressed="true"] {
+    background-color: color-mix(
+      in srgb,
+      var(--color-red-500) 38%,
+      var(--color-gray-800)
+    );
+    color: #efb8b8;
+  }
+
   .tag-university {
     background-color: color-mix(in srgb, #4a8f62 14%, var(--color-gray-100));
     color: #3d6650;
@@ -176,6 +195,17 @@ input:-webkit-autofill::first-line {
   .dark .tag-university {
     background-color: color-mix(in srgb, #4a8f62 20%, var(--color-gray-800));
     color: #9bc4ab;
+  }
+
+  .tag-university[aria-pressed="true"] {
+    background-color: color-mix(in srgb, #4a8f62 30%, var(--color-gray-100));
+    color: #2d5240;
+    font-weight: 500;
+  }
+
+  .dark .tag-university[aria-pressed="true"] {
+    background-color: color-mix(in srgb, #4a8f62 38%, var(--color-gray-800));
+    color: #b5dcc4;
   }
 
   .tag-tech {
@@ -196,6 +226,25 @@ input:-webkit-autofill::first-line {
     color: #9eb3c4;
   }
 
+  .tag-tech[aria-pressed="true"] {
+    background-color: color-mix(
+      in srgb,
+      var(--color-blue-500) 30%,
+      var(--color-gray-100)
+    );
+    color: #2a4f68;
+    font-weight: 500;
+  }
+
+  .dark .tag-tech[aria-pressed="true"] {
+    background-color: color-mix(
+      in srgb,
+      var(--color-blue-500) 38%,
+      var(--color-gray-800)
+    );
+    color: #b8cce0;
+  }
+
   .tag-default {
     background-color: color-mix(
       in srgb,
@@ -212,6 +261,25 @@ input:-webkit-autofill::first-line {
       var(--color-gray-800)
     );
     color: #c4b06a;
+  }
+
+  .tag-default[aria-pressed="true"] {
+    background-color: color-mix(
+      in srgb,
+      var(--color-yellow-500) 32%,
+      var(--color-gray-100)
+    );
+    color: #524210;
+    font-weight: 500;
+  }
+
+  .dark .tag-default[aria-pressed="true"] {
+    background-color: color-mix(
+      in srgb,
+      var(--color-yellow-500) 36%,
+      var(--color-gray-800)
+    );
+    color: #e0cc82;
   }
 }
 

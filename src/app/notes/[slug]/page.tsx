@@ -1,4 +1,5 @@
 import Keywords from "@/components/notes/Keywords";
+import NoteImage from "@/components/notes/NoteImage";
 import NoteLink from "@/components/notes/NoteLink";
 import NoteLinks from "@/components/notes/NoteLinks";
 import SchemaData from "@/components/SchemaData";
@@ -8,6 +9,7 @@ import { formatNoteDateLong } from "@/lib/format-date";
 import { Metadata } from "next";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import type { ComponentPropsWithoutRef } from "react";
 
 interface IParams {
   params: { slug: string };
@@ -41,7 +43,13 @@ export async function generateMetadata({ params }: IParams): Promise<Metadata> {
       title: frontmatter.title,
       description: frontmatter.description,
       url: `${baseUrl}/notes/${params.slug}`,
-      type: "website",
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: frontmatter.title,
+      description: frontmatter.description,
+      creator: "@dhrumangupta",
     },
   };
 }
@@ -53,7 +61,7 @@ const Note = async ({ params }: IParams) => {
     return redirect("/notes");
   }
 
-  const { frontmatter, readingTime, code } = noteData;
+  const { frontmatter, readingTime, Content } = noteData;
   const hasImage = Boolean(frontmatter.image && frontmatter.base64);
   const keywords = frontmatter.meta?.keywords ?? [];
 
@@ -121,16 +129,22 @@ const Note = async ({ params }: IParams) => {
         </div>
       </header>
       <article className="relative prose prose-light dark:prose-dark max-w-none mb-6">
-          {code}
-          <hr />
-          <h4>Written by Dhruman Gupta</h4>
-          <NoteLink
-            className="text-sm"
-            href={`https://github.com/DhrumanGupta/berlm.me/tree/master/content/notes/${params.slug}.mdx`}
-          >
-            Edit on GitHub
-          </NoteLink>
-        </article>
+        <Content
+          components={{
+            img: (props: ComponentPropsWithoutRef<"img">) => (
+              <NoteImage {...props} slug={params.slug} />
+            ),
+          }}
+        />
+        <hr />
+        <h4>Written by Dhruman Gupta</h4>
+        <NoteLink
+          className="text-sm"
+          href={`https://github.com/DhrumanGupta/berlm.me/tree/master/content/notes/${params.slug}.mdx`}
+        >
+          Edit on GitHub
+        </NoteLink>
+      </article>
     </>
   );
 };

@@ -1,4 +1,5 @@
-import Link from "@/components/Link";
+import ListingSection from "@/components/listing/ListingSection";
+import SectionHeading from "@/components/listing/SectionHeading";
 import PublicationAuthors from "@/components/publications/PublicationAuthors";
 import PublicationLinks from "@/components/publications/PublicationLinks";
 import {
@@ -28,18 +29,20 @@ function PublicationTitle({
   const href = getPrimaryPublicationLink(publication);
   const className = compact
     ? "text-gray-600 transition-colors group-hover:text-accent dark:text-gray-400"
-    : "text-base font-medium text-primary md:text-lg";
+    : undefined;
 
   if (!href || compact) {
-    return <h3 className={className}>{publication.title}</h3>;
+    return (
+      <SectionHeading as="h3" className={className}>
+        {publication.title}
+      </SectionHeading>
+    );
   }
 
   return (
-    <h3 className={className}>
-      <Link href={href} className="transition-colors hover:text-accent">
-        {publication.title}
-      </Link>
-    </h3>
+    <SectionHeading as="h3" href={href} className={className}>
+      {publication.title}
+    </SectionHeading>
   );
 }
 
@@ -62,7 +65,7 @@ function PublicationEntry({
   }
 
   return (
-    <article className="border-t border-secondary py-5 first:border-t-0">
+    <ListingSection>
       <PublicationTitle publication={publication} />
       <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
         {formatVenue(publication)}
@@ -71,7 +74,7 @@ function PublicationEntry({
         <PublicationAuthors authors={publication.authors} />
       </div>
       <PublicationLinks links={publication.links} />
-    </article>
+    </ListingSection>
   );
 }
 

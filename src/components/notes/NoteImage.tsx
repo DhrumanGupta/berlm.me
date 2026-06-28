@@ -1,14 +1,27 @@
-const NoteImage = ({ slug, src, alt }: any) => {
+import type { ComponentPropsWithoutRef } from "react";
+
+type NoteImageProps = ComponentPropsWithoutRef<"img"> & {
+  slug: string;
+};
+
+const NoteImage = ({ slug, src = "", alt = "" }: NoteImageProps) => {
+  if (typeof src !== "string") return null;
+
   const realSrc = `/notes/${slug}/${src.substring(2, src.length)}`;
+
   return (
-    <div className=" w-auto h-auto relative rounded-lg mt-3 -mb-2 overflow-hidden">
+    <figure className="relative mt-3 -mb-2 overflow-hidden rounded-lg">
       <img
-        className="w-[90%] mx-auto border-2 border-black dark:border-white"
+        className="mx-auto h-auto w-[90%]"
         src={realSrc}
         alt={alt}
+        loading="lazy"
+        decoding="async"
       />
-      <p className="italic text-center mt-2">{alt}</p>
-    </div>
+      {alt && (
+        <figcaption className="mt-2 mb-6 text-center italic">{alt}</figcaption>
+      )}
+    </figure>
   );
 };
 

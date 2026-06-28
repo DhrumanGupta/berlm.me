@@ -1,5 +1,12 @@
 import Link from "@/components/Link";
 import SchemaData from "@/components/SchemaData";
+import {
+  ArrowUpRightIcon,
+  EmailIcon,
+  GithubIcon,
+  GoogleScholarIcon,
+  LinkedInIcon,
+} from "@/components/icons";
 import PublicationEntry from "@/components/publications/PublicationEntry";
 import { emailId, githubUrl, linkedInUrl, scholarUrl } from "@/lib/constants";
 import { formatNoteDateShort } from "@/lib/format-date";
@@ -8,21 +15,18 @@ import {
   getLatestPublications,
   getPrimaryPublicationLink,
 } from "@/lib/publications";
-import type { NextPage } from "next";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { HiArrowUpRight, HiOutlineEnvelope } from "react-icons/hi2";
-import { SiGooglescholar } from "react-icons/si";
 
 const socials = [
-  { name: "Google Scholar", href: scholarUrl, Icon: SiGooglescholar },
-  { name: "GitHub", href: githubUrl, Icon: FaGithub },
-  { name: "LinkedIn", href: linkedInUrl, Icon: FaLinkedin },
-  { name: "Email", href: emailId, Icon: HiOutlineEnvelope },
+  { name: "Google Scholar", href: scholarUrl, Icon: GoogleScholarIcon },
+  { name: "GitHub", href: githubUrl, Icon: GithubIcon },
+  { name: "LinkedIn", href: linkedInUrl, Icon: LinkedInIcon },
+  { name: "Email", href: emailId, Icon: EmailIcon },
 ];
 
-const Home: NextPage = async () => {
-  const posts = await getAllNoteData();
-  const latestPosts = posts.sort((a, b) => b.date - a.date).slice(0, 3);
+const Home = async () => {
+  const latestPosts = [...(await getAllNoteData())]
+    .sort((a, b) => b.date - a.date)
+    .slice(0, 3);
   const latestPublications = getLatestPublications(3);
 
   const jsonLd = {
@@ -49,7 +53,7 @@ const Home: NextPage = async () => {
 
         <p className="mt-5 max-w-[65ch] text-base leading-relaxed text-gray-700 dark:text-gray-400 md:text-lg">
           Building things, studying Math and CS, ML research. Currently a
-          final-year student at Ashoka University, Research Intern{" "}
+          final-year student at Ashoka University, Research{" "}
           <a
             href="https://truthauditlabs.ai"
             target="_blank"
@@ -85,7 +89,7 @@ const Home: NextPage = async () => {
               className="group inline-flex shrink-0 items-center gap-1 text-sm font-medium text-gray-600 transition-colors hover:text-accent dark:text-gray-400"
             >
               View all
-              <HiArrowUpRight className="h-3.5 w-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
+              <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
             </Link>
           </div>
 
@@ -122,7 +126,7 @@ const Home: NextPage = async () => {
               className="group inline-flex shrink-0 items-center gap-1 text-sm font-medium text-gray-600 transition-colors hover:text-accent dark:text-gray-400"
             >
               View all
-              <HiArrowUpRight className="h-3.5 w-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
+              <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
             </Link>
           </div>
 

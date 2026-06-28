@@ -122,7 +122,16 @@ module.exports = {
                   marginTop: theme("spacing.1"),
                   marginBottom: theme("spacing.1"),
                 },
-                "h1, h2, h3, h4, h5, h6": {
+                "h1, h2": {
+                  marginTop: 0,
+                  fontWeight: theme("fontWeight.medium"),
+                  lineHeight: "1.3",
+
+                  [`@media (min-width: ${theme("screens.lg")})`]: {
+                    fontWeight: theme("fontWeight.medium"),
+                  },
+                },
+                "h3, h4, h5, h6": {
                   marginTop: 0,
                   marginBottom: 0,
                   fontWeight: theme("fontWeight.medium"),
@@ -133,10 +142,18 @@ module.exports = {
                   },
                 },
                 // tailwind doesn't stick to this property order, so we can't make 'h3' overrule 'h2, h3, h4'
-                "h1, h2": {
+                h1: {
+                  fontSize: fontSize("2xl"),
+                  marginTop: theme("spacing.10"),
+                  marginBottom: theme("spacing.4"),
+                  [`@media (min-width: ${theme("screens.lg")})`]: {
+                    fontSize: fontSize("3xl"),
+                  },
+                },
+                h2: {
                   fontSize: fontSize("xl"),
                   marginTop: theme("spacing.10"),
-                  marginBottom: theme("spacing.3"),
+                  marginBottom: theme("spacing.4"),
                   [`@media (min-width: ${theme("screens.lg")})`]: {
                     fontSize: fontSize("2xl"),
                   },
