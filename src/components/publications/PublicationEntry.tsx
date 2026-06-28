@@ -27,20 +27,21 @@ function PublicationTitle({
   compact?: boolean;
 }) {
   const href = getPrimaryPublicationLink(publication);
-  const className = compact
-    ? "text-gray-600 transition-colors group-hover:text-accent dark:text-gray-400"
-    : undefined;
 
-  if (!href || compact) {
+  if (compact) {
     return (
-      <SectionHeading as="h3" className={className}>
+      <span className="font-normal text-gray-700 transition-colors group-hover:text-accent dark:text-gray-300">
         {publication.title}
-      </SectionHeading>
+      </span>
     );
   }
 
+  if (!href) {
+    return <SectionHeading as="h3">{publication.title}</SectionHeading>;
+  }
+
   return (
-    <SectionHeading as="h3" href={href} className={className}>
+    <SectionHeading as="h3" href={href}>
       {publication.title}
     </SectionHeading>
   );

@@ -80,10 +80,43 @@ const Home = async () => {
         </ul>
       </section>
 
-      {latestPublications.length > 0 && (
+      {latestPosts.length > 0 && (
         <section className="border-t border-secondary pt-5 pb-3">
           <div className="mb-3 flex items-baseline justify-between gap-4">
-            <h2 className="text-xl text-primary">Latest publications</h2>
+            <h2 className="text-xl text-primary">Recent writing</h2>
+            <Link
+              href="/notes"
+              className="group inline-flex shrink-0 items-center gap-1 text-sm font-medium text-gray-600 transition-colors hover:text-accent dark:text-gray-400"
+            >
+              View all
+              <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
+            </Link>
+          </div>
+
+          <ul className="flex flex-col">
+            {latestPosts.map((post) => (
+              <li key={post.slug}>
+                <Link
+                  href={`/notes/${post.slug}`}
+                  className="group flex flex-col gap-0.5 border-b border-secondary py-3 last:border-b-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                >
+                  <span className="font-normal text-gray-700 transition-colors group-hover:text-accent dark:text-gray-300">
+                    {post.title}
+                  </span>
+                  <span className="shrink-0 text-sm text-gray-600 dark:text-gray-400">
+                    {formatNoteDateShort(post.date)}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {latestPublications.length > 0 && (
+        <section className="border-t border-b border-secondary pt-5 pb-3">
+          <div className="mb-3 flex items-baseline justify-between gap-4">
+            <h2 className="text-xl text-primary">Recent publications</h2>
             <Link
               href="/publications"
               className="group inline-flex shrink-0 items-center gap-1 text-sm font-medium text-gray-600 transition-colors hover:text-accent dark:text-gray-400"
@@ -113,39 +146,6 @@ const Home = async () => {
                 </li>
               );
             })}
-          </ul>
-        </section>
-      )}
-
-      {latestPosts.length > 0 && (
-        <section className="border-t border-b border-secondary pt-5 pb-3">
-          <div className="mb-3 flex items-baseline justify-between gap-4">
-            <h2 className="text-xl text-primary">Latest writing</h2>
-            <Link
-              href="/notes"
-              className="group inline-flex shrink-0 items-center gap-1 text-sm font-medium text-gray-600 transition-colors hover:text-accent dark:text-gray-400"
-            >
-              View all
-              <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
-            </Link>
-          </div>
-
-          <ul className="flex flex-col">
-            {latestPosts.map((post) => (
-              <li key={post.slug}>
-                <Link
-                  href={`/notes/${post.slug}`}
-                  className="group flex flex-col gap-0.5 border-b border-secondary py-3 last:border-b-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
-                >
-                  <span className="text-gray-600 transition-colors group-hover:text-accent dark:text-gray-400">
-                    {post.title}
-                  </span>
-                  <span className="shrink-0 text-sm text-gray-600 dark:text-gray-400">
-                    {formatNoteDateShort(post.date)}
-                  </span>
-                </Link>
-              </li>
-            ))}
           </ul>
         </section>
       )}
