@@ -1,21 +1,21 @@
-import withBundleAnalyzer from "@next/bundle-analyzer";
-import withPlaiceholder from "@plaiceholder/next";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import createMDX from "@next/mdx";
-import withPlugins from "next-compose-plugins";
-import rehypeKatex from "rehype-katex";
-import rehypeSlug from "rehype-slug";
-import rehypeUnwrapImages from "rehype-unwrap-images";
-import remarkFrontmatter from "remark-frontmatter";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
-import remarkMdxFrontmatter from "remark-mdx-frontmatter";
-import removePreContainerDivs from "./rehype-remove-pre-container-divs.mjs";
+
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
+const removePreContainerDivs = path.join(
+  projectRoot,
+  "rehype-remove-pre-container-divs.mjs"
+);
 
 /**
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
   reactStrictMode: true,
+  turbopack: {
+    root: projectRoot,
+  },
   async redirects() {
     return [
       { source: "/blog", destination: "/notes", permanent: true },
@@ -49,26 +49,18 @@ const withMDX = createMDX({
   extension: /\.mdx$/,
   options: {
     remarkPlugins: [
-      remarkFrontmatter,
-      remarkMdxFrontmatter,
-      remarkGfm,
-      remarkMath,
+      "remark-frontmatter",
+      "remark-mdx-frontmatter",
+      "remark-gfm",
+      "remark-math",
     ],
     rehypePlugins: [
       removePreContainerDivs,
-      rehypeSlug,
-      rehypeUnwrapImages,
-      rehypeKatex,
+      "rehype-slug",
+      "rehype-unwrap-images",
+      "rehype-katex",
     ],
   },
 });
 
-const analyzerConfig = {
-  enabled: process.env.ANALYZE === "true",
-  openAnalyzer: false,
-};
-
-export default withPlugins(
-  [[withBundleAnalyzer(analyzerConfig)], [withPlaiceholder], [withMDX]],
-  nextConfig
-);
+export default withMDX(nextConfig);

@@ -9,14 +9,17 @@ const iconTransformOrigin = { transformOrigin: "50% 100px" };
 const shiftSafeSize = "h-10 w-10 lg:h-12 lg:w-12";
 
 export function DarkModeToggle() {
-  const [theme, setTheme] = useState<Theme>(Theme.Dark);
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") return Theme.Dark;
+    return localStorage.getItem("theme") === Theme.Light
+      ? Theme.Light
+      : Theme.Dark;
+  });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    const initialTheme = storedTheme === Theme.Light ? Theme.Light : Theme.Dark;
-
-    setTheme(initialTheme);
+    // Client-only mount guard to avoid SSR hydration mismatch.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 

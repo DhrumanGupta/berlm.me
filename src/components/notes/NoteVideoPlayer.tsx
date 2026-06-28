@@ -17,7 +17,6 @@ type NoteVideoPlayerProps = {
 };
 
 const plyrOptions: PlyrOptions = {
-  ratio: null,
   clickToPlay: true,
   hideControls: true,
   controls: [
