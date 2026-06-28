@@ -19,6 +19,26 @@ export type Publication = {
 export const publications: Publication[] = [
   {
     title:
+      "AdaWeather: Adaptively Mixing Probabilistic Weather Forecasts with Logarithmic Regret",
+    authors: [
+      "Saptarishi Dhanuka",
+      "Sarvesh Ravichandran Iyer",
+      "Manmeet Singh",
+      "Mihir More",
+      "Rushil Gupta",
+      "Dhruman Gupta",
+      "Parthasarathi Mukhopadhyay",
+      "Sandeep Kumar Juneja",
+    ],
+    venue: "arXiv preprint",
+    year: 2026,
+    status: "Preprint",
+    links: {
+      arxiv: "https://arxiv.org/abs/2606.02663",
+    },
+  },
+  {
+    title:
       "Joint 3D Gravity and Magnetic Inversion via Rectified Flow and Ginzburg-Landau Guidance",
     authors: [
       "Dhruman Gupta",
@@ -34,6 +54,7 @@ export const publications: Publication[] = [
       arxiv: "https://arxiv.org/abs/2603.06829",
     },
   },
+
   {
     title:
       "Fundamental limits for weighted empirical approximations of exponentially tilted distributions",
@@ -53,6 +74,25 @@ export const publications: Publication[] = [
       openreview: "https://openreview.net/forum?id=gmmtcjRs0O",
       arxiv: "https://arxiv.org/abs/2512.23979",
       code: "https://github.com/aistats20252404/codebase",
+    },
+  },
+  {
+    title: "Generating DDPM-based Samples from Tilted Distributions",
+    authors: [
+      "Himadri Mandal",
+      "Dhruman Gupta",
+      "Rushil Gupta",
+      "Sarvesh Ravichandran Iyer",
+      "Agniv Bandyopadhyay",
+      "Achal Bassamboo",
+      "Varun Gupta",
+      "Sandeep Kumar Juneja",
+    ],
+    venue: "arXiv preprint",
+    year: 2026,
+    status: "Preprint",
+    links: {
+      arxiv: "https://arxiv.org/abs/2604.03015",
     },
   },
 ];
