@@ -13,7 +13,7 @@ import { redirect } from "next/navigation";
 import type { ComponentPropsWithoutRef } from "react";
 
 interface IParams {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export const dynamicParams = false;
@@ -24,7 +24,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: IParams): Promise<Metadata> {
-  const noteData = await getNoteData(params.slug);
+  const { slug } = await params;
+  const noteData = await getNoteData(slug);
   if (!noteData) {
     return {
       title: "Not Found",
@@ -38,12 +39,12 @@ export async function generateMetadata({ params }: IParams): Promise<Metadata> {
     description: frontmatter.description,
     title: frontmatter.title,
     alternates: {
-      canonical: `/notes/${params.slug}`,
+      canonical: `/notes/${slug}`,
     },
     openGraph: {
       title: frontmatter.title,
       description: frontmatter.description,
-      url: `${baseUrl}/notes/${params.slug}`,
+      url: `${baseUrl}/notes/${slug}`,
       type: "article",
     },
     twitter: {
@@ -56,7 +57,8 @@ export async function generateMetadata({ params }: IParams): Promise<Metadata> {
 }
 
 const Note = async ({ params }: IParams) => {
-  const noteData = await getNoteData(params.slug);
+  const { slug } = await params;
+  const noteData = await getNoteData(slug);
 
   if (!noteData) {
     return redirect("/notes");
@@ -71,7 +73,7 @@ const Note = async ({ params }: IParams) => {
     name: "Dhruman Gupta",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${baseUrl}/notes/${params.slug}`,
+      "@id": `${baseUrl}/notes/${slug}`,
     },
     author: {
       "@type": "Person",
@@ -81,7 +83,7 @@ const Note = async ({ params }: IParams) => {
     description: frontmatter.description,
     headline: frontmatter.title,
     datePublished: new Date(frontmatter.date),
-    url: `${baseUrl}/notes/${params.slug}`,
+    url: `${baseUrl}/notes/${slug}`,
     ...(keywords.length > 0 && { keywords }),
     ...(hasImage && { image: frontmatter.image }),
   };
@@ -134,10 +136,10 @@ const Note = async ({ params }: IParams) => {
         <Content
           components={{
             img: (props: ComponentPropsWithoutRef<"img">) => (
-              <NoteImage {...props} slug={params.slug} />
+              <NoteImage {...props} slug={slug} />
             ),
             NoteVideo: (props) => (
-              <NoteVideo {...props} slug={params.slug} />
+              <NoteVideo {...props} slug={slug} />
             ),
           }}
         />
@@ -145,7 +147,7 @@ const Note = async ({ params }: IParams) => {
         <h4>Written by Dhruman Gupta</h4>
         <NoteLink
           className="text-sm"
-          href={`https://github.com/DhrumanGupta/berlm.me/tree/master/content/notes/${params.slug}.mdx`}
+          href={`https://github.com/DhrumanGupta/berlm.me/tree/master/content/notes/${slug}.mdx`}
         >
           Edit on GitHub
         </NoteLink>

@@ -18,11 +18,12 @@ export async function generateStaticParams() {
 }
 
 interface IParams {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export default async function Image({ params }: IParams) {
-  const noteData = await getNoteData(params.slug);
+  const { slug } = await params;
+  const noteData = await getNoteData(slug);
 
   if (!noteData) {
     return createFallbackNoteSocialImageResponse();

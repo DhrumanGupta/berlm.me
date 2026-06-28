@@ -1,6 +1,7 @@
 import noteManifest from "@content/notes/manifest.json";
 import type { MDXProps } from "mdx/types";
 import { cache } from "react";
+import type { JSX } from "react";
 
 function toTimestamp(date: string | Date): number {
   return date instanceof Date ? date.getTime() : new Date(date).getTime();
