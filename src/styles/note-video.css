@@ -1,0 +1,92 @@
+.plyr-note {
+  --plyr-color-main: var(--color-accent);
+  --plyr-font-family: inherit;
+  --plyr-border-radius: 0.5rem;
+  --plyr-range-fill-background: var(--color-accent);
+  --plyr-video-control-color: var(--color-white);
+  --plyr-video-control-color-hover: var(--color-white);
+  --plyr-video-control-background-hover: rgb(0 0 0 / 0.35);
+  --plyr-audio-control-color: var(--color-gray-700);
+  --plyr-menu-background: var(--color-white);
+  --plyr-menu-color: var(--color-gray-700);
+  --plyr-tooltip-background: var(--color-gray-800);
+  --plyr-tooltip-color: var(--color-white);
+
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);
+}
+
+.plyr-note .plyr {
+  border-radius: 0.5rem;
+}
+
+.plyr-note .plyr__video-wrapper {
+  background: var(--color-gray-900);
+  border-radius: 0.5rem 0.5rem 0 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.plyr-note video {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.dark .plyr-note {
+  --plyr-video-control-color: var(--color-gray-100);
+  --plyr-video-control-color-hover: var(--color-white);
+  --plyr-audio-control-color: var(--color-gray-300);
+  --plyr-menu-background: var(--color-gray-800);
+  --plyr-menu-color: var(--color-gray-100);
+
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.35);
+}
+
+.dark .plyr-note .plyr__controls {
+  background: linear-gradient(
+    transparent,
+    rgb(0 0 0 / 0.65)
+  );
+}
+
+.plyr-note .plyr__control--overlaid {
+  background: var(--color-accent);
+  opacity: 0.92;
+}
+
+.plyr-note .plyr__control--overlaid:hover {
+  background: var(--color-accent);
+  opacity: 1;
+}
+
+.plyr-note .plyr__control.plyr__tab-focus,
+.plyr-note .plyr__control:hover,
+.plyr-note .plyr__control[aria-expanded="true"] {
+  background: var(--plyr-video-control-background-hover);
+}
+
+.plyr-note .plyr__progress__buffer {
+  background: rgb(255 255 255 / 0.25);
+}
+
+/* MDX max-h/max-w utilities on the video must not apply in fullscreen */
+.plyr-note .plyr.plyr--fullscreen .plyr__video-wrapper,
+.plyr-note .plyr:fullscreen .plyr__video-wrapper,
+.plyr-note .plyr:-webkit-full-screen .plyr__video-wrapper {
+  max-height: none !important;
+  max-width: none !important;
+  height: 100%;
+  width: 100%;
+}
+
+.plyr-note .plyr.plyr--fullscreen video,
+.plyr-note .plyr:fullscreen video,
+.plyr-note .plyr:-webkit-full-screen video {
+  max-height: none !important;
+  max-width: none !important;
+  width: 100%;
+  height: 100%;
+}

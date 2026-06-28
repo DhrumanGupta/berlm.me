@@ -42,3 +42,6 @@ yarn-error.log*
 
 # generated note metadata
 content/notes/manifest.json
+
+# local note media staging (upload to R2, do not commit)
+content/notes/.media/

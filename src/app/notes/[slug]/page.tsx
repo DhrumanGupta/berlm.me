@@ -1,11 +1,12 @@
 import Keywords from "@/components/notes/Keywords";
 import NoteImage from "@/components/notes/NoteImage";
+import NoteVideo from "@/components/notes/NoteVideo";
 import NoteLink from "@/components/notes/NoteLink";
 import NoteLinks from "@/components/notes/NoteLinks";
 import SchemaData from "@/components/SchemaData";
 import { baseUrl } from "@/lib/constants";
-import { getAllNoteSlugs, getNoteData } from "@/lib/notes";
 import { formatNoteDateLong } from "@/lib/format-date";
+import { getAllNoteSlugs, getNoteData } from "@/lib/notes";
 import { Metadata } from "next";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -97,7 +98,8 @@ const Note = async ({ params }: IParams) => {
 
             <div className="flex gap-x-2 text-secondary flex-wrap items-center">
               <p className="text-secondary md:text-lg">
-                {formatNoteDateLong(frontmatter.date)} &ndash; {readingTime.text}
+                {formatNoteDateLong(frontmatter.date)} &ndash;{" "}
+                {readingTime.text}
               </p>
 
               {frontmatter.links && (
@@ -133,6 +135,9 @@ const Note = async ({ params }: IParams) => {
           components={{
             img: (props: ComponentPropsWithoutRef<"img">) => (
               <NoteImage {...props} slug={params.slug} />
+            ),
+            NoteVideo: (props) => (
+              <NoteVideo {...props} slug={params.slug} />
             ),
           }}
         />

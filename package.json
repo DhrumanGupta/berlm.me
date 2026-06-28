@@ -9,7 +9,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "upload:note-media": "node scripts/upload-note-media.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -25,6 +26,8 @@
     "next": "^14.2.35",
     "next-compose-plugins": "^2.2.1",
     "plaiceholder": "^3.0.0",
+    "plyr": "^3.7.8",
+    "plyr-react": "^5.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "reading-time": "^1.5.0",
@@ -41,6 +44,7 @@
     "yaml": "^2.9.0"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.876.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/typography": "^0.5.16",
     "@types/mdx": "^2.0.14",
