@@ -86,7 +86,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className="scroll-pt-24">
+    <html lang="en" suppressHydrationWarning className="scroll-pt-24 scroll-smooth">
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <meta name="google-adsense-account" content="ca-pub-6670854316805103" />

@@ -3,6 +3,7 @@ import NoteImage from "@/components/notes/NoteImage";
 import NoteVideo from "@/components/notes/NoteVideo";
 import NoteLink from "@/components/notes/NoteLink";
 import NoteLinks from "@/components/notes/NoteLinks";
+import NoteToc from "@/components/notes/NoteToc";
 import SchemaData from "@/components/SchemaData";
 import { baseUrl } from "@/lib/constants";
 import { formatNoteDateLong } from "@/lib/format-date";
@@ -89,8 +90,9 @@ const Note = async ({ params }: IParams) => {
   };
 
   return (
-    <>
+    <div className="relative mx-auto max-w-[68ch]">
       <SchemaData data={jsonLd} />
+      <NoteToc className="hidden xl:block absolute right-full top-0 h-full mr-8 w-56" />
       <header className="relative">
         <div className="relative mb-12">
           <div className="col-span-full">
@@ -152,7 +154,7 @@ const Note = async ({ params }: IParams) => {
           Edit on GitHub
         </NoteLink>
       </article>
-    </>
+    </div>
   );
 };
 
