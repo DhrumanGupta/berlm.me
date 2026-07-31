@@ -54,11 +54,6 @@ pre {
   color: var(--color-gray-300);
 }
 
-/* I think this is a bug in the tailwind/typography thing */
-.dark .dark\:prose-dark thead {
-  color: var(--color-blueGray-500);
-}
-
 .light
   .prose.prose-light
   :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *)) {
@@ -201,6 +196,10 @@ pre {
   font-size: 1.05em;
 }
 
+.prose .katex-display .katex {
+  font-size: 1.21em;
+}
+
 .dark .prose .katex {
   color: inherit;
 }
@@ -213,6 +212,21 @@ pre {
 .dark .prose .katex .mclose,
 .dark .prose .katex .mpunct {
   color: inherit;
+}
+
+/* Bibliography (rehype-citation) */
+.prose .csl-bib-body {
+  font-size: 0.875em;
+}
+
+.prose .csl-entry {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose .csl-entry .csl-left-margin {
+  flex-shrink: 0;
 }
 
 /* Mermaid diagrams */

@@ -75,14 +75,17 @@ module.exports = {
                 p: {
                   marginTop: 0,
                   marginBottom: theme("spacing.5"),
-                  fontSize: fontSize("base"),
+                  fontSize: "1.0625rem",
                   lineHeight: "1.75",
                 },
                 "> div": {
                   marginTop: 0,
                   marginBottom: theme("spacing.5"),
-                  fontSize: fontSize("base"),
+                  fontSize: "1.0625rem",
                   lineHeight: "1.75",
+                },
+                li: {
+                  fontSize: "1.0625rem",
                 },
                 a: {
                   textDecoration: "none",
@@ -260,6 +263,9 @@ module.exports = {
                 "blockquote strong": {
                   color: "inherit",
                   fontWeight: theme("fontWeight.medium"),
+                },
+                "thead th": {
+                  color: theme("colors.gray.100"),
                 },
                 "thead, tbody tr": {
                   borderBottomColor: theme("colors.gray.600"),

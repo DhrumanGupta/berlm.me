@@ -1,0 +1,105 @@
+---
+title: Linear Attention Introduction and Intuition
+description: My notes on linear attention (till GDN, KDA, GDN2).
+date: 2026-07-22
+color: blue
+draft: true
+links:
+  website: https://better-ams.berlm.me
+meta:
+  keywords:
+    - tech
+---
+
+This blog is meant as a supplementary reading to Songlin Yang's [DeltaNet Blog Series](https://sustcsonglin.github.io/blog/2024/deltanet-1/). I would recommend reading it first, otherwise this may feel incomplete. I repeat parts from her blog for the sake of completeness.
+
+I then extend it to introduce Gated Delta Networks (GDN), Kimi Delta Attention (KDA), finally, Gated Delta Networks 2 (GDN2).
+
+Notations: similar to Songlin's blog, I use CAPITAL BOLD letters to represent matrices, lowercase bold letters to represent vectors, and regular lowercase letters to represent scalars.
+
+$L$ denotes the sequence length, $d$ denotes the embedding dimension. So, $\bold{Q}, \bold{K}, \bold{V} \in \R^{L \times d}$, and $\bold{q_i}, \bold{k_i}, \bold{v_i} \in \R^{d}$ are the $i$-th row of $\bold{Q}, \bold{K}, \bold{V}$ respectively.
+
+# Linear Attention
+
+Let's first compactly derive linear attention (taken from Songlin's blog). I give my interpretation of the limitations.
+
+Recall, that the standard softmax attention (henceforth referred to as softmax attention) is defined as:
+
+$$
+\bold{O} = \text{softmax}(\bold{Q}\bold{K}\T \odot M)\bold{V} \in \R^{L \times d}\\
+\bold{o_t} = \sum_{i=1}^{t} \frac{\exp(\bold{q_t\T k_i})}{\sum_{j=1}^{t} \exp(\bold{q_t\T k_j})}\bold{v_i} \in \R^{d}
+$$
+
+Linear attention [@katharopoulos2020transformers] simply removes the softmax operation[^1]. This gives us:
+
+[^1]: In the original formulation, they project the keys and queries to a feature space.
+
+$$
+\bold{O} = (\bold{Q}\bold{K}\T \odot M)\bold{V} \in \R^{L \times d}\\
+\bold{o_t} = \sum_{i=1}^{t} (\bold{q_t\T k_i})\bold{v_i} \in \R^{d}
+$$
+
+By symmetry of the dot product and associativity, we can rewrite $\bold{o_t}$ as:
+
+$$
+\bold{o_t} = (\sum_{i=1}^{t} \bold{k_i\T \bold{v_i}})\bold{q_t}
+$$
+
+This has a nice interpretation. Express the sum as a state matrix:
+
+$$
+\bold{S_t} = \sum_{i=1}^{t} \bold{k_i\T \bold{v_i}}
+$$
+
+Then, we have: $\bold{o_t} = \bold{S_t}\bold{q_t}$, and $\bold{S_t} = \bold{S_{t-1}} + \bold{k_t\T \bold{v_t}}$. So removing the softmax essentially changes our attention mechanism to a linear RNN.
+
+## What makes this appealing
+
+All we have done is remove the softmax. How does this help? As the name suggests:
+| | Softmax attention | Linear attention |
+| ----- | ----------------- | ---------------- |
+| Time | $O(L^2d)$ | $O(Ld^2)$ |
+| Space | $O(Ld)$ | $O(d^2)$ |
+
+So there is a clear case for linear attention.
+
+## Limitations
+
+We first must think of $\bold{S_t}$ as a key-value store &mdash; given key $\bold{k_t}$, we want to retrieve the corresponding value $\bold{v_t}$. One can assume that the keys are unit length (QK-norm ensures this is approximately true).
+
+Now, if we look at $\bold{S_t k_j}$:
+
+$$
+\begin{aligned}
+\bold{S_t k_j} &= \sum_{i=1}^{t} \bold{k_i\T k_j}\bold{v_i}\\
+&= \bold{v_j} + \underbrace{\sum_{i=1, i\neq j}^{t} \bold{k_i\T k_j}\bold{v_i}}_{\text{error}}
+\end{aligned}
+$$
+
+To get $0$ error, we need all keys to be orthogonal. Since we can have at most $d$ such vectors, this model's expressivness is inherently limited.
+
+### The JL Lemma
+
+We know that in high dimensions, there are exponentially many approximately orthogonal vectors. So should that not make the case for linear attention? Let's see.
+
+By the JL Lemma, a $d$-dimensional space has roughly $\exp(O(\epsilon^2 d))$ vectors with inner products less than $\epsilon$. Suppose we want to bound the error term to have norm less than $\delta$. Let the value vectors have norm bounded by $V$.
+
+$$
+\norm{\sum_{i=1, i\neq j}^{L} \bold{k_i\T k_j}\bold{v_i}} \leq \sum_{i=1, i\neq j}^{L} \abs{\bold{k_i\T k_j}} \norm{\bold{v_i}} \leq \epsilon \sum_{i=1, i\neq j}^{L} \norm{\bold{v_i}} \leq \epsilon L V
+$$
+
+To get an error of at most $\delta$, this gives us $\epsilon = \frac{\delta}{LV}$. Note that we have $L$ key vectors. Substituting this into the JL lemma, we get that we can have at most
+
+$$
+L \approx \exp(O(\frac{\delta^2 d}{L^2 V^2}))
+$$
+
+vectors with inner products less than $\epsilon$. Simplifying this, we get $L \lesssim O(\delta \sqrt{d})$.
+
+So in this worst-case setting (we've assumed that key errors cancel each other out), the sequence length cannot be more than $O(\sqrt{d})$. So not only is it not exponential, but it is sublineaar!
+
+As an exercise to the reader: assuming the key vectors to be uniform random 
+
+# References
+
+<div id="refs" />

@@ -58,7 +58,27 @@ const withMDX = createMDX({
       removePreContainerDivs,
       "rehype-slug",
       "rehype-unwrap-images",
-      "rehype-katex",
+      [
+        "rehype-katex",
+        {
+          macros: {
+            "\\norm": "\\left\\lVert #1 \\right\\rVert",
+            "\\abs": "\\left\\lvert #1 \\right\\rvert",
+            "\\inner": "\\left\\langle #1, #2 \\right\\rangle",
+            "\\R": "\\mathbb{R}",
+            "\\T": "^\\top",
+          },
+        },
+      ],
+      [
+        "rehype-citation",
+        {
+          path: projectRoot,
+          bibliography: "content/refs.bib",
+          linkCitations: true,
+          csl: "content/ieee.csl",
+        },
+      ],
     ],
   },
 });

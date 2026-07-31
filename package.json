@@ -28,6 +28,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "reading-time": "^1.5.0",
+    "rehype-citation": "^2.3.2",
     "rehype-katex": "^7.0.1",
     "rehype-slug": "^6.0.0",
     "rehype-unwrap-images": "^1.0.0",
@@ -60,6 +61,7 @@
   "pnpm": {
     "overrides": {
       "js-yaml": ">=4.2.0",
+      "rehype-citation>js-yaml": "^4.2.0",
       "ws@7": ">=7.5.11",
       "picomatch@2": ">=2.3.2",
       "picomatch@4": ">=4.0.4"
